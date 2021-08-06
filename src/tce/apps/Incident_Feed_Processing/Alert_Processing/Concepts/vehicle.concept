@@ -1,17 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><element:Concept xmlns:element="http:///com/tibco/cep/designtime/core/model/element" xmlns:xmi="http://www.omg.org/XMI" xmi:version="2.0" namespace="/Concepts/" folder="/Concepts/" name="vehicle" description="" GUID="4A24BD5B-E424-A747-839D-A15A9F6D884B" ownerProjectName="Alert_Processing" superConceptPath="" autoStartStateMachine="true">
-      
-    <extendedProperties/>
-      
-    <properties name="congestion_level" ownerProjectName="Alert_Processing" ownerPath="/Concepts/vehicle"/>
-      
-    <properties name="occupancy_status" ownerProjectName="Alert_Processing" ownerPath="/Concepts/vehicle"/>
-      
-    <properties name="position" ownerProjectName="Alert_Processing" type="ContainedConcept" conceptTypePath="/Concepts/position" ownerPath="/Concepts/vehicle"/>
-      
-    <properties name="v_timestamp" ownerProjectName="Alert_Processing" ownerPath="/Concepts/vehicle"/>
-      
-    <properties name="trip" ownerProjectName="Alert_Processing" type="ContainedConcept" conceptTypePath="/Concepts/trip" ownerPath="/Concepts/vehicle"/>
-      
-    <properties name="vehicle" ownerProjectName="Alert_Processing" type="ContainedConcept" conceptTypePath="/Concepts/vehicle_1" ownerPath="/Concepts/vehicle"/>
-    
+<?xml version="1.0" encoding="UTF-8"?>
+<element:Concept xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:element="http:///com/tibco/cep/designtime/core/model/element" namespace="/Concepts/" folder="/Concepts/" name="vehicle" description="" GUID="4A24BD5B-E424-A747-839D-A15A9F6D884B" ownerProjectName="Alert_Processing" superConceptPath="" autoStartStateMachine="true">
+  <extendedProperties/>
+  <properties name="congestion_level" ownerProjectName="Alert_Processing" ownerPath="/Concepts/vehicle"/>
+  <properties name="occupancy_status" ownerProjectName="Alert_Processing" ownerPath="/Concepts/vehicle"/>
+  <properties name="position" ownerProjectName="Alert_Processing" type="ContainedConcept" conceptTypePath="/Concepts/position" ownerPath="/Concepts/vehicle"/>
+  <properties name="v_timestamp" ownerProjectName="Alert_Processing" ownerPath="/Concepts/vehicle"/>
+  <properties name="trip" ownerProjectName="Alert_Processing" type="ContainedConcept" conceptTypePath="/Concepts/trip" ownerPath="/Concepts/vehicle"/>
+  <properties name="vehicle" ownerProjectName="Alert_Processing" type="ContainedConcept" conceptTypePath="/Concepts/vehicle_1" ownerPath="/Concepts/vehicle"/>
 </element:Concept>

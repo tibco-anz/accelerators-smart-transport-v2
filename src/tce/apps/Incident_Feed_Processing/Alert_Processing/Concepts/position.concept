@@ -1,13 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?><element:Concept xmlns:element="http:///com/tibco/cep/designtime/core/model/element" xmlns:xmi="http://www.omg.org/XMI" xmi:version="2.0" namespace="/Concepts/" folder="/Concepts/" name="position" description="" GUID="88AA29BC-EEE6-6ACE-08AA-AA0F59C15D95" ownerProjectName="Alert_Processing" superConceptPath="" autoStartStateMachine="true">
-      
-    <extendedProperties/>
-      
-    <properties name="bearing" ownerProjectName="Alert_Processing" type="long" ownerPath="/Concepts/position"/>
-      
-    <properties name="latitude" ownerProjectName="Alert_Processing" type="double" ownerPath="/Concepts/position"/>
-      
-    <properties name="longitude" ownerProjectName="Alert_Processing" type="double" ownerPath="/Concepts/position"/>
-      
-    <properties name="speed" ownerProjectName="Alert_Processing" type="double" ownerPath="/Concepts/position"/>
-    
+<?xml version="1.0" encoding="UTF-8"?>
+<element:Concept xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:element="http:///com/tibco/cep/designtime/core/model/element" namespace="/Concepts/" folder="/Concepts/" name="position" description="" GUID="88AA29BC-EEE6-6ACE-08AA-AA0F59C15D95" ownerProjectName="Alert_Processing" superConceptPath="" autoStartStateMachine="true">
+  <extendedProperties/>
+  <properties name="bearing" ownerProjectName="Alert_Processing" type="long" ownerPath="/Concepts/position"/>
+  <properties name="latitude" ownerProjectName="Alert_Processing" type="double" ownerPath="/Concepts/position"/>
+  <properties name="longitude" ownerProjectName="Alert_Processing" type="double" ownerPath="/Concepts/position"/>
+  <properties name="speed" ownerProjectName="Alert_Processing" type="double" ownerPath="/Concepts/position"/>
 </element:Concept>

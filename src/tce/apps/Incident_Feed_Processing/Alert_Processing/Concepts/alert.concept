@@ -1,21 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?><element:Concept xmlns:element="http:///com/tibco/cep/designtime/core/model/element" xmlns:xmi="http://www.omg.org/XMI" xmi:version="2.0" namespace="/Concepts/" folder="/Concepts/" name="alert" description="" GUID="A6E5F003-54D8-EAB6-D1AA-CCD404F360EE" ownerProjectName="Alert_Processing" superConceptPath="" autoStartStateMachine="true">
-      
-    <extendedProperties/>
-      
-    <properties name="active_period" ownerProjectName="Alert_Processing" type="ContainedConcept" conceptTypePath="/Concepts/active_period" ownerPath="/Concepts/alert"/>
-      
-    <properties name="cause" ownerProjectName="Alert_Processing" ownerPath="/Concepts/alert"/>
-      
-    <properties name="severity_level" ownerProjectName="Alert_Processing" ownerPath="/Concepts/alert"/>
-      
-    <properties name="description_text" ownerProjectName="Alert_Processing" ownerPath="/Concepts/alert"/>
-      
-    <properties name="header_text" ownerProjectName="Alert_Processing" ownerPath="/Concepts/alert"/>
-      
-    <properties name="url" ownerProjectName="Alert_Processing" ownerPath="/Concepts/alert"/>
-      
-    <properties name="informed_entity" ownerProjectName="Alert_Processing" type="ContainedConcept" conceptTypePath="/Concepts/informed_entity" ownerPath="/Concepts/alert"/>
-      
-    <properties name="effect" ownerProjectName="Alert_Processing" ownerPath="/Concepts/alert"/>
-    
+<?xml version="1.0" encoding="UTF-8"?>
+<element:Concept xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:element="http:///com/tibco/cep/designtime/core/model/element" namespace="/Concepts/" folder="/Concepts/" name="alert" description="" GUID="A6E5F003-54D8-EAB6-D1AA-CCD404F360EE" ownerProjectName="Alert_Processing" superConceptPath="" autoStartStateMachine="true">
+  <extendedProperties/>
+  <properties name="active_period" ownerProjectName="Alert_Processing" type="ContainedConcept" conceptTypePath="/Concepts/active_period" ownerPath="/Concepts/alert"/>
+  <properties name="cause" ownerProjectName="Alert_Processing" ownerPath="/Concepts/alert"/>
+  <properties name="severity_level" ownerProjectName="Alert_Processing" ownerPath="/Concepts/alert"/>
+  <properties name="description_text" ownerProjectName="Alert_Processing" ownerPath="/Concepts/alert"/>
+  <properties name="header_text" ownerProjectName="Alert_Processing" ownerPath="/Concepts/alert"/>
+  <properties name="url" ownerProjectName="Alert_Processing" ownerPath="/Concepts/alert"/>
+  <properties name="informed_entity" ownerProjectName="Alert_Processing" type="ContainedConcept" conceptTypePath="/Concepts/informed_entity" ownerPath="/Concepts/alert"/>
+  <properties name="effect" ownerProjectName="Alert_Processing" ownerPath="/Concepts/alert"/>
 </element:Concept>

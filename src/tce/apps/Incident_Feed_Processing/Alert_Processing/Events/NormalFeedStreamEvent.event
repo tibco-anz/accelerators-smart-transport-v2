@@ -1,61 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?><event:SimpleEvent xmlns:event="http:///com/tibco/cep/designtime/core/model/event" xmlns:xmi="http://www.omg.org/XMI" xmi:version="2.0" namespace="/Events/" folder="/Events/" name="NormalFeedStreamEvent" description="" GUID="578AE9FF-74DE-024F-CF83-1E03B369E46A" ownerProjectName="Alert_Processing" superEventPath="" ttlUnits="Seconds" channelURI="/Channels/TCM" destinationName="SydneyBuses_NormalFeedStream">
-          
-    
-    <properties name="congestion_level" ownerProjectName="Alert_Processing" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
-          
-    
-    <properties name="occupancy_status" ownerProjectName="Alert_Processing" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
-          
-    
-    <properties name="bearing" ownerProjectName="Alert_Processing" type="double" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
-          
-    
-    <properties name="latitude" ownerProjectName="Alert_Processing" type="double" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
-          
-    
-    <properties name="longitude" ownerProjectName="Alert_Processing" type="double" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
-          
-    
-    <properties name="speed" ownerProjectName="Alert_Processing" type="double" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
-          
-    
-    <properties name="v_timestamp" ownerProjectName="Alert_Processing" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
-          
-    
-    <properties name="route_id" ownerProjectName="Alert_Processing" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
-          
-    
-    <properties name="schedule_relationship" ownerProjectName="Alert_Processing" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
-          
-    
-    <properties name="start_date" ownerProjectName="Alert_Processing" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
-          
-    
-    <properties name="start_time" ownerProjectName="Alert_Processing" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
-          
-    
-    <properties name="trip_id" ownerProjectName="Alert_Processing" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
-          
-    
-    <properties name="v_id" ownerProjectName="Alert_Processing" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
-          
-    
-    <properties name="delayStatus" ownerProjectName="Alert_Processing" ownerPath="/Events/NormalFeedStreamEvent"/>
-          
-    
-    <expiryAction folder="/Events/NormalFeedStreamEvent" name="NormalMsgStreamEvent_expiryAction" ownerProjectName="Alert_Processing" actionText="" conditionText="">
-                    
-        
-        <symbols>
-                              
-            
-            <symbolList idName="normalmsgstreamevent" type="/Events/NormalFeedStreamEvent"/>
-                            
-        
-        </symbols>
-                  
-    
-    </expiryAction>
-        
-
+<?xml version="1.0" encoding="UTF-8"?>
+<event:SimpleEvent xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:event="http:///com/tibco/cep/designtime/core/model/event" namespace="/Events/" folder="/Events/" name="NormalFeedStreamEvent" description="" GUID="578AE9FF-74DE-024F-CF83-1E03B369E46A" ownerProjectName="Alert_Processing" superEventPath="" ttlUnits="Seconds" channelURI="/Channels/TCM" destinationName="SydneyBuses_NormalFeedStream">
+  <properties name="congestion_level" ownerProjectName="Alert_Processing" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
+  <properties name="occupancy_status" ownerProjectName="Alert_Processing" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
+  <properties name="bearing" ownerProjectName="Alert_Processing" type="double" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
+  <properties name="latitude" ownerProjectName="Alert_Processing" type="double" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
+  <properties name="longitude" ownerProjectName="Alert_Processing" type="double" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
+  <properties name="speed" ownerProjectName="Alert_Processing" type="double" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
+  <properties name="v_timestamp" ownerProjectName="Alert_Processing" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
+  <properties name="route_id" ownerProjectName="Alert_Processing" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
+  <properties name="schedule_relationship" ownerProjectName="Alert_Processing" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
+  <properties name="start_date" ownerProjectName="Alert_Processing" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
+  <properties name="start_time" ownerProjectName="Alert_Processing" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
+  <properties name="trip_id" ownerProjectName="Alert_Processing" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
+  <properties name="v_id" ownerProjectName="Alert_Processing" conceptTypePath="/Events/NormalFeedStreamEvent" ownerPath="/Events/NormalFeedStreamEvent"/>
+  <properties name="delayStatus" ownerProjectName="Alert_Processing" ownerPath="/Events/NormalFeedStreamEvent"/>
+  <expiryAction folder="/Events/NormalFeedStreamEvent" name="NormalMsgStreamEvent_expiryAction" ownerProjectName="Alert_Processing" actionText="" conditionText="">
+    <symbols>
+      <symbolList idName="normalmsgstreamevent" type="/Events/NormalFeedStreamEvent"/>
+    </symbols>
+  </expiryAction>
 </event:SimpleEvent>

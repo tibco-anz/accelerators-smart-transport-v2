@@ -25,13 +25,14 @@
         "github.com/lixingwang/flogo-contrib/function/arraymerge",
         "git.tibco.com/git/product/ipaas/wi-mysql.git/src/app/MySQL/connector/connection"
     ],
-    "name": "STA-4",
+    "name": "mp_PublicTransportAccelerator_PublishGTFS_v2",
     "description": "  ",
     "version": "1.0.0",
     "type": "flogo:app",
     "appModel": "1.1.1",
-    "tags": [],
-    "feVersion": "2.12.0",
+    "tags": [
+        "V2"
+    ],
     "triggers": [
         {
             "ref": "#rest_1",
@@ -222,7 +223,17 @@
                         "name": "Return4",
                         "description": "Simple Return Activity",
                         "activity": {
-                            "ref": "#actreturn"
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": 200,
+                                    "responseBody": {
+                                        "mapping": {
+                                            "NumberofMsgs": "=array.count($flow.entity)"
+                                        }
+                                    }
+                                }
+                            }
                         }
                     },
                     {
@@ -243,7 +254,18 @@
                         "name": "Return",
                         "description": "Simple Return Activity",
                         "activity": {
-                            "ref": "#actreturn"
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": 200,
+                                    "responseBody": {
+                                        "mapping": {
+                                            "body": "*** The Feed is empty ****",
+                                            "NumberofMsgs": 0
+                                        }
+                                    }
+                                }
+                            }
                         }
                     },
                     {
@@ -312,7 +334,7 @@
                         "activity": {
                             "ref": "#rest",
                             "input": {
-                                "enableASR": false,
+                                "enableASR": true,
                                 "asrDialog": {
                                     "gsbc": "01ESNQMKRQ3KDR810WJMXQCPZW",
                                     "operation": "post",
@@ -534,7 +556,7 @@
                                 "authorization": false,
                                 "authorizationConn": "",
                                 "serviceName": "",
-                                "resourcePath": "",
+                                "resourcePath": "/publishToeFTL",
                                 "Method": "POST",
                                 "Uri": "/gsbc/01ESNQMKRQ3KDR810WJMXQCPZW/tci/u7mio2ayaybpjajxodyope6lxko2ffni",
                                 "Timeout": 0,
@@ -563,7 +585,17 @@
                             },
                             "schemas": {
                                 "input": {
+                                    "serviceMetadata": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"serviceId\":{\"type\":\"string\"},\"title\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"swaggerChecksum\":{\"type\":\"string\"},\"extAuthz\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"assurance\":{\"type\":\"string\"},\"baseURL\":{\"type\":\"string\"},\"path\":{\"type\":\"string\"},\"apiSpec\":{\"type\":\"object\",\"properties\":{\"definitions\":{\"type\":\"object\",\"properties\":{\"schema1\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"entity\":{\"type\":\"object\",\"properties\":{\"items\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"_dest\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"trip_update\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"stop_time_update\":{\"type\":\"object\",\"properties\":{\"items\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"arrival\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"delay\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"time\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}},\"departure\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"delay\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"time\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}},\"schedule_relationship\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"stop_id\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"stop_sequence\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}},\"type\":{\"type\":\"string\"}}},\"trip\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"route_id\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"schedule_relationship\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"start_date\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"start_time\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"trip_id\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}},\"vehicle\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"congestion_level\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"occupancy_status\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"position\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"bearing\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"latitude\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"longitude\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"odometer\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"speed\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}},\"trip\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"route_id\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"schedule_relationship\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"start_date\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"start_time\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"trip_id\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}},\"v_timestamp\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"vehicle\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}},\"vehicle_id\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}},\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}},\"schema2\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"message\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}}}},\"info\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"title\":{\"type\":\"string\"},\"version\":{\"type\":\"string\"}}},\"paths\":{\"type\":\"object\",\"properties\":{\"/publishToeFTL\":{\"type\":\"object\",\"properties\":{\"post\":{\"type\":\"object\",\"properties\":{\"operationId\":{\"type\":\"string\"},\"parameters\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"in\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"required\":{\"type\":\"boolean\"},\"schema\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"entity\":{\"type\":\"object\",\"properties\":{\"items\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"_dest\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"trip_update\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"stop_time_update\":{\"type\":\"object\",\"properties\":{\"items\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"arrival\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"delay\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"time\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}},\"departure\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"delay\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"time\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}},\"schedule_relationship\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"stop_id\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"stop_sequence\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}},\"type\":{\"type\":\"string\"}}},\"trip\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"route_id\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"schedule_relationship\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"start_date\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"start_time\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"trip_id\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}},\"vehicle\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"congestion_level\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"occupancy_status\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"position\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"bearing\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"latitude\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"longitude\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"odometer\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"speed\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}},\"trip\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"route_id\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"schedule_relationship\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"start_date\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"start_time\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"trip_id\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}},\"v_timestamp\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"vehicle\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}},\"vehicle_id\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}},\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}}}}},\"responses\":{\"type\":\"object\",\"properties\":{\"200\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"schema\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"message\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}}}}}},\"summary\":{\"type\":\"string\"}}}}}}},\"swagger\":{\"type\":\"string\"},\"host\":{\"type\":\"string\"},\"schemes\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"basePath\":{\"type\":\"string\"}}},\"intercom\":{\"type\":\"boolean\"},\"intercomRegion\":{\"type\":\"string\"},\"asrPath\":{\"type\":\"string\"},\"asrOperation\":{\"type\":\"string\"}}}",
+                                        "fe_metadata": "{\"serviceId\":\"tcius-dTdtaW8yYXlheWJwamFqeG9keW9wZTZseGtvMmZmbmk\",\"title\":\"PublicTransportAccelerator_PublisheFTL\",\"description\":\"Publishes incoming messages to TCM durable\",\"swaggerChecksum\":\"dc2356191f354860d6ed99031b6c50a9bba975765362c85dc0653ef7e0abb07d\",\"extAuthz\":[\"tenant-basic\"],\"assurance\":\"published\",\"baseURL\":\"https://integration.cloud.tibcoapps.com\",\"path\":\"/gsbc/01ESNQMKRQ3KDR810WJMXQCPZW/tci/u7mio2ayaybpjajxodyope6lxko2ffni\",\"apiSpec\":{\"definitions\":{\"schema1\":{\"properties\":{\"entity\":{\"items\":{\"properties\":{\"_dest\":{\"type\":\"string\"},\"trip_update\":{\"properties\":{\"stop_time_update\":{\"items\":{\"properties\":{\"arrival\":{\"properties\":{\"delay\":{\"type\":\"number\"},\"time\":{\"type\":\"string\"}},\"type\":\"object\"},\"departure\":{\"properties\":{\"delay\":{\"type\":\"number\"},\"time\":{\"type\":\"string\"}},\"type\":\"object\"},\"schedule_relationship\":{\"type\":\"string\"},\"stop_id\":{\"type\":\"string\"},\"stop_sequence\":{\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"trip\":{\"properties\":{\"route_id\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"trip_id\":{\"type\":\"string\"}},\"type\":\"object\"}},\"type\":\"object\"},\"vehicle\":{\"properties\":{\"congestion_level\":{\"type\":\"string\"},\"occupancy_status\":{\"type\":\"string\"},\"position\":{\"properties\":{\"bearing\":{\"type\":\"number\"},\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"odometer\":{\"type\":\"null\"},\"speed\":{\"type\":\"number\"}},\"type\":\"object\"},\"trip\":{\"properties\":{\"route_id\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"trip_id\":{\"type\":\"string\"}},\"type\":\"object\"},\"v_timestamp\":{\"type\":\"string\"},\"vehicle\":{\"properties\":{\"id\":{\"type\":\"string\"}},\"type\":\"object\"}},\"type\":\"object\"},\"vehicle_id\":{\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"},\"schema2\":{\"properties\":{\"code\":{\"type\":\"number\"},\"message\":{\"type\":\"string\"}},\"type\":\"object\"}},\"info\":{\"description\":\"Simple REST Trigger\",\"title\":\"mp_PublicTransportAccelerator_PublisheFTL\",\"version\":\"1.0.0\"},\"paths\":{\"/publishToeFTL\":{\"post\":{\"operationId\":\"post_publishToeFTL\",\"parameters\":[{\"description\":\"request body parameter\",\"in\":\"body\",\"name\":\"body\",\"required\":true,\"schema\":{\"properties\":{\"entity\":{\"items\":{\"properties\":{\"_dest\":{\"type\":\"string\"},\"trip_update\":{\"properties\":{\"stop_time_update\":{\"items\":{\"properties\":{\"arrival\":{\"properties\":{\"delay\":{\"type\":\"number\"},\"time\":{\"type\":\"string\"}},\"type\":\"object\"},\"departure\":{\"properties\":{\"delay\":{\"type\":\"number\"},\"time\":{\"type\":\"string\"}},\"type\":\"object\"},\"schedule_relationship\":{\"type\":\"string\"},\"stop_id\":{\"type\":\"string\"},\"stop_sequence\":{\"type\":\"number\"}},\"type\":\"object\"},\"type\":\"array\"},\"trip\":{\"properties\":{\"route_id\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"trip_id\":{\"type\":\"string\"}},\"type\":\"object\"}},\"type\":\"object\"},\"vehicle\":{\"properties\":{\"congestion_level\":{\"type\":\"string\"},\"occupancy_status\":{\"type\":\"string\"},\"position\":{\"properties\":{\"bearing\":{\"type\":\"number\"},\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"odometer\":{\"type\":\"null\"},\"speed\":{\"type\":\"number\"}},\"type\":\"object\"},\"trip\":{\"properties\":{\"route_id\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"trip_id\":{\"type\":\"string\"}},\"type\":\"object\"},\"v_timestamp\":{\"type\":\"string\"},\"vehicle\":{\"properties\":{\"id\":{\"type\":\"string\"}},\"type\":\"object\"}},\"type\":\"object\"},\"vehicle_id\":{\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}],\"responses\":{\"200\":{\"description\":\"Rest Response\",\"schema\":{\"properties\":{\"code\":{\"type\":\"number\"},\"message\":{\"type\":\"string\"}},\"type\":\"object\"}}},\"summary\":\"PublishToeFTL_2.0\"}}},\"swagger\":\"2.0\",\"host\":\"integration.cloud.tibcoapps.com\",\"schemes\":[\"https\"],\"basePath\":\"/gsbc/01ESNQMKRQ3KDR810WJMXQCPZW/tci/u7mio2ayaybpjajxodyope6lxko2ffni\"},\"intercom\":true,\"intercomRegion\":\"us-west-2\",\"asrPath\":\"/publishToeFTL\",\"asrOperation\":\"post\"}"
+                                    },
                                     "queryParams": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{}}",
+                                        "fe_metadata": "[]"
+                                    },
+                                    "pathParams": {
                                         "type": "json",
                                         "value": "{\"type\":\"object\",\"properties\":{}}",
                                         "fe_metadata": "[]"
@@ -685,8 +717,7 @@
                     "fe_metadata": {
                         "input": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"trip_update\":{\"type\":\"object\",\"properties\":{\"stop_time_update\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"arrival\":{\"type\":\"object\",\"properties\":{\"delay\":{\"type\":\"number\"},\"time\":{\"type\":\"string\"}}},\"departure\":{\"type\":\"object\",\"properties\":{\"delay\":{\"type\":\"number\"},\"time\":{\"type\":\"string\"}}},\"schedule_relationship\":{\"type\":\"string\"},\"stop_id\":{\"type\":\"string\"},\"stop_sequence\":{\"type\":\"number\"}}}},\"trip\":{\"type\":\"object\",\"properties\":{\"route_id\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"trip_id\":{\"type\":\"string\"}}}}},\"vehicle\":{\"type\":\"object\",\"properties\":{\"congestion_level\":{\"type\":\"string\"},\"occupancy_status\":{\"type\":\"string\"},\"position\":{\"type\":\"object\",\"properties\":{\"bearing\":{\"type\":\"number\"},\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"odometer\":{\"type\":\"null\"},\"speed\":{\"type\":\"number\"}}},\"timestamp\":{\"type\":\"string\"},\"trip\":{\"type\":\"object\",\"properties\":{\"route_id\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"trip_id\":{\"type\":\"string\"}}},\"vehicle\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"}}}}}}}}}}"
                     }
-                },
-                "flowId": "6e685380-3050-4af3-8911-e68a71944e89"
+                }
             }
         },
         {
@@ -995,8 +1026,7 @@
                         "input": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"alert\":{\"type\":\"object\",\"properties\":{\"active_period\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"end_time\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"}}}},\"cause\":{\"type\":\"string\"},\"description_text\":{\"type\":\"string\"},\"effect\":{\"type\":\"string\"},\"header_text\":{\"type\":\"string\"},\"informed_entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"agencyId\":{\"type\":\"string\"},\"routeId\":{\"type\":\"string\"},\"stopId\":{\"type\":\"string\"}}}},\"severity_level\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"}}},\"id\":{\"type\":\"string\"},\"vehicle\":{\"type\":\"object\",\"properties\":{\"congestion_level\":{\"type\":\"string\"},\"occupancy_status\":{\"type\":\"string\"},\"position\":{\"type\":\"object\",\"properties\":{\"bearing\":{\"type\":\"number\"},\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"speed\":{\"type\":\"number\"}}},\"timestamp\":{\"type\":\"string\"},\"trip\":{\"type\":\"object\",\"properties\":{\"route_id\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"trip_id\":{\"type\":\"string\"}}},\"vehicle\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"}}}}}}}}}}",
                         "output": "{\"type\":\"object\",\"title\":\"Outputs\",\"properties\":{\"code\":{\"type\":\"integer\",\"required\":false},\"responseBody\":{\"type\":\"object\",\"properties\":{\"NumberofMsgs\":{\"type\":\"number\"},\"body\":{\"type\":\"any\"}}}}}"
                     }
-                },
-                "flowId": "ed8818e4-645d-4764-aeea-b9ba695e4ac2"
+                }
             }
         },
         {
@@ -1162,8 +1192,7 @@
                     "fe_metadata": {
                         "output": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"trip_update\":{\"type\":\"object\",\"properties\":{\"trip\":{\"type\":\"object\",\"properties\":{\"trip_id\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"}}},\"stop_time_update\":{\"type\":\"object\",\"properties\":{\"stop_sequence\":{\"type\":\"number\"},\"arrival\":{\"type\":\"object\",\"properties\":{\"delay\":{\"type\":\"number\"},\"time\":{\"type\":\"number\"}}},\"departure\":{\"type\":\"object\",\"properties\":{\"time\":{\"type\":\"number\"},\"delay\":{\"type\":\"number\"}}},\"stop_id\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"}}}}}}}}}}"
                     }
-                },
-                "flowId": "fba300dd-4812-4b3e-aa5f-75c9f5dc1f9e"
+                }
             }
         },
         {
@@ -1487,8 +1516,7 @@
                     "fe_metadata": {
                         "output": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"alert\":{\"type\":\"object\",\"properties\":{\"active_period\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"end_time\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"}}}},\"cause\":{\"type\":\"string\"},\"description_text\":{\"type\":\"string\"},\"effect\":{\"type\":\"string\"},\"header_text\":{\"type\":\"string\"},\"informed_entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"agencyId\":{\"type\":\"string\"},\"routeId\":{\"type\":\"string\"},\"stopId\":{\"type\":\"string\"}}}},\"severity_level\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"}}},\"id\":{\"type\":\"string\"},\"vehicle\":{\"type\":\"object\",\"properties\":{\"congestion_level\":{\"type\":\"string\"},\"occupancy_status\":{\"type\":\"string\"},\"position\":{\"type\":\"object\",\"properties\":{\"bearing\":{\"type\":\"number\"},\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"speed\":{\"type\":\"number\"}}},\"timestamp\":{\"type\":\"string\"},\"trip\":{\"type\":\"object\",\"properties\":{\"route_id\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"trip_id\":{\"type\":\"string\"}}},\"vehicle\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"}}}}}}}}}}"
                     }
-                },
-                "flowId": "a78da573-e615-4eba-82c8-f4aba540ab33"
+                }
             }
         },
         {
@@ -1645,7 +1673,7 @@
                         "activity": {
                             "ref": "#rest",
                             "input": {
-                                "enableASR": false,
+                                "enableASR": true,
                                 "asrDialog": {
                                     "gsbc": "01ESNQMKRQ3KDR810WJMXQCPZW",
                                     "operation": "get",
@@ -1721,7 +1749,7 @@
                                 "authorization": false,
                                 "authorizationConn": "",
                                 "serviceName": "",
-                                "resourcePath": "",
+                                "resourcePath": "/v1/gtfs/buses",
                                 "Method": "GET",
                                 "Uri": "/gsbc/01ESNQMKRQ3KDR810WJMXQCPZW/tci/oh2ipy5qmez4hzxud6z7rzym4wwdxr4d",
                                 "Timeout": 0,
@@ -1737,7 +1765,17 @@
                             },
                             "schemas": {
                                 "input": {
+                                    "serviceMetadata": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"serviceId\":{\"type\":\"string\"},\"title\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"swaggerChecksum\":{\"type\":\"string\"},\"extAuthz\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"assurance\":{\"type\":\"string\"},\"baseURL\":{\"type\":\"string\"},\"path\":{\"type\":\"string\"},\"apiSpec\":{\"type\":\"object\",\"properties\":{\"definitions\":{\"type\":\"object\",\"properties\":{\"schema1\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"responseBody\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"batchSize\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"body\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}}}},\"info\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"title\":{\"type\":\"string\"},\"version\":{\"type\":\"string\"}}},\"paths\":{\"type\":\"object\",\"properties\":{\"/v1/gtfs/buses\":{\"type\":\"object\",\"properties\":{\"get\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"operationId\":{\"type\":\"string\"},\"parameters\":{\"type\":\"array\",\"items\":{}},\"responses\":{\"type\":\"object\",\"properties\":{\"200\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"schema\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"responseBody\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"batchSize\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"body\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}}}}}},\"summary\":{\"type\":\"string\"}}}}}}},\"swagger\":{\"type\":\"string\"},\"host\":{\"type\":\"string\"},\"schemes\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"basePath\":{\"type\":\"string\"}}},\"intercom\":{\"type\":\"boolean\"},\"intercomRegion\":{\"type\":\"string\"},\"asrPath\":{\"type\":\"string\"},\"asrOperation\":{\"type\":\"string\"}}}",
+                                        "fe_metadata": "{\"serviceId\":\"tcius-b2gyaXB5NXFtZXo0aHp4dWQ2ejdyenltNHd3ZHhyNGQ\",\"title\":\"mp_PublicTransportAccelerator_PublishGTFS_v2\",\"description\":\"Simple REST Trigger\",\"swaggerChecksum\":\"13f11a727edba9d3f324164f5ee3e03ebf17412054fb97edbb0d77a92eb9bd79\",\"extAuthz\":[\"tenant-basic\"],\"assurance\":\"published\",\"baseURL\":\"https://integration.cloud.tibcoapps.com\",\"path\":\"/gsbc/01ESNQMKRQ3KDR810WJMXQCPZW/tci/oh2ipy5qmez4hzxud6z7rzym4wwdxr4d\",\"apiSpec\":{\"definitions\":{\"schema1\":{\"properties\":{\"code\":{\"type\":\"number\"},\"responseBody\":{\"properties\":{\"batchSize\":{\"type\":\"number\"},\"body\":{\"type\":\"string\"}},\"type\":\"object\"}},\"type\":\"object\"}},\"info\":{\"description\":\"Simple REST Trigger\",\"title\":\"mp_PublicTransportAccelerator_PublishGTFS_v2\",\"version\":\"1.0.0\"},\"paths\":{\"/v1/gtfs/buses\":{\"get\":{\"description\":\"This will subscribe to real-time TripUpdates and LiveLocations APi's, transform the messages (having tripupdate &amp; live location) and publishes it to the TCM. It also publishes bus msgs that does not posses live TRIP Info but has live location.\",\"operationId\":\"get_v1_gtfs_buses\",\"parameters\":[],\"responses\":{\"200\":{\"description\":\"Rest Response\",\"schema\":{\"properties\":{\"code\":{\"type\":\"number\"},\"responseBody\":{\"properties\":{\"batchSize\":{\"type\":\"number\"},\"body\":{\"type\":\"string\"}},\"type\":\"object\"}},\"type\":\"object\"}}},\"summary\":\"RealTime-TripAndPositionUpdates\"}}},\"swagger\":\"2.0\",\"host\":\"integration.cloud.tibcoapps.com\",\"schemes\":[\"https\"],\"basePath\":\"/gsbc/01ESNQMKRQ3KDR810WJMXQCPZW/tci/oh2ipy5qmez4hzxud6z7rzym4wwdxr4d\"},\"intercom\":true,\"intercomRegion\":\"us-west-2\",\"asrPath\":\"/v1/gtfs/buses\",\"asrOperation\":\"get\"}"
+                                    },
                                     "queryParams": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{}}",
+                                        "fe_metadata": "[]"
+                                    },
+                                    "pathParams": {
                                         "type": "json",
                                         "value": "{\"type\":\"object\",\"properties\":{}}",
                                         "fe_metadata": "[]"
@@ -1794,8 +1832,7 @@
                     "input": [],
                     "output": [],
                     "fe_metadata": {}
-                },
-                "flowId": "8848b289-d8c6-4492-ac78-9e9daecfa140"
+                }
             }
         },
         {
@@ -1858,8 +1895,7 @@
                     "input": [],
                     "output": [],
                     "fe_metadata": {}
-                },
-                "flowId": "b645cac3-60b9-4fab-a979-054c46b2fc92"
+                }
             }
         },
         {
@@ -1903,7 +1939,7 @@
                         "activity": {
                             "ref": "#query",
                             "input": {
-                                "Connection": "conn://23506aa0-b7d2-11eb-9856-41db67230f7c",
+                                "Connection": "conn://72faaa20-62cd-11eb-b475-57a9b84b5447",
                                 "QueryName": "",
                                 "Query": "SELECT count(ReferenceID) FROM gtfsbusposctrl;",
                                 "manualmode": false,
@@ -1916,7 +1952,7 @@
                                         "isEditable": false
                                     }
                                 ],
-                                "State": "d4d179c9-53e8-417f-a246-e246d8a0e3eaSELECT count(ReferenceID) FROM gtfsbusposctrl;"
+                                "State": "6e64d1d1-6fe1-439c-ba2f-e323778ac492SELECT count(ReferenceID) FROM gtfsbusposctrl;"
                             },
                             "schemas": {
                                 "input": {
@@ -1957,11 +1993,11 @@
                         "activity": {
                             "ref": "#delete",
                             "input": {
-                                "Connection": "conn://23506aa0-b7d2-11eb-9856-41db67230f7c",
+                                "Connection": "conn://72faaa20-62cd-11eb-b475-57a9b84b5447",
                                 "DeleteStatement": "DELETE FROM gtfscontroldb.gtfsbusposctrl LIMIT 500 ;",
                                 "manualmode": false,
                                 "Fields": [],
-                                "State": "1bbf94c5-c24f-423f-8628-53c16d610f37DELETE FROM gtfscontroldb.gtfsbusposctrl LIMIT 500 ;"
+                                "State": "98bca445-1509-44fd-bf94-46b0250fa6fcDELETE FROM gtfscontroldb.gtfsbusposctrl LIMIT 500 ;"
                             },
                             "schemas": {
                                 "input": {
@@ -1994,8 +2030,7 @@
                     "input": [],
                     "output": [],
                     "fe_metadata": {}
-                },
-                "flowId": "00efdbc5-27ca-4155-8188-f4a3fd9ec178"
+                }
             }
         },
         {
@@ -2334,7 +2369,7 @@
                         "activity": {
                             "ref": "#insert",
                             "input": {
-                                "Connection": "conn://23506aa0-b7d2-11eb-9856-41db67230f7c",
+                                "Connection": "conn://72faaa20-62cd-11eb-b475-57a9b84b5447",
                                 "InsertStatement": "INSERT INTO gtfsbusposctrl (ReferenceID, JobDate, Status) values (?ReferenceID, ?JobDate, ?Status);",
                                 "manualmode": false,
                                 "Fields": [
@@ -2363,7 +2398,7 @@
                                         "Value": true
                                     }
                                 ],
-                                "State": "97271321-7ad5-479d-8658-875e74b6d1c5INSERT INTO gtfsbusposctrl (ReferenceID, JobDate, Status) values (?ReferenceID, ?JobDate, ?Status);",
+                                "State": "4ea09fba-b0f2-4a4c-a4bd-704c5ec55792INSERT INTO gtfsbusposctrl (ReferenceID, JobDate, Status) values (?ReferenceID, ?JobDate, ?Status);",
                                 "input": {
                                     "mapping": {
                                         "values": [
@@ -2490,7 +2525,7 @@
                             "input": {
                                 "entity": {
                                     "mapping": {
-                                        "@foreach($activity[CreateMsgForMatchingID].output,entity)": {
+                                        "@foreach($activity[CreateMsgForMatchingID].output, entity)": {
                                             "=": "$loop"
                                         }
                                     }
@@ -2546,7 +2581,7 @@
                             "input": {
                                 "entity": {
                                     "mapping": {
-                                        "@foreach($activity[CreateMsgsForNonMatchingID].output,entity)": {
+                                        "@foreach($activity[CreateMsgsForNonMatchingID].output, entity)": {
                                             "=": "$loop"
                                         }
                                     }
@@ -2576,7 +2611,7 @@
                         "activity": {
                             "ref": "#update",
                             "input": {
-                                "Connection": "conn://23506aa0-b7d2-11eb-9856-41db67230f7c",
+                                "Connection": "conn://72faaa20-62cd-11eb-b475-57a9b84b5447",
                                 "UpdateStatement": "Update gtfsbusposctrl SET Status=\"Completed\", BatchId=?BatchSize Where ReferenceID=?ReferenceID;",
                                 "manualmode": false,
                                 "Fields": [
@@ -2595,7 +2630,7 @@
                                         "isEditable": false
                                     }
                                 ],
-                                "State": "92404b78-b0b6-4012-910f-3344e1e047c1Update gtfsbusposctrl SET Status=\"Completed\", BatchId=?BatchSize Where ReferenceID=?ReferenceID;",
+                                "State": "a3ee8d65-7d75-49ec-acfd-32e99a22a945Update gtfsbusposctrl SET Status=\"Completed\", BatchId=?BatchSize Where ReferenceID=?ReferenceID;",
                                 "input": {
                                     "mapping": {
                                         "parameters": {
@@ -2776,7 +2811,7 @@
                         "activity": {
                             "ref": "#update",
                             "input": {
-                                "Connection": "conn://23506aa0-b7d2-11eb-9856-41db67230f7c",
+                                "Connection": "conn://72faaa20-62cd-11eb-b475-57a9b84b5447",
                                 "UpdateStatement": "Update gtfsbusposctrl SET Status=\"Completed\", BatchId=?BatchSize Where ReferenceID=?ReferenceID;",
                                 "manualmode": false,
                                 "Fields": [
@@ -2795,7 +2830,7 @@
                                         "isEditable": false
                                     }
                                 ],
-                                "State": "f9fe9a46-7162-438e-8d0c-9d8477322a56Update gtfsbusposctrl SET Status=\"Completed\", BatchId=?BatchSize Where ReferenceID=?ReferenceID;",
+                                "State": "e2a4121e-de24-485c-b872-3a8b2d59f286Update gtfsbusposctrl SET Status=\"Completed\", BatchId=?BatchSize Where ReferenceID=?ReferenceID;",
                                 "input": {
                                     "mapping": {
                                         "parameters": {
@@ -3136,12 +3171,16 @@
                         "output": "{\"type\":\"object\",\"title\":\"Inputs\",\"properties\":{\"code\":{\"type\":\"integer\",\"required\":false},\"data\":{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"number\"},\"responseBody\":{\"type\":\"object\",\"properties\":{\"batchSize\":{\"type\":\"number\"},\"body\":{\"type\":\"string\"}}}}}},\"required\":[]}"
                     }
                 },
-                "explicitReply": true,
-                "flowId": "355e4309-d8e7-44b2-b4be-2a4d04f3a80e"
+                "explicitReply": true
             }
         }
     ],
     "properties": [
+        {
+            "name": "authProperty",
+            "type": "string",
+            "value": "Basic OmFlMmFkMTkyOWY5NGZmNTA5Mjc5NjAxMzA3MDQxMzRl"
+        },
         {
             "name": "tfnswAPIKey",
             "type": "string",
@@ -3153,6 +3192,11 @@
             "value": "SydneyBuses_1"
         },
         {
+            "name": "Auth_Key",
+            "type": "string",
+            "value": "NjbDt9ZpMPPhDp6yVo94flbCF7aIXYgyOFAH"
+        },
+        {
             "name": "TCM_authKey",
             "type": "string",
             "value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJnc2JjIjoiMDFFU05RTUtSUTNLRFI4MTBXSk1YUUNQWlciLCJpYXQiOjE2MTA1NDcwNjEsInN1YiI6IjQ4MTNiYTE1YTk2MTQ5YWJiMTE1YmIwNjBhYTZiMzVmIn0.e_i7hupVi8_AI-ZDLPYdsESuFWHuNWu0oMTsepmpuihL9c229JJ9NIFUiDIRY928c_8v191Jl3wM3Avnw9LXYGdd2kUOyEcpAzht_n1CwWAMwgRvhdgjl4yziHGtTuzQNux4IXRTqe332R_TmMZbcWdrHnmkk17NrepeUr2_zknr_sENffIGlagTBtaLdA7TiBCD3iXkhAj-7u45L-4JOQJJQwbDGz6L2kM2XGqTRJranfFPANTRbvr-TrI1jg9a3S3TtfnFlQIfGq_6Orb-BDLilUjf1sO0G0Csoqcj8I-WN-jw7f_MbTplEcBc3I6bVG_liESyCc255Z_ipr9-kA"
@@ -3161,6 +3205,46 @@
             "name": "alertMatcher",
             "type": "string",
             "value": "SydneyBuses_Alert"
+        },
+        {
+            "name": "MySQL.GearHost-mySQL.Host",
+            "type": "string",
+            "value": "den1.mysql3.gear.host"
+        },
+        {
+            "name": "MySQL.GearHost-mySQL.Port",
+            "type": "float64",
+            "value": 3306
+        },
+        {
+            "name": "MySQL.GearHost-mySQL.Database_Name",
+            "type": "string",
+            "value": "gtfscontroldb"
+        },
+        {
+            "name": "MySQL.GearHost-mySQL.User",
+            "type": "string",
+            "value": "gtfscontroldb"
+        },
+        {
+            "name": "MySQL.GearHost-mySQL.Password",
+            "type": "string",
+            "value": "SECRET:2MMo95Y4nwoLYTFEkogyXXiRtmgbIZVOXA=="
+        },
+        {
+            "name": "MySQL.GearHost-mySQL.Maximum_Open_Connections",
+            "type": "float64",
+            "value": 0
+        },
+        {
+            "name": "MySQL.GearHost-mySQL.Maximum_Idle_Connections",
+            "type": "float64",
+            "value": 2
+        },
+        {
+            "name": "MySQL.GearHost-mySQL.Maximum_Connection_Lifetime",
+            "type": "string",
+            "value": 0
         },
         {
             "name": "TfNSW.BusPosition_API_URL",
@@ -3175,57 +3259,7 @@
         {
             "name": "TCM.TCM_URL",
             "type": "string",
-            "value": "https://xyz-apps.messaging.cloud.tibco.com/channel/v1/publish/"
-        },
-        {
-            "name": "MySQL.GearHost-mySQL_16.Host",
-            "type": "string",
-            "value": "den1.mysql3.gear.host"
-        },
-        {
-            "name": "MySQL.GearHost-mySQL_16.Port",
-            "type": "float64",
-            "value": 3306
-        },
-        {
-            "name": "MySQL.GearHost-mySQL_16.Database_Name",
-            "type": "string",
-            "value": "gtfscontroldb"
-        },
-        {
-            "name": "MySQL.GearHost-mySQL_16.User",
-            "type": "string",
-            "value": "gtfscontroldb"
-        },
-        {
-            "name": "MySQL.GearHost-mySQL_16.Password",
-            "type": "string",
-            "value": "SECRET:7khrGzjHCG4XSgP9TDQG2w=="
-        },
-        {
-            "name": "MySQL.GearHost-mySQL_16.Maximum_Open_Connections",
-            "type": "float64",
-            "value": 0
-        },
-        {
-            "name": "MySQL.GearHost-mySQL_16.Maximum_Idle_Connections",
-            "type": "float64",
-            "value": 2
-        },
-        {
-            "name": "MySQL.GearHost-mySQL_16.Maximum_Connection_Lifetime",
-            "type": "string",
-            "value": 0
-        },
-        {
-            "name": "MySQL.GearHost-mySQL_16.Maximum_Connection_Retry_Attempts",
-            "type": "float64",
-            "value": 3
-        },
-        {
-            "name": "MySQL.GearHost-mySQL_16.Connection_Retry_Delay",
-            "type": "float64",
-            "value": 5
+            "value": "https://01esnqmkrq3kdr810wjmxqcpzw-apps.messaging.cloud.tibco.com/channel/v1/publish/"
         }
     ],
     "schemas": {
@@ -3286,24 +3320,22 @@
         }
     },
     "connections": {
-        "23506aa0-b7d2-11eb-9856-41db67230f7c": {
-            "id": "23506aa0-b7d2-11eb-9856-41db67230f7c",
-            "name": "GearHost-mySQL_16",
+        "72faaa20-62cd-11eb-b475-57a9b84b5447": {
+            "id": "72faaa20-62cd-11eb-b475-57a9b84b5447",
+            "name": "GearHost-mySQL",
             "ref": "#connection",
             "isGlobal": true,
             "settings": {
-                "name": "GearHost-mySQL_16",
+                "name": "GearHost-mySQL",
                 "description": "",
-                "host": "=$property[\"MySQL.GearHost-mySQL_16.Host\"]",
-                "port": "=$property[\"MySQL.GearHost-mySQL_16.Port\"]",
-                "databaseName": "=$property[\"MySQL.GearHost-mySQL_16.Database_Name\"]",
-                "user": "=$property[\"MySQL.GearHost-mySQL_16.User\"]",
-                "password": "=$property[\"MySQL.GearHost-mySQL_16.Password\"]",
-                "maxopenconnection": "=$property[\"MySQL.GearHost-mySQL_16.Maximum_Open_Connections\"]",
-                "maxidleconnection": "=$property[\"MySQL.GearHost-mySQL_16.Maximum_Idle_Connections\"]",
-                "connmaxlifetime": "=$property[\"MySQL.GearHost-mySQL_16.Maximum_Connection_Lifetime\"]",
-                "maxconnectattempts": "=$property[\"MySQL.GearHost-mySQL_16.Maximum_Connection_Retry_Attempts\"]",
-                "connectionretrydelay": "=$property[\"MySQL.GearHost-mySQL_16.Connection_Retry_Delay\"]",
+                "host": "=$property[\"MySQL.GearHost-mySQL.Host\"]",
+                "port": "=$property[\"MySQL.GearHost-mySQL.Port\"]",
+                "databaseName": "=$property[\"MySQL.GearHost-mySQL.Database_Name\"]",
+                "user": "=$property[\"MySQL.GearHost-mySQL.User\"]",
+                "password": "=$property[\"MySQL.GearHost-mySQL.Password\"]",
+                "maxopenconnection": "=$property[\"MySQL.GearHost-mySQL.Maximum_Open_Connections\"]",
+                "maxidleconnection": "=$property[\"MySQL.GearHost-mySQL.Maximum_Idle_Connections\"]",
+                "connmaxlifetime": "=$property[\"MySQL.GearHost-mySQL.Maximum_Connection_Lifetime\"]",
                 "onprem": false,
                 "tlsconfig": false,
                 "tlsparam": "Required",
@@ -3314,6 +3346,6 @@
             }
         }
     },
-    "contrib": "W3sicmVmIjoiZ2l0LnRpYmNvLmNvbS9naXQvcHJvZHVjdC9pcGFhcy93aS1jb250cmliLmdpdC9jb250cmlidXRpb25zL0dlbmVyYWwiLCJzM2xvY2F0aW9uIjoiVGliY28vR2VuZXJhbCJ9LHsicmVmIjoiZ2l0aHViLmNvbS9wcm9qZWN0LWZsb2dvL2NvbnRyaWIvYWN0aXZpdHkvZXJyb3IiLCJzM2xvY2F0aW9uIjoie1VTRVJJRH0vRGVmYXVsdC9hY3Rpdml0eS9lcnJvciJ9LHsicmVmIjoiZ2l0LnRpYmNvLmNvbS9naXQvcHJvZHVjdC9pcGFhcy93aS1teXNxbC5naXQvc3JjL2FwcC9NeVNRTCIsInMzbG9jYXRpb24iOiJUaWJjby9NeVNRTCJ9LHsicmVmIjoiZ2l0aHViLmNvbS9saXhpbmd3YW5nL2Zsb2dvLWNvbnRyaWIvYWN0aXZpdHkvYWN0cmVwbHkiLCJzM2xvY2F0aW9uIjoie1VTRVJJRH0vRGVmYXVsdC9hY3Rpdml0eS9hY3RyZXBseSJ9LHsicmVmIjoiZ2l0aHViLmNvbS9jbGF3LmFpL2Zsb2dvLWNvbXBvbmVudHMvZnVuY3Rpb24vY2xfdXRpbHMiLCJzM2xvY2F0aW9uIjoiZmxvZ28vY2xfdXRpbHMifSx7InJlZiI6ImdpdGh1Yi5jb20vbGl4aW5nd2FuZy9mbG9nby1jb250cmliL2Z1bmN0aW9uL2FycmF5bWVyZ2UiLCJzM2xvY2F0aW9uIjoiZmxvZ28vYXJyYXltZXJnZSJ9XQ==",
-    "fe_metadata": "UEsDBAoAAAAIANBhslKrqSRGFQAAABMAAAAIAAAAYXBwLmpzb26rViopykxPTy1yy8kvL1ayio6tBQBQSwECFAAKAAAACADQYbJSq6kkRhUAAAATAAAACAAAAAAAAAAAAAAAAAAAAAAAYXBwLmpzb25QSwUGAAAAAAEAAQA2AAAAOwAAAAAA"
+    "contrib": "W3sicmVmIjoiZ2l0LnRpYmNvLmNvbS9naXQvcHJvZHVjdC9pcGFhcy93aS1jb250cmliLmdpdC9jb250cmlidXRpb25zL0dlbmVyYWwiLCJzM2xvY2F0aW9uIjoiVGliY28vR2VuZXJhbCJ9LHsicmVmIjoiZ2l0aHViLmNvbS9wcm9qZWN0LWZsb2dvL2NvbnRyaWIvYWN0aXZpdHkvZXJyb3IiLCJzM2xvY2F0aW9uIjoie1VTRVJJRH0vRGVmYXVsdC9hY3Rpdml0eS9lcnJvciJ9LHsicmVmIjoiZ2l0LnRpYmNvLmNvbS9naXQvcHJvZHVjdC9pcGFhcy93aS1teXNxbC5naXQvc3JjL2FwcC9NeVNRTCIsInMzbG9jYXRpb24iOiJUaWJjby9NeVNRTCJ9LHsicmVmIjoiZ2l0aHViLmNvbS9saXhpbmd3YW5nL2Zsb2dvLWNvbnRyaWIvYWN0aXZpdHkvYWN0cmVwbHkiLCJzM2xvY2F0aW9uIjoie1VTRVJJRH0vRGVmYXVsdC9hY3Rpdml0eS9hY3RyZXBseSJ9LHsicmVmIjoiZ2l0aHViLmNvbS9jbGF3LmFpL2Zsb2dvLWNvbXBvbmVudHMvZnVuY3Rpb24vY2xfdXRpbHMiLCJzM2xvY2F0aW9uIjoid3ZuZ3JvcnlrcjJmZW5hNG5nN3B4eXRpNXpuamR6bTQvY2xfdXRpbHMifSx7InJlZiI6ImdpdGh1Yi5jb20vbGl4aW5nd2FuZy9mbG9nby1jb250cmliL2Z1bmN0aW9uL2FycmF5bWVyZ2UiLCJzM2xvY2F0aW9uIjoid3ZuZ3JvcnlrcjJmZW5hNG5nN3B4eXRpNXpuamR6bTQvYXJyYXltZXJnZSJ9XQ==",
+    "fe_metadata": "UEsDBAoAAAAIABQtdlKrqSRGFQAAABMAAAAIAAAAYXBwLmpzb26rViopykxPTy1yy8kvL1ayio6tBQBQSwECFAAKAAAACAAULXZSq6kkRhUAAAATAAAACAAAAAAAAAAAAAAAAAAAAAAAYXBwLmpzb25QSwUGAAAAAAEAAQA2AAAAOwAAAAAA"
 }

@@ -3,23 +3,23 @@
     <globalVariables>
         <globalVariable>
             <name>TCM_URL</name>
-            <value>wss://&lt;&gt;-apps.messaging.cloud.tibco.com/channel</value>
+            <value>wss://01esnqmkrq3kdr810wjmxqcpzw-apps.messaging.cloud.tibco.com/channel</value>
             <type>String</type>
             <deploymentSettable>true</deploymentSettable>
             <serviceSettable>false</serviceSettable>
             <description>This is a TCM-eFTL server URL to connect to server</description>
             <constraint/>
-            <modTime>1621339357010</modTime>
+            <modTime>1619029691300</modTime>
         </globalVariable>
         <globalVariable>
             <name>TCM_AUTH_Key</name>
-            <value>#!5PavUpU2hyGv0jfYc1YZ+A==</value>
+            <value>#!hlZTFk5DZJ+4SI6T+H9r2hPEhD6o/W8+qX/HQviABCtFFoyyJsqhxN9Mu5f9h43qccs/7tyKN6//ChBivnepazOfDPmezfYMYGcthpj1+1v6jXF6aWf31EunEyxcW05J34ppRY0gnQHObmCkOlpVJyq5qvlcZ+jVRplZPsbZeIrjJkm4E55LWIwVJIx5v+PHmsFisfzzeHYX7pR/JLGUZrSYQm6u0RaT0BHcKKka/P7G3djAiDvesS5llooWleUT3WY5txxXAs7/dTbllMemVxjG7w2HUJfCEiu5h4Oq5chrATWwWnWbek6Hv3puj9MNMDzbP5jZroUTFPirJc5O/LUHbKeZpGqMPryNtaVOIeVU/T4AcU4DQcAbbHISvnvlKqj5xO5+2cvtgVEXeNYMXLFTOAn+KWAQ3DOfvQzkf3KIsouLYGSQ7/nIkmkScIWHJPRdTqcwvIiLTqD+KOAvxiJu8NdvI/B2Vr6lkI870kJdMcTUtaDno1BFQNVLtySzV15EreXu6uvFRLC0boF9AiEx4LasqP/2WDVwVhY1QYLW6AcWBvdtrhesMn1OhkHrsVAZKtzMk+sUr3SRLl9x6jyQPjJUTm9//sdcfjzdjOan3+16ty3ehbYzZrOHlscTQ4opNFVcdhen8npXHKN6r0qqXwkWM0VF0k4NVG75WR99E3IGvC1wIOzEe5ZpRorszIJ0nY27My1IacipZxcmlrnKS1o9Y47DYziWuu5LQQ38IClXSKYVUhuElATV3M61FE5syfqjZZstZZVokLp+ZWUR+EDCYNAmCYX4RtjH1KOnF05YhvZiaNXG9YrLUsBYqElaQgV4RTXOGrjSdQWJOj8vQOXkm+GEfGNxWZ1IPrZWT0TW85jUPylWX+qr+ABR4qgdd3XpXpBwA+dxeeIw6nT3jYYd7WdgvvIqXolOt21FFgihu5P2VinzHm5Q4Xlt0LwKnmS77CdG06HdF9uGhn7opk7GS+5M0DIOmmKcYaJQS5XF/ttbsugJkhNnJBWdxK8DTDTTxsqFdPN0k/DfGX2ma6ZUOQaAuBmKjazgQII5AKsfzidbtwOZDZgz868yzAIWWA4XKOy01yw9nc55xYQUfERZIqAVME6VGDxp75PLK3ENW4ajR58Hq/YJmqtec0rHW4pV/PYvPOXNQ9SWAFA/h9JvEm4dEl5CA7FUi7NgMQf+eZ7R5nlHTGCbdA9jT+ihOl9t4y1KLjMD6KVfPLaX8dGZzDvm+qoS9jdC2JRNB3PPwuAW8oRB/pPFj4638rGqZgZ3Lkjicv04RNB5aWg4FFGqvwuvIFL43jV1DC4APdxBkTnEeimR09a7lXhAmwAEwr3HIG6twS5HTtqdTA==</value>
             <type>Password</type>
             <deploymentSettable>true</deploymentSettable>
             <serviceSettable>false</serviceSettable>
             <description>This is a authentication key for your TCM Subscription</description>
             <constraint/>
-            <modTime>1621339361891</modTime>
+            <modTime>1619029550397</modTime>
         </globalVariable>
     </globalVariables>
 </repository>

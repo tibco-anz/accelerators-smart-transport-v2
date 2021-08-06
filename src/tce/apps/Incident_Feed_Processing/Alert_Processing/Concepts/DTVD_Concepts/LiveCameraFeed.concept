@@ -1,19 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><element:Concept xmlns:element="http:///com/tibco/cep/designtime/core/model/element" xmlns:xmi="http://www.omg.org/XMI" xmi:version="2.0" namespace="/Concepts/DTVD_Concepts/" folder="/Concepts/DTVD_Concepts/" name="LiveCameraFeed" description="" GUID="43693102-9D8C-9405-8BD2-40EEA203669B" ownerProjectName="Alert_Processing" superConceptPath="" autoStartStateMachine="true">
-      
-    <extendedProperties/>
-      
-    <properties name="trackid" ownerProjectName="Alert_Processing" type="long" ownerPath="/Concepts/DTVD_Concepts/LiveCameraFeed"/>
-      
-    <properties name="avg_centroid_speed" ownerProjectName="Alert_Processing" type="double" ownerPath="/Concepts/DTVD_Concepts/LiveCameraFeed"/>
-      
-    <properties name="direction" ownerProjectName="Alert_Processing" ownerPath="/Concepts/DTVD_Concepts/LiveCameraFeed"/>
-      
-    <properties name="class_name" ownerProjectName="Alert_Processing" ownerPath="/Concepts/DTVD_Concepts/LiveCameraFeed"/>
-      
-    <properties name="lastupdate" ownerProjectName="Alert_Processing" type="long" ownerPath="/Concepts/DTVD_Concepts/LiveCameraFeed"/>
-      
-    <properties name="lastcnt" ownerProjectName="Alert_Processing" type="long" ownerPath="/Concepts/DTVD_Concepts/LiveCameraFeed"/>
-      
-    <properties name="image" ownerProjectName="Alert_Processing" ownerPath="/Concepts/DTVD_Concepts/LiveCameraFeed"/>
-    
+<?xml version="1.0" encoding="UTF-8"?>
+<element:Concept xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:element="http:///com/tibco/cep/designtime/core/model/element" namespace="/Concepts/DTVD_Concepts/" folder="/Concepts/DTVD_Concepts/" name="LiveCameraFeed" description="" GUID="43693102-9D8C-9405-8BD2-40EEA203669B" ownerProjectName="Alert_Processing" superConceptPath="" autoStartStateMachine="true">
+  <extendedProperties/>
+  <properties name="trackid" ownerProjectName="Alert_Processing" type="long" ownerPath="/Concepts/DTVD_Concepts/LiveCameraFeed"/>
+  <properties name="avg_centroid_speed" ownerProjectName="Alert_Processing" type="double" ownerPath="/Concepts/DTVD_Concepts/LiveCameraFeed"/>
+  <properties name="direction" ownerProjectName="Alert_Processing" ownerPath="/Concepts/DTVD_Concepts/LiveCameraFeed"/>
+  <properties name="class_name" ownerProjectName="Alert_Processing" ownerPath="/Concepts/DTVD_Concepts/LiveCameraFeed"/>
+  <properties name="lastupdate" ownerProjectName="Alert_Processing" type="long" ownerPath="/Concepts/DTVD_Concepts/LiveCameraFeed"/>
+  <properties name="lastcnt" ownerProjectName="Alert_Processing" type="long" ownerPath="/Concepts/DTVD_Concepts/LiveCameraFeed"/>
+  <properties name="image" ownerProjectName="Alert_Processing" ownerPath="/Concepts/DTVD_Concepts/LiveCameraFeed"/>
 </element:Concept>

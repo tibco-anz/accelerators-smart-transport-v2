@@ -8,13 +8,14 @@
         "github.com/project-flogo/contrib/function/array",
         "github.com/project-flogo/contrib/function/string"
     ],
-    "name": "STA-5",
+    "name": "mp_PublicTransportAccelerator_PublisheFTL",
     "description": "  ",
     "version": "1.0.0",
     "type": "flogo:app",
     "appModel": "1.1.1",
-    "tags": [],
-    "feVersion": "2.12.0",
+    "tags": [
+        "V2"
+    ],
     "triggers": [
         {
             "ref": "#rest_1",
@@ -46,7 +47,7 @@
                         "input": {
                             "entity": {
                                 "mapping": {
-                                    "@foreach($.body.entity,entity)": {
+                                    "@foreach($.body.entity, entity)": {
                                         "vehicle_id": "=$loop.vehicle_id",
                                         "trip_update": "=$loop.trip_update",
                                         "vehicle": "=$loop.vehicle",
@@ -132,7 +133,7 @@
                                 "input": {
                                     "mapping": {
                                         "entity": {
-                                            "@foreach($flow.entity,entity)": {
+                                            "@foreach($flow.entity, entity)": {
                                                 "_dest": "=$loop._dest",
                                                 "vehicle_id": "=$loop.vehicle_id",
                                                 "trip_update": "=$loop.trip_update",
@@ -178,8 +179,6 @@
                             "input": {
                                 "enableASR": false,
                                 "swagger": "",
-                                "authorization": false,
-                                "authorizationConn": "",
                                 "serviceName": "",
                                 "resourcePath": "",
                                 "Method": "POST",
@@ -210,8 +209,7 @@
                             },
                             "output": {
                                 "configureResponseCodes": false,
-                                "responseType": "application/json",
-                                "responseOutput": "JSON Object"
+                                "responseType": "application/json"
                             },
                             "schemas": {
                                 "input": {
@@ -277,12 +275,26 @@
                         "output": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"number\"},\"message\":{\"type\":\"string\"}}}"
                     }
                 },
-                "explicitReply": true,
-                "flowId": "2693b775-9da8-42d2-8fc1-8d9107985a9c"
+                "explicitReply": true
             }
         }
     ],
     "properties": [
+        {
+            "name": "authProperty",
+            "type": "string",
+            "value": "Basic OmFlMmFkMTkyOWY5NGZmNTA5Mjc5NjAxMzA3MDQxMzRl"
+        },
+        {
+            "name": "tfnswAPIKey",
+            "type": "string",
+            "value": "rLi10wYhQBoTJeQAkLzcSqi0dOFMY4CfgM3f"
+        },
+        {
+            "name": "TCM_Destinations_default",
+            "type": "string",
+            "value": "SydneyBuses_1"
+        },
         {
             "name": "TCM_authKey",
             "type": "string",
@@ -338,5 +350,5 @@
     },
     "connections": {},
     "contrib": "W3sicmVmIjoiZ2l0LnRpYmNvLmNvbS9naXQvcHJvZHVjdC9pcGFhcy93aS1jb250cmliLmdpdC9jb250cmlidXRpb25zL0dlbmVyYWwiLCJzM2xvY2F0aW9uIjoiVGliY28vR2VuZXJhbCJ9XQ==",
-    "fe_metadata": "UEsDBAoAAAAIABdislKrqSRGFQAAABMAAAAIAAAAYXBwLmpzb26rViopykxPTy1yy8kvL1ayio6tBQBQSwECFAAKAAAACAAXYrJSq6kkRhUAAAATAAAACAAAAAAAAAAAAAAAAAAAAAAAYXBwLmpzb25QSwUGAAAAAAEAAQA2AAAAOwAAAAAA"
+    "fe_metadata": "UEsDBAoAAAAIAIEsc1KrqSRGFQAAABMAAAAIAAAAYXBwLmpzb26rViopykxPTy1yy8kvL1ayio6tBQBQSwECFAAKAAAACACBLHNSq6kkRhUAAAATAAAACAAAAAAAAAAAAAAAAAAAAAAAYXBwLmpzb25QSwUGAAAAAAEAAQA2AAAAOwAAAAAA"
 }

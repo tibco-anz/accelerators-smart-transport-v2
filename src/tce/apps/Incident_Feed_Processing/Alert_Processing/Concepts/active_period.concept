@@ -1,9 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><element:Concept xmlns:element="http:///com/tibco/cep/designtime/core/model/element" xmlns:xmi="http://www.omg.org/XMI" xmi:version="2.0" namespace="/Concepts/" folder="/Concepts/" name="active_period" description="" GUID="167F0E87-5584-266D-503D-DE94DA705D43" ownerProjectName="Alert_Processing" superConceptPath="" autoStartStateMachine="true">
-      
-    <extendedProperties/>
-      
-    <properties name="start_time" ownerProjectName="Alert_Processing" ownerPath="/Concepts/active_period"/>
-      
-    <properties name="end_time" ownerProjectName="Alert_Processing" ownerPath="/Concepts/active_period"/>
-    
+<?xml version="1.0" encoding="UTF-8"?>
+<element:Concept xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:element="http:///com/tibco/cep/designtime/core/model/element" namespace="/Concepts/" folder="/Concepts/" name="active_period" description="" GUID="167F0E87-5584-266D-503D-DE94DA705D43" ownerProjectName="Alert_Processing" superConceptPath="" autoStartStateMachine="true">
+  <extendedProperties/>
+  <properties name="start_time" ownerProjectName="Alert_Processing" ownerPath="/Concepts/active_period"/>
+  <properties name="end_time" ownerProjectName="Alert_Processing" ownerPath="/Concepts/active_period"/>
 </element:Concept>

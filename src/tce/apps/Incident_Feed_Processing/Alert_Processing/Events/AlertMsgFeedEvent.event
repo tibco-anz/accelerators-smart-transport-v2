@@ -1,28 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><event:SimpleEvent xmlns:event="http:///com/tibco/cep/designtime/core/model/event" xmlns:xmi="http://www.omg.org/XMI" xmi:version="2.0" namespace="/Events/" folder="/Events/" name="AlertMsgFeedEvent" description="" GUID="F227D387-2A8B-F6E8-AA4C-C89B20CADB1D" ownerProjectName="Alert_Processing" superEventPath="" payloadString="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&#10;&lt;payload ref=&quot;pfx3:Feed&quot;/&gt;" ttlUnits="Seconds" channelURI="/Channels/TCM" destinationName="SydneyBuses_Alert">
-          
-    
-    <namespaceEntries prefix="xsd" namespace="http://www.w3.org/2001/XMLSchema"/>
-          
-    
-    <namespaceEntries prefix="pfx3" namespace="www.tibco.com/be/ontology/Concepts/Feed"/>
-          
-    
-    <registryImportEntries location="Concepts/Feed.concept" namespace="www.tibco.com/be/ontology/Concepts/Feed"/>
-          
-    
-    <expiryAction folder="/Events/AlertMsgFeedEvent" name="GetMsgEvent_expiryAction" ownerProjectName="Alert_Processing" actionText="" conditionText="">
-                    
-        
-        <symbols>
-                              
-            
-            <symbolList idName="getmsgevent" type="/Events/AlertMsgFeedEvent"/>
-                            
-        
-        </symbols>
-                  
-    
-    </expiryAction>
-        
-
+<?xml version="1.0" encoding="UTF-8"?>
+<event:SimpleEvent xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:event="http:///com/tibco/cep/designtime/core/model/event" namespace="/Events/" folder="/Events/" name="AlertMsgFeedEvent" description="" GUID="F227D387-2A8B-F6E8-AA4C-C89B20CADB1D" ownerProjectName="Alert_Processing" superEventPath="" payloadString="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&#xA;&lt;payload ref=&quot;pfx3:Feed&quot;/>" ttlUnits="Seconds" channelURI="/Channels/TCM" destinationName="SydneyBuses_Alert">
+  <namespaceEntries prefix="xsd" namespace="http://www.w3.org/2001/XMLSchema"/>
+  <namespaceEntries prefix="pfx3" namespace="www.tibco.com/be/ontology/Concepts/Feed"/>
+  <registryImportEntries location="Concepts/Feed.concept" namespace="www.tibco.com/be/ontology/Concepts/Feed"/>
+  <expiryAction folder="/Events/AlertMsgFeedEvent" name="GetMsgEvent_expiryAction" ownerProjectName="Alert_Processing" actionText="" conditionText="">
+    <symbols>
+      <symbolList idName="getmsgevent" type="/Events/AlertMsgFeedEvent"/>
+    </symbols>
+  </expiryAction>
 </event:SimpleEvent>
