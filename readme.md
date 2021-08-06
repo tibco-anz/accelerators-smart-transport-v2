@@ -5,11 +5,11 @@ From ​: TIBCO
 
 Date ​: April 2021
 
-```
+
 Key links
 ● Public Community Link: https://community.tibco.com/wiki/smart-transport-accelerator
 ● Slack Channel: #accelerators-smart-transport-cloud
-```
+
 
 [![N|Solid](https://docs.tibco.com/pub/businessevents-standard/5.4.0/doc/html/static/logo.png)](https://tibco.com)
 
