@@ -1,0 +1,95 @@
+/**
+ * @description This will check the speed of each entity and generate the alert if speed is above 75 kmph
+ * @author mpandav-U52
+ */
+rule Rules.DTVD.CheckSpeed {
+	attribute {
+		priority = 5;
+		forwardChain = true;
+	}
+	declare {
+		
+		
+		Events.DTVD.DTVD_MsgEvent csl;
+	}
+	when {
+		
+	}
+	then {
+		System.debugOut("###### CHECK SPEED RUlE FIRED ######");
+		
+	//	Concepts.DTVD_Concepts.LiveCameraFeed liveMsg = Instance.createTransientInstanceFromEvent("/Concepts/DTVD_Concepts/LiveCameraFeed", csl);
+		
+	//	String speed = String.valueOfDouble(csl.avg_centroid_speed);
+		
+		long trackid = csl.trackid;
+		double avg_centroid_speed = csl.avg_centroid_speed;
+		double avg_speed = 0;
+		String class_name = csl.class_name;
+		String image = csl.image;
+		String direction = csl.direction;
+		long lastcnt = csl.lastcnt;
+		long lastupdate = csl.lastupdate;
+		
+		//String payload = csl@payload;
+		//System.debugOut("payload received : " + payload);
+		
+		String trackid1 = String.valueOfLong(trackid);
+		avg_speed = System.getGlobalVariableAsDouble("avg_Speed",85);	
+		System.debugOut("seepd value : " +avg_speed);
+		
+		// Getting active instance of FEED Concept
+		Concepts.DTVD_Concepts.LiveCameraFeed inst = Instance.getByExtIdByUri(concat("AlertID_", trackid1),"/Concepts/DTVD_Concepts/LiveCameraFeed");
+				
+		System.debugOut("trackid : " + trackid);
+		
+		if(inst == null){
+		
+		//check if speed > 75 and of type CAR then generate alert
+		
+	
+		if(avg_centroid_speed >= avg_speed){
+			
+			System.debugOut("============================================================================");
+			System.debugOut("##### GENERATING ALERT FOR TRCAK_ID : " + trackid + " FOR OVER SPEEDING ####");
+			System.debugOut("=============================================================================");
+			
+			// create feed concet in Working Memory as we need to reference the feed Concept in future rules
+			Concepts.DTVD_Concepts.LiveCameraFeed feed = Instance.createInstance("xslt://{{/Concepts/DTVD_Concepts/LiveCameraFeed}}<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" version=\"2.0\"><xsl:param name=\"trackid\"/><xsl:param name=\"avg_centroid_speed\"/><xsl:param name=\"class_name\"/><xsl:param name=\"image\"/><xsl:param name=\"direction\"/><xsl:param name=\"lastcnt\"/><xsl:param name=\"lastupdate\"/><xsl:template name=\"Function\" match=\"/\"><createObject><object><xsl:attribute name=\"extId\"><xsl:value-of select=\"concat(&quot;AlertID_&quot;,xsd:string($trackid))\"/></xsl:attribute><trackid><xsl:value-of select=\"$trackid\"/></trackid><avg_centroid_speed><xsl:value-of select=\"$avg_centroid_speed\"/></avg_centroid_speed><direction><xsl:value-of select=\"$direction\"/></direction><class_name><xsl:value-of select=\"$class_name\"/></class_name><lastupdate><xsl:value-of select=\"$lastupdate\"/></lastupdate><lastcnt><xsl:value-of select=\"$lastcnt\"/></lastcnt><image><xsl:value-of select=\"$image\"/></image></object></createObject></xsl:template></xsl:stylesheet>");
+			
+		//	System.debugOut( "Concept Instance: " + feed);
+			
+			
+			// Create a notification event so flogo app consume it and create Liveapps case
+			Event ev = Event.createEvent("xslt://{{/Events/DTVD/DTVD_SendAlertEvent}}<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" version=\"2.0\"><xsl:param name=\"feed\"/><xsl:template name=\"Function\" match=\"/\"><createEvent><event><xsl:if test=\"$feed/@extId\"><xsl:attribute name=\"extId\"><xsl:value-of select=\"$feed/@extId\"/></xsl:attribute></xsl:if><xsl:if test=\"$feed/trackid\"><trackid><xsl:value-of select=\"$feed/trackid\"/></trackid></xsl:if><xsl:if test=\"$feed/avg_centroid_speed\"><avg_centroid_speed><xsl:value-of select=\"$feed/avg_centroid_speed\"/></avg_centroid_speed></xsl:if><xsl:if test=\"$feed/direction\"><direction><xsl:value-of select=\"$feed/direction\"/></direction></xsl:if><xsl:if test=\"$feed/class_name\"><class_name><xsl:value-of select=\"$feed/class_name\"/></class_name></xsl:if><xsl:if test=\"$feed/lastupdate\"><lastupdate><xsl:value-of select=\"$feed/lastupdate\"/></lastupdate></xsl:if><xsl:if test=\"$feed/lastcnt\"><lastcnt><xsl:value-of select=\"$feed/lastcnt\"/></lastcnt></xsl:if><xsl:if test=\"$feed/image\"><image><xsl:value-of select=\"$feed/image\"/></image></xsl:if></event></createEvent></xsl:template></xsl:stylesheet>");
+			
+			Event.sendEvent(ev);
+			
+			System.debugOut("====================================================");
+			System.debugOut("###### ALERT Notification EVENT SENT TO FLOGO ######");
+			System.debugOut("====================================================");
+			
+			//consume incoming event
+			Event.consumeEvent(csl);
+		}
+		else { // NO ALERT for speed under limit
+		
+			System.debugOut("===========================================");
+			System.debugOut("###### SPEED UNDER LIMIT : NO ALERT ######");
+			System.debugOut("===========================================");
+			
+			////NO ALERT just consume incoming event
+			Event.consumeEvent(csl);
+		}
+		}
+		else {	// if active alert available then not creating new one and jsut consuming event
+				
+				System.debugOut("====================================================");
+				System.debugOut("##### ACTIVE ALERT FOUND, NOT Creating NEW ALERT #####");
+				System.debugOut("====================================================");
+				
+				Event.consumeEvent(csl);
+		}
+		
+	}
+}

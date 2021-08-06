@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration:StudioProjectConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:configuration="http:///com/tibco/cep/studio/common/configuration/model/project_configuration.ecore" name="Alert_Processing" version="2.1.1" build="018" xpathVersion="2.0">
+  <javaSourceFolderEntries entryType="JAVA_SOURCE_FOLDER" path="/Alert_Processing/JavaSrc" readOnly="true"/>
+  <enterpriseArchiveConfiguration name="Alert_Processing" author="mpandav" description="Incident processing applicaiton to triage the incoming alerts in GTFS feed" version="267" path="/home/mpandav/Downloads/Alert_Processing.ear" overwrite="true"/>
+  <bpmnProcessSettings/>
+</configuration:StudioProjectConfiguration>

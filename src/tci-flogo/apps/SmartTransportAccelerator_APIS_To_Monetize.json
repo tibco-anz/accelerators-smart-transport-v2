@@ -1,0 +1,1916 @@
+{
+    "imports": [
+        "github.com/project-flogo/flow",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/log",
+        "git.tibco.com/git/product/ipaas/wi-mysql.git/src/app/MySQL/activity/query",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/httpresponse",
+        "github.com/project-flogo/contrib/activity/actreturn",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/rest",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/parsejson",
+        "emea-swi-svn.emea.tibco.com/svn/Ariel/tci-liveapps/trunk/LiveApps/activity/get",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/mapper",
+        "rest_1 git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/trigger/rest",
+        "github.com/project-flogo/contrib/function/string",
+        "github.com/claw.ai/flogo-components/function/cl_utils",
+        "github.com/project-flogo/contrib/function/array",
+        "git.tibco.com/git/product/ipaas/wi-mysql.git/src/app/MySQL/connector/connection"
+    ],
+    "name": "STA-1",
+    "description": "",
+    "version": "1.0.0",
+    "type": "flogo:app",
+    "appModel": "1.1.1",
+    "tags": [],
+    "feVersion": "2.12.0",
+    "triggers": [
+        {
+            "ref": "#rest_1",
+            "name": "tibco-wi-rest",
+            "description": "Simple REST Trigger",
+            "settings": {
+                "port": 9999,
+                "APISpecUpdate": true,
+                "swagger": {
+                    "filename": "PublicTransportAccelerator_APITomonetize.json",
+                    "content": "data:application/json;base64,eyJzd2FnZ2VyIjoiMi4wIiwiaW5mbyI6eyJ2ZXJzaW9uIjoiMS4wLjAiLCJ0aXRsZSI6IlB1YmxpY1RyYW5zcG9ydEFjY2VsZXJhdG9yX0FQSVRvbW9uZXRpemUiLCJ4LWxhc3RNb2RpZmllZCI6IjIwMjEtMDItMjBUMTc6Mzk6MDcuMDAwWiJ9LCJwYXRocyI6eyIvdjIvZ3Rmcy9pbmNpZGVudC9jb3VudCI6eyJnZXQiOnsicHJvZHVjZXMiOlsiYXBwbGljYXRpb24vanNvbiJdLCJyZXNwb25zZXMiOnsiMjAwIjp7ImRlc2NyaXB0aW9uIjoiU3VjY2VzcyByZXNwb25zZSIsInNjaGVtYSI6eyIkcmVmIjoiIy9kZWZpbml0aW9ucy9JbmNpZGVudENvdW50In0sImV4YW1wbGVzIjp7ImFwcGxpY2F0aW9uL2pzb24iOnsiVG90YWwgTnVtYmVyIG9mIEluY2lkZW50cyI6IiJ9fX19LCJwYXJhbWV0ZXJzIjpbeyJuYW1lIjoidHlwZSIsImluIjoicXVlcnkiLCJkZXNjcmlwdGlvbiI6ImRlZmluZSBhIHR5cGUgb2YgaW5jaWRlbnQgZm9yIHdoaWNoIHlvdSB3YW50IHRvIGdldCB0aGUgdG90YWwgbnVtYmVyIG9mIGNvdW50LiBUaGUgdHlwZSBzaG91bGQgYmUgYWNjaWRlbnQsIHRlY2huaWNhbF9wcm9ibGVtLCBtZWRpY2FsX2VtZXJnZW5jeSwgYWxsLiIsInJlcXVpcmVkIjp0cnVlLCJ0eXBlIjoic3RyaW5nIiwiZm9ybWF0IjoiIiwiZGVmYXVsdCI6ImFsbCJ9XSwib3BlcmF0aW9uSWQiOiJnZXRWMkd0ZnNJbmNpZGVudENvdW50IiwiZGVzY3JpcHRpb24iOiJUaGlzIEFQSSB3aWxsIHJldHVybiB0aGUgdG90YWwgbnVtYmVyIChjb3VudCkgb2YgSW5jaWRlbnRzIHJlcG9ydGVkIGluIHRoZSBzeXN0ZW0iLCJzdW1tYXJ5IjoiVGhpcyBBUEkgd2lsbCByZXR1cm4gdGhlIHRvdGFsIG51bWJlciAoY291bnQpIG9mIEluY2lkZW50cyByZXBvcnRlZCBpbiB0aGUgc3lzdGVtIn19LCIvdjIvZ3Rmcy92ZWhpY2xlcG9zL2J1c2VzIjp7ImdldCI6eyJwcm9kdWNlcyI6WyJhcHBsaWNhdGlvbi9qc29uIl0sInJlc3BvbnNlcyI6eyIyMDAiOnsiZGVzY3JpcHRpb24iOiJTdWNjZXNzIHJlc3BvbnNlIiwic2NoZW1hIjp7IiRyZWYiOiIjL2RlZmluaXRpb25zL3N1Y2VzcyJ9LCJleGFtcGxlcyI6eyJhcHBsaWNhdGlvbi9qc29uIjp7IiRzY2hlbWEiOiJodHRwOi8vanNvbi1zY2hlbWEub3JnL2RyYWZ0LTA3L3NjaGVtYSMiLCJwcm9wZXJ0aWVzIjp7ImRhdGEiOnsidHlwZSI6InN0cmluZyJ9fSwidHlwZSI6Im9iamVjdCJ9fX0sIjQwMCI6eyJkZXNjcmlwdGlvbiI6ImJhZCByZXF1ZXN0Iiwic2NoZW1hIjp7IiRyZWYiOiIjL2RlZmluaXRpb25zLzQwMCJ9LCJleGFtcGxlcyI6eyJhcHBsaWNhdGlvbi9qc29uIjp7fX19fSwicGFyYW1ldGVycyI6W3sibmFtZSI6Impzb24iLCJpbiI6InF1ZXJ5IiwiZGVzY3JpcHRpb24iOiJJZiBzZXQgdG8gdHJ1ZSwgaXQgd2lsbCBnZW5lcmF0ZSByZXNwb25zZSBpbiBKU09OIGZvcm1hdCBvdGhlcndpc2UgcmVzcG9uc2Ugd2lsbCBiZSBpbiBQcm90b2J1ZiBmb3JtYXQiLCJyZXF1aXJlZCI6dHJ1ZSwidHlwZSI6ImJvb2xlYW4iLCJmb3JtYXQiOiIifV0sIm9wZXJhdGlvbklkIjoiZ2V0VjFHdGZzVmVoaWNsZXBvc0J1c2VzIiwiZGVzY3JpcHRpb24iOiJUaGlzIGlzIGEgc3RhbmRhcmQgQVBJIGZyb20gVHJhbnNwb3J0IGZvciBOU1cgdGhhdCByZXR1cm5zIGxpdmUgZmVlZCBvZiBidXNlcyBpbiBwcm90b2J1ZiBmb3JtYXQuIElmIHF1ZXJ5IHBhcmFtZXRlciBqc29uIHNldCB0byB0cnVlIHRoZW4gdGhpcyBBUEkgd2lsbCBnZW5lcmF0ZSBKU09OIGZvcm1hdHRlZCBkYXRhIG90aGVyd2lzZSBpdHMgc3RhbmRhcmQgcHJvdG9idWYiLCJzdW1tYXJ5IjoiVGhpcyBpcyBhIHN0YW5kYXJkIEFQSSBmcm9tIFRyYW5zcG9ydCBmb3IgTlNXIHRoYXQgcmV0dXJucyBsaXZlIGZlZWQgb2YgYnVzZXMgaW4gcHJvdG9idWYgZm9ybWF0LiBJZiBxdWVyeSBwYXJhbWV0ZXIganNvIn19LCIvdjIvZ3Rmcy9pbmNpZGVudHMiOnsiZ2V0Ijp7InByb2R1Y2VzIjpbImFwcGxpY2F0aW9uL2pzb24iXSwicmVzcG9uc2VzIjp7IjIwMCI6eyJkZXNjcmlwdGlvbiI6IlN1Y2Nlc3MgcmVzcG9uc2UiLCJzY2hlbWEiOnsidHlwZSI6ImFycmF5IiwiaXRlbXMiOnsiJHJlZiI6IiMvZGVmaW5pdGlvbnMvSW5jaWRlbnREZXRhaWxzIn19LCJleGFtcGxlcyI6eyJhcHBsaWNhdGlvbi9qc29uIjpbeyJhbGVydF9pZCI6IiIsImNhc2UgcmVmZXJlbmNlIGlkIjoiIiwiY2FzZSB1cmwiOiIiLCJzdGFydCB0aW1lIjoiIiwiZW5kIHRpbWUiOiIiLCJjYXNlIHN0YXRlIjoiIiwiaW5jaWRlbnQgbG9jYXRpb24iOiIiLCJpbmNpZGVudCB1cmwiOiIifV19fX0sInBhcmFtZXRlcnMiOltdLCJvcGVyYXRpb25JZCI6ImdldFYyR3Rmc0luY2lkZW50cyIsImRlc2NyaXB0aW9uIjoiVGhpcyB3aWxsIHJldHVybiBpbmZvcm1hdGlvbiBvZiBhbGwgcmVwb3J0ZWQgaW5jaWRlbnQgZGF0YSIsInN1bW1hcnkiOiJUaGlzIHdpbGwgcmV0dXJuIGluZm9ybWF0aW9uIG9mIGFsbCByZXBvcnRlZCBpbmNpZGVudCBkYXRhIn19LCIvdjIvZ3Rmcy9pbmNpZGVudHMve2Nhc2VfcmVmZXJlbmNlfSI6eyJnZXQiOnsicHJvZHVjZXMiOlsiYXBwbGljYXRpb24vanNvbiJdLCJyZXNwb25zZXMiOnsiMjAwIjp7ImRlc2NyaXB0aW9uIjoiU3VjY2VzcyByZXNwb25zZSIsInNjaGVtYSI6eyIkcmVmIjoiIy9kZWZpbml0aW9ucy9JbmNpZGVudERldGFpbHMifSwiZXhhbXBsZXMiOnsiYXBwbGljYXRpb24vanNvbiI6eyJhbGVydF9pZCI6IiIsImNhc2UgcmVmZXJlbmNlIGlkIjoiIiwiY2FzZSB1cmwiOiIiLCJzdGFydCB0aW1lIjoiIiwiZW5kIHRpbWUiOiIiLCJjYXNlIHN0YXRlIjoiIiwiaW5jaWRlbnQgbG9jYXRpb24iOiIiLCJpbmNpZGVudCB1cmwiOiIifX19LCI0MDQiOnsiZGVzY3JpcHRpb24iOiJOb3RGb3VuZCIsInNjaGVtYSI6eyIkcmVmIjoiIy9kZWZpbml0aW9ucy80MDQifSwiZXhhbXBsZXMiOnsiYXBwbGljYXRpb24vanNvbiI6eyJtZXNzYWdlIjoiSW5jaWRlbnQgTm90IGZvdW5kIn19fX0sInBhcmFtZXRlcnMiOlt7Im5hbWUiOiJjYXNlX3JlZmVyZW5jZSIsImluIjoicGF0aCIsImRlc2NyaXB0aW9uIjoiVGhpcyBpcyBhIExpdmVhcHBzIGNhc2UgcmVmZXJlbmNlIG51bWJlciB0aGF0IHlvdSBuZWVkIHRvIHBhc3MuIiwicmVxdWlyZWQiOnRydWUsInR5cGUiOiJzdHJpbmciLCJmb3JtYXQiOiIifV0sIm9wZXJhdGlvbklkIjoiZ2V0VjJHdGZzSW5jaWRlbnRzX2Nhc2VfcmVmZXJlbmNlIiwiZGVzY3JpcHRpb24iOiJUaGlzIHdpbGwgcmV0dXJuIHRoZSBpbmNpZGVudCBpbmZvcm1hdGlvbiBieSBjYXNlIHJlZmVyZW5jZSBudW1iZXIiLCJzdW1tYXJ5IjoiVGhpcyB3aWxsIHJldHVybiB0aGUgaW5jaWRlbnQgaW5mb3JtYXRpb24gYnkgY2FzZSByZWZlcmVuY2UgbnVtYmVyIn19LCIvdjIvZ3Rmcy92ZWhpY2xlL2J1c2VzL2NvdW50Ijp7ImdldCI6eyJwcm9kdWNlcyI6WyJhcHBsaWNhdGlvbi9qc29uIl0sInJlc3BvbnNlcyI6eyIyMDAiOnsiZGVzY3JpcHRpb24iOiJTdWNjZXNzIHJlc3BvbnNlIiwic2NoZW1hIjp7IiRyZWYiOiIjL2RlZmluaXRpb25zL3ZlaGljbGVjb3VudCJ9LCJleGFtcGxlcyI6eyJhcHBsaWNhdGlvbi9qc29uIjp7IkFjdGl2ZSBCdXMgQ291bnQiOiIifX19LCI0MDQiOnsiZGVzY3JpcHRpb24iOiJOb3RGb3VuZCIsInNjaGVtYSI6eyIkcmVmIjoiIy9kZWZpbml0aW9ucy80MDQifX19LCJwYXJhbWV0ZXJzIjpbXSwib3BlcmF0aW9uSWQiOiJnZXRWMkd0ZnNWZWhpY2xlQ291bnQiLCJkZXNjcmlwdGlvbiI6IlRoaXMgd2lsbCByZXR1cm4gYSBjb3VudCBvZiAgdG90YWwgbnVtYmVyIG9mIGFjdGl2ZSBidXNlcyBhdCBnaXZlbiBwb2ludCBpbiB0aW1lIiwic3VtbWFyeSI6IlRoaXMgd2lsbCByZXR1cm4gYSBjb3VudCBvZiAgdG90YWwgbnVtYmVyIG9mIGFjdGl2ZSBidXNlcyBhdCBnaXZlbiBwb2ludCBpbiB0aW1lIn19LCIvdjIvZ3Rmcy92ZWhpY2xlL3t2ZWhpY2xlX2lkfSI6eyJnZXQiOnsicHJvZHVjZXMiOlsiYXBwbGljYXRpb24vanNvbiJdLCJyZXNwb25zZXMiOnsiMjAwIjp7ImRlc2NyaXB0aW9uIjoiU3VjY2VzcyByZXNwb25zZSIsInNjaGVtYSI6eyIkcmVmIjoiIy9kZWZpbml0aW9ucy92ZWhpY2xlZGV0YWlscyJ9LCJleGFtcGxlcyI6eyJhcHBsaWNhdGlvbi9qc29uIjp7ImlkIjoiIiwiY29uZ2VzdGlvbl9sZXZlbCI6IiIsIm9jY3VwYW5jeV9zdGF0dXMiOiIiLCJzY2hlZHVsZV9yZWxhdGlvbnNoaXAiOiIiLCJjdXJyZW50X2xvY2F0aW9uIjoiIiwic3BlZWQiOiIiLCJyb3V0ZV9pZCI6IiIsInRyaXBfaWQiOiIiLCJ0aW1lc3RhbXAiOiIifX19LCI0MDAiOnsiZGVzY3JpcHRpb24iOiJOb3RGb3VuZCIsInNjaGVtYSI6eyIkcmVmIjoiIy9kZWZpbml0aW9ucy80MDQifX19LCJwYXJhbWV0ZXJzIjpbeyJuYW1lIjoidmVoaWNsZV9pZCIsImluIjoicGF0aCIsImRlc2NyaXB0aW9uIjoiIiwicmVxdWlyZWQiOnRydWUsInR5cGUiOiJzdHJpbmciLCJmb3JtYXQiOiIifV0sIm9wZXJhdGlvbklkIjoiZ2V0VjJHdGZzVmVoaWNsZV9pZCIsImRlc2NyaXB0aW9uIjoiVGhpcyB3aWxsIHByb2R1Y2UgdGhlIGluZm9ybWF0aW9uIHJlbGF0ZWQgdG8gdGhlIGdpdmVuIGJ1cy4gVGhlIGluZm9ybWF0aW9uIHdvdWxkIGJlIGNvbmdlc3Rpb25fbGV2ZWwsIG9jY3VwYW5jeV9zdGF0dXMsIGN1cnJlbnRfbG9jYXRpb24sIGV0Yy4iLCJzdW1tYXJ5IjoiVGhpcyB3aWxsIHByb2R1Y2UgdGhlIGluZm9ybWF0aW9uIHJlbGF0ZWQgdG8gdGhlIGdpdmVuIGJ1cy4gVGhlIGluZm9ybWF0aW9uIHdvdWxkIGJlIGNvbmdlc3Rpb25fbGV2ZWwsIG9jY3VwYW5jeV9zdGF0dXMsIn19LCIvdjIvZ3Rmcy92ZWhpY2xlL2J1c2VzL2Nvbmdlc3RlZF9idXNlcyI6eyJnZXQiOnsicHJvZHVjZXMiOlsiYXBwbGljYXRpb24vanNvbiJdLCJyZXNwb25zZXMiOnsiMjAwIjp7ImRlc2NyaXB0aW9uIjoiU3VjY2VzcyByZXNwb25zZSIsInNjaGVtYSI6eyJ0eXBlIjoiYXJyYXkiLCJpdGVtcyI6eyIkcmVmIjoiIy9kZWZpbml0aW9ucy92ZWhpY2xlZGV0YWlscyJ9fSwiZXhhbXBsZXMiOnsiYXBwbGljYXRpb24vanNvbiI6W1t7fV1dfX0sIjQwNCI6eyJkZXNjcmlwdGlvbiI6Ik5vdEZvdW5kIiwic2NoZW1hIjp7IiRyZWYiOiIjL2RlZmluaXRpb25zLzQwNCJ9fX0sInBhcmFtZXRlcnMiOltdLCJvcGVyYXRpb25JZCI6ImdldFYyR3Rmc1ZlaGljbGVDb25nZXN0ZWRfYnVzZXMiLCJkZXNjcmlwdGlvbiI6IlRoaXMgQVBJIHdpbGwgcHJvZHVjZSB0aGUgbGlzdCBvZiBidXNlcyB0aG9zZSBhcmUgZmFjaW5nIGNvbmdlc3Rpb24gc2l0dWF0aW9uIGluIHJvdXRlIiwic3VtbWFyeSI6IlRoaXMgQVBJIHdpbGwgcHJvZHVjZSB0aGUgbGlzdCBvZiBidXNlcyB0aG9zZSBhcmUgZmFjaW5nIGNvbmdlc3Rpb24gc2l0dWF0aW9uIGluIHJvdXRlIn19fSwiZGVmaW5pdGlvbnMiOnsiNDAwIjp7InR5cGUiOiJvYmplY3QiLCJwcm9wZXJ0aWVzIjp7fX0sIjQwNCI6eyJ0eXBlIjoib2JqZWN0IiwicHJvcGVydGllcyI6eyJtZXNzYWdlIjp7InR5cGUiOiJzdHJpbmciLCJkZWZhdWx0IjoiTm90IGZvdW5kIn19fSwic3VjZXNzIjp7ImRhdGEiOnt9fSwiSW5jaWRlbnRDb3VudCI6eyJ0eXBlIjoib2JqZWN0IiwicHJvcGVydGllcyI6eyJUb3RhbCBOdW1iZXIgb2YgSW5jaWRlbnRzIjp7InR5cGUiOiJzdHJpbmciLCJkZWZhdWx0IjoiIn19fSwiSW5jaWRlbnREZXRhaWxzIjp7InR5cGUiOiJvYmplY3QiLCJwcm9wZXJ0aWVzIjp7ImFsZXJ0X2lkIjp7InR5cGUiOiJzdHJpbmciLCJkZWZhdWx0IjoiIn0sImNhc2UgcmVmZXJlbmNlIGlkIjp7InR5cGUiOiJzdHJpbmciLCJkZWZhdWx0IjoiIn0sImNhc2UgdXJsIjp7InR5cGUiOiJzdHJpbmciLCJkZWZhdWx0IjoiIn0sInN0YXJ0IHRpbWUiOnsidHlwZSI6InN0cmluZyIsImRlZmF1bHQiOiIifSwiZW5kIHRpbWUiOnsidHlwZSI6InN0cmluZyIsImRlZmF1bHQiOiIifSwiY2FzZSBzdGF0ZSI6eyJ0eXBlIjoic3RyaW5nIiwiZGVmYXVsdCI6IiJ9LCJpbmNpZGVudCBsb2NhdGlvbiI6eyJ0eXBlIjoic3RyaW5nIiwiZGVmYXVsdCI6IiJ9LCJpbmNpZGVudCB1cmwiOnsidHlwZSI6InN0cmluZyIsImRlZmF1bHQiOiIifX19LCJ2ZWhpY2xlY291bnQiOnsidHlwZSI6Im9iamVjdCIsInByb3BlcnRpZXMiOnsiQWN0aXZlIEJ1cyBDb3VudCI6eyJ0eXBlIjoic3RyaW5nIiwiZGVmYXVsdCI6IjAifX19LCJ2ZWhpY2xlZGV0YWlscyI6eyJ0eXBlIjoib2JqZWN0IiwicHJvcGVydGllcyI6eyJpZCI6eyJ0eXBlIjoic3RyaW5nIiwiZGVmYXVsdCI6IiJ9LCJjb25nZXN0aW9uX2xldmVsIjp7InR5cGUiOiJzdHJpbmciLCJkZWZhdWx0IjoiIn0sIm9jY3VwYW5jeV9zdGF0dXMiOnsidHlwZSI6InN0cmluZyIsImRlZmF1bHQiOiIifSwic2NoZWR1bGVfcmVsYXRpb25zaGlwIjp7InR5cGUiOiJzdHJpbmciLCJkZWZhdWx0IjoiIn0sImN1cnJlbnRfbG9jYXRpb24iOnsidHlwZSI6InN0cmluZyIsImRlZmF1bHQiOiIifSwic3BlZWQiOnsidHlwZSI6InN0cmluZyIsImRlZmF1bHQiOiIifSwicm91dGVfaWQiOnsidHlwZSI6InN0cmluZyIsImRlZmF1bHQiOiIifSwidHJpcF9pZCI6eyJ0eXBlIjoic3RyaW5nIiwiZGVmYXVsdCI6IiJ9LCJ0aW1lc3RhbXAiOnsidHlwZSI6InN0cmluZyIsImRlZmF1bHQiOiIifX19fX0="
+                },
+                "swaggerVersion": "v2",
+                "secureConnection": false,
+                "serverKey": "",
+                "caCertificate": ""
+            },
+            "id": "ReceiveHTTPMessage",
+            "handlers": [
+                {
+                    "description": "This will produce the count of total occurred incidents (ACTIVE and CLOSED)",
+                    "settings": {
+                        "APISpecPath": "/v2/gtfs/incident/count",
+                        "Method": "GET",
+                        "Path": "/v2/gtfs/incident/count",
+                        "OutputValidation": false
+                    },
+                    "action": {
+                        "ref": "github.com/project-flogo/flow",
+                        "settings": {
+                            "flowURI": "res://flow:Get_Total_Incident_Count"
+                        },
+                        "input": {
+                            "queryParams": "=$.queryParams"
+                        },
+                        "output": {
+                            "code": "=$.code",
+                            "responseBody": "=$.responseBody"
+                        }
+                    },
+                    "reply": {
+                        "code": 200,
+                        "configureResponseCodes": true,
+                        "message": ""
+                    },
+                    "schemas": {
+                        "reply": {
+                            "responseBody": {
+                                "type": "json",
+                                "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}",
+                                "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}"
+                            },
+                            "responseCodesSchema": {
+                                "type": "json",
+                                "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"number\"},\"responseType\":{\"type\":\"string\"},\"responseSchema\":{\"type\":\"string\"}}}}",
+                                "fe_metadata": "[{\"code\":200,\"responseType\":\"object\",\"responseSchema\":\"{\\\"type\\\":\\\"object\\\",\\\"properties\\\":{\\\"Total Number of Incidents\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"}}}\"}]"
+                            }
+                        },
+                        "output": {
+                            "queryParams": {
+                                "type": "json",
+                                "value": "{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}},\"required\":[\"type\"]}",
+                                "fe_metadata": "[{\"parameterName\":\"type\",\"repeating\":\"false\",\"type\":\"string\",\"required\":\"true\"}]"
+                            }
+                        }
+                    },
+                    "name": "Get_Total_Incident_Count"
+                },
+                {
+                    "description": "This will produce the GTFS feed as response based on query parameter JSON, if true then json data otherwise protobuf",
+                    "settings": {
+                        "APISpecPath": "/v2/gtfs/vehiclepos/buses",
+                        "Method": "GET",
+                        "Path": "/v2/gtfs/vehiclepos/buses",
+                        "OutputValidation": false
+                    },
+                    "action": {
+                        "ref": "github.com/project-flogo/flow",
+                        "settings": {
+                            "flowURI": "res://flow:Get_GTFS_Feed-ProtoBuf_Or_JSON"
+                        },
+                        "input": {
+                            "queryParams": "=$.queryParams"
+                        },
+                        "output": {
+                            "code": "=$.code",
+                            "responseBody": "=$.responseBody"
+                        }
+                    },
+                    "reply": {
+                        "code": 200,
+                        "configureResponseCodes": true,
+                        "message": ""
+                    },
+                    "schemas": {
+                        "reply": {
+                            "responseBody": {
+                                "type": "json",
+                                "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}",
+                                "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}"
+                            },
+                            "responseCodesSchema": {
+                                "type": "json",
+                                "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"number\"},\"responseType\":{\"type\":\"string\"},\"responseSchema\":{\"type\":\"string\"}},\"required\":[\"code\",\"responseType\",\"responseSchema\"]}}",
+                                "fe_metadata": "[{\"code\":200,\"responseType\":\"object\",\"responseSchema\":\"{\\\"data\\\":{}}\"},{\"code\":400,\"responseType\":\"object\",\"responseSchema\":\"{\\\"type\\\":\\\"object\\\",\\\"properties\\\":{}}\"}]"
+                            }
+                        },
+                        "output": {
+                            "queryParams": {
+                                "type": "json",
+                                "value": "{\"type\":\"object\",\"properties\":{\"json\":{\"type\":\"boolean\"}},\"required\":[\"json\"]}",
+                                "fe_metadata": "[{\"parameterName\":\"json\",\"repeating\":\"false\",\"type\":\"boolean\",\"required\":\"true\"}]"
+                            }
+                        }
+                    },
+                    "name": "Get_GTFS_Feed-ProtoBuf_Or_JSON"
+                },
+                {
+                    "description": "This will return the list of all reported incidents",
+                    "settings": {
+                        "APISpecPath": "/v2/gtfs/incidents",
+                        "Method": "GET",
+                        "Path": "/v2/gtfs/incidents",
+                        "OutputValidation": false
+                    },
+                    "action": {
+                        "ref": "github.com/project-flogo/flow",
+                        "settings": {
+                            "flowURI": "res://flow:Get_All_Incidents"
+                        },
+                        "output": {
+                            "code": "=$.code",
+                            "responseBody": "=$.responseBody"
+                        }
+                    },
+                    "reply": {
+                        "code": 200,
+                        "configureResponseCodes": true,
+                        "message": ""
+                    },
+                    "schemas": {
+                        "reply": {
+                            "responseBody": {
+                                "type": "json",
+                                "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}",
+                                "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}"
+                            },
+                            "responseCodesSchema": {
+                                "type": "json",
+                                "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"number\"},\"responseType\":{\"type\":\"string\"},\"responseSchema\":{\"type\":\"string\"}}}}",
+                                "fe_metadata": "[{\"code\":200,\"responseType\":\"object\",\"responseSchema\":\"{\\\"type\\\":\\\"array\\\",\\\"items\\\":{\\\"type\\\":\\\"object\\\",\\\"properties\\\":{\\\"alert_id\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"case reference id\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"case url\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"start time\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"end time\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"case state\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"incident location\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"incident url\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"}}}}\"}]"
+                            }
+                        }
+                    },
+                    "name": "Get_All_Incidents"
+                },
+                {
+                    "description": "This will generate the incident details for requested case reference id",
+                    "settings": {
+                        "APISpecPath": "/v2/gtfs/incidents/{case_reference}",
+                        "Method": "GET",
+                        "Path": "/v2/gtfs/incidents/{case_reference}",
+                        "OutputValidation": false
+                    },
+                    "action": {
+                        "ref": "github.com/project-flogo/flow",
+                        "settings": {
+                            "flowURI": "res://flow:Get_Incident_details_by_Case_ReferenceID"
+                        },
+                        "input": {
+                            "pathParams": "=$.pathParams"
+                        },
+                        "output": {
+                            "code": "=$.code",
+                            "responseBody": "=$.responseBody"
+                        }
+                    },
+                    "reply": {
+                        "code": 200,
+                        "configureResponseCodes": true,
+                        "message": ""
+                    },
+                    "schemas": {
+                        "reply": {
+                            "responseBody": {
+                                "type": "json",
+                                "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}",
+                                "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}"
+                            },
+                            "responseCodesSchema": {
+                                "type": "json",
+                                "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"number\"},\"responseType\":{\"type\":\"string\"},\"responseSchema\":{\"type\":\"string\"}},\"required\":[\"code\",\"responseType\",\"responseSchema\"]}}",
+                                "fe_metadata": "[{\"code\":200,\"responseType\":\"object\",\"responseSchema\":\"{\\\"type\\\":\\\"object\\\",\\\"properties\\\":{\\\"alert_id\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"case reference id\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"case url\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"start time\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"end time\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"case state\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"incident location\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"incident url\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"}}}\"},{\"code\":404,\"responseType\":\"object\",\"responseSchema\":\"{\\\"type\\\":\\\"object\\\",\\\"properties\\\":{\\\"message\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"Not found\\\"}}}\"}]"
+                            }
+                        },
+                        "output": {
+                            "pathParams": {
+                                "type": "json",
+                                "value": "{\"type\":\"object\",\"properties\":{\"case_reference\":{\"type\":\"string\"}},\"required\":[]}",
+                                "fe_metadata": "[{\"parameterName\":\"case_reference\",\"type\":\"string\"}]"
+                            }
+                        }
+                    },
+                    "name": "Get_Incident_details_by_Case_ReferenceID"
+                },
+                {
+                    "description": "This will generate a On Demand list of buses facing the congestion level denoted by Query Parameter",
+                    "settings": {
+                        "APISpecPath": "/v2/gtfs/vehicle/buses/congested_buses",
+                        "Method": "GET",
+                        "Path": "/v2/gtfs/vehicle/buses/congested_buses",
+                        "OutputValidation": false
+                    },
+                    "action": {
+                        "ref": "github.com/project-flogo/flow",
+                        "settings": {
+                            "flowURI": "res://flow:Get_List_of_Buses_By_CongestionLevel"
+                        },
+                        "input": {
+                            "queryParams": "=$.queryParams"
+                        },
+                        "output": {
+                            "code": "=$.code",
+                            "responseBody": "=$.responseBody"
+                        }
+                    },
+                    "reply": {
+                        "code": 200,
+                        "configureResponseCodes": true,
+                        "message": ""
+                    },
+                    "schemas": {
+                        "reply": {
+                            "responseBody": {
+                                "type": "json",
+                                "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}",
+                                "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}"
+                            },
+                            "responseCodesSchema": {
+                                "type": "json",
+                                "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"number\"},\"responseType\":{\"type\":\"string\"},\"responseSchema\":{\"type\":\"string\"}},\"required\":[\"code\",\"responseType\",\"responseSchema\"]}}",
+                                "fe_metadata": "[{\"code\":200,\"responseType\":\"object\",\"responseSchema\":\"{\\\"type\\\":\\\"array\\\",\\\"items\\\":{\\\"type\\\":\\\"object\\\",\\\"properties\\\":{\\\"id\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"congestion_level\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"occupancy_status\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"schedule_relationship\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"current_location\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"speed\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"route_id\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"trip_id\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"},\\\"timestamp\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"\\\"}}}}\"},{\"code\":404,\"responseType\":\"object\",\"responseSchema\":\"{\\\"type\\\":\\\"object\\\",\\\"properties\\\":{\\\"message\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"Not found\\\"}}}\"}]"
+                            }
+                        }
+                    },
+                    "name": "Get_List_of_Buses_By_CongestionLevel"
+                },
+                {
+                    "description": "This will produce a number of buses running on road by tapping into live feed",
+                    "settings": {
+                        "APISpecPath": "/v2/gtfs/vehicle/buses/count",
+                        "Method": "GET",
+                        "Path": "/v2/gtfs/vehicle/buses/count",
+                        "OutputValidation": false
+                    },
+                    "action": {
+                        "ref": "github.com/project-flogo/flow",
+                        "settings": {
+                            "flowURI": "res://flow:Get_Total_Number_of_Live_Vehicle"
+                        },
+                        "output": {
+                            "code": "=$.code",
+                            "responseBody": "=$.responseBody"
+                        }
+                    },
+                    "reply": {
+                        "code": 200,
+                        "configureResponseCodes": true,
+                        "message": ""
+                    },
+                    "schemas": {
+                        "reply": {
+                            "responseBody": {
+                                "type": "json",
+                                "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}",
+                                "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}"
+                            },
+                            "responseCodesSchema": {
+                                "type": "json",
+                                "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"number\"},\"responseType\":{\"type\":\"string\"},\"responseSchema\":{\"type\":\"string\"}},\"required\":[\"code\",\"responseType\",\"responseSchema\"]}}",
+                                "fe_metadata": "[{\"code\":200,\"responseType\":\"object\",\"responseSchema\":\"{\\\"type\\\":\\\"object\\\",\\\"properties\\\":{\\\"Active Bus Count\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"0\\\"}}}\"},{\"code\":404,\"responseType\":\"object\",\"responseSchema\":\"{\\\"type\\\":\\\"object\\\",\\\"properties\\\":{\\\"message\\\":{\\\"type\\\":\\\"string\\\",\\\"default\\\":\\\"Not found\\\"}}}\"}]"
+                            }
+                        }
+                    },
+                    "name": "Get_Total_Number_of_Live_Vehicle"
+                }
+            ]
+        }
+    ],
+    "resources": [
+        {
+            "id": "flow:Get_Total_Incident_Count",
+            "data": {
+                "name": "Get Total Incident Count",
+                "description": "This will produce the count of total occurred incidents (ACTIVE and CLOSED)",
+                "links": [
+                    {
+                        "id": 1,
+                        "from": "LogMessage",
+                        "to": "MySQLQuery",
+                        "type": "default"
+                    },
+                    {
+                        "id": 2,
+                        "from": "MySQLQuery",
+                        "to": "ConfigureHTTPResponse",
+                        "type": "default"
+                    },
+                    {
+                        "id": 3,
+                        "from": "ConfigureHTTPResponse",
+                        "to": "Return",
+                        "type": "default"
+                    }
+                ],
+                "tasks": [
+                    {
+                        "id": "LogMessage",
+                        "name": "LogMessage",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "INFO",
+                                "flowInfo": false,
+                                "message": "=string.concat(\"requested for COUNT\",\"\" )"
+                            }
+                        }
+                    },
+                    {
+                        "id": "MySQLQuery",
+                        "name": "MySQLQuery",
+                        "description": "This activity executes query on a MySQL database",
+                        "settings": {
+                            "retryOnError": {
+                                "count": 0,
+                                "interval": 0
+                            }
+                        },
+                        "activity": {
+                            "ref": "#query",
+                            "input": {
+                                "Connection": "conn://6c5cefd0-b7d1-11eb-9856-41db67230f7c",
+                                "QueryName": "",
+                                "Query": "SELECT Count(alert_id) FROM (\n                SELECT  * FROM gtfs_alertcasetracking ga \n                UNION ALL\n                SELECT  * FROM gtfs_incidenthistory gi \n) as l ORDER BY caseRef ASC;",
+                                "manualmode": false,
+                                "Fields": {
+                                    "mapping": [
+                                        {
+                                            "FieldName": "Count(alert_id)",
+                                            "Type": "BIGINT",
+                                            "Selected": true,
+                                            "Parameter": false,
+                                            "isEditable": false
+                                        }
+                                    ]
+                                },
+                                "State": "aaa69dce-666c-4032-ac1a-2ab83591981bSELECT Count(alert_id) FROM (\n                SELECT  * FROM gtfs_alertcasetracking ga \n                UNION ALL\n                SELECT  * FROM gtfs_incidenthistory gi \n) as l ORDER BY caseRef ASC;"
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"definitions\":{},\"properties\":{\"parameters\":{\"type\":\"object\",\"properties\":{}}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"definitions\":{},\"properties\":{\"parameters\":{\"type\":\"object\",\"properties\":{}}}}"
+                                    }
+                                },
+                                "output": {
+                                    "Output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"definitions\":{},\"properties\":{\"records\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Count(alert_id)\":{\"type\":\"integer\"}}}}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"definitions\":{},\"properties\":{\"records\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Count(alert_id)\":{\"type\":\"integer\"}}}}}}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "ConfigureHTTPResponse",
+                        "name": "ConfigureHTTPResponse",
+                        "description": "Configure HTTP Response Activity",
+                        "activity": {
+                            "ref": "#httpresponse",
+                            "input": {
+                                "trigger": "ReceiveHTTPMessage",
+                                "responsecode": "200",
+                                "input": {
+                                    "mapping": {
+                                        "body": {
+                                            "Incident Count": "=string.tostring($activity[MySQLQuery].Output.records[0][\"Count(alert_id)\"])"
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"Total Number of Incidents\":{\"type\":\"string\",\"default\":\"\"}}}}}",
+                                        "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"Total Number of Incidents\":{\"type\":\"string\",\"default\":\"\"}}}}}"
+                                    }
+                                },
+                                "output": {
+                                    "response": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"Total Number of Incidents\":{\"type\":\"string\",\"default\":\"\"}}}}}",
+                                        "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"Total Number of Incidents\":{\"type\":\"string\",\"default\":\"\"}}}}}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "Return",
+                        "name": "Return",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": "=$activity[ConfigureHTTPResponse].code",
+                                    "responseBody": "=$activity[ConfigureHTTPResponse].response"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "metadata": {
+                    "input": [
+                        {
+                            "name": "queryParams",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"type\":{\"type\":\"string\"}}"
+                            }
+                        }
+                    ],
+                    "output": [
+                        {
+                            "name": "code",
+                            "type": "integer"
+                        },
+                        {
+                            "name": "responseBody",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}"
+                            }
+                        }
+                    ],
+                    "fe_metadata": {
+                        "input": "{\"type\":\"object\",\"title\":\"ReceiveHTTPMessage\",\"properties\":{\"queryParams\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}},\"required\":[\"type\"]}}}",
+                        "output": "{\"type\":\"object\",\"title\":\"Inputs\",\"properties\":{\"code\":{\"type\":\"integer\",\"required\":false},\"responseBody\":{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}},\"required\":[]}"
+                    }
+                },
+                "explicitReply": true,
+                "flowId": "995096e2-3fd0-4c4f-bec4-dd5a7aa1e9fa"
+            }
+        },
+        {
+            "id": "flow:Get_GTFS_Feed-ProtoBuf_Or_JSON",
+            "data": {
+                "name": "Get GTFS Feed-ProtoBuf Or JSON",
+                "description": "This will produce the GTFS feed as response based on query parameter JSON, if true then json data otherwise protobuf",
+                "links": [
+                    {
+                        "id": 1,
+                        "from": "LogMessage",
+                        "to": "InvokeRESTService",
+                        "type": "label",
+                        "label": "LogMessagetoInvokeRESTService"
+                    },
+                    {
+                        "id": 2,
+                        "from": "InvokeRESTService",
+                        "to": "ParseJSONActivity",
+                        "type": "default"
+                    },
+                    {
+                        "id": 3,
+                        "from": "ParseJSONActivity",
+                        "to": "ConfigureHTTPResponse",
+                        "type": "default"
+                    },
+                    {
+                        "id": 4,
+                        "from": "ConfigureHTTPResponse",
+                        "to": "Return",
+                        "type": "default"
+                    },
+                    {
+                        "id": 5,
+                        "from": "InvokeRESTService",
+                        "to": "CopyOfReturn",
+                        "type": "expression",
+                        "label": "InvokeRESTServiceto",
+                        "value": "$flow.queryParams.json==false"
+                    },
+                    {
+                        "id": 6,
+                        "from": "InvokeRESTService",
+                        "to": "Return1",
+                        "type": "error",
+                        "label": "InvokeRESTService to Return1"
+                    }
+                ],
+                "tasks": [
+                    {
+                        "id": "LogMessage",
+                        "name": "LogMessage",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "INFO",
+                                "flowInfo": false,
+                                "message": "=string.concat(\"request for the live feed of type JSON =\", string.tostring($flow.queryParams.json))"
+                            }
+                        }
+                    },
+                    {
+                        "id": "InvokeRESTService",
+                        "name": "InvokeRESTService",
+                        "description": "Simple REST Activity",
+                        "settings": {
+                            "retryOnError": {
+                                "count": 0,
+                                "interval": 0
+                            }
+                        },
+                        "activity": {
+                            "ref": "#rest",
+                            "input": {
+                                "enableASR": false,
+                                "swagger": "",
+                                "authorization": false,
+                                "authorizationConn": "",
+                                "serviceName": "",
+                                "resourcePath": "",
+                                "Method": "GET",
+                                "Uri": "https://api.transport.nsw.gov.au:443/v1/gtfs/vehiclepos/buses",
+                                "Timeout": 0,
+                                "requestType": "application/json",
+                                "Use certificate for verification": false,
+                                "Server Certificate": "",
+                                "proxy": "",
+                                "host": "",
+                                "headers": {
+                                    "mapping": {
+                                        "Authorization": "=string.concat(\"apikey \",$property[\"TfNSW.Auth_Key\"])"
+                                    }
+                                }
+                            },
+                            "output": {
+                                "configureResponseCodes": false,
+                                "responseType": "other",
+                                "responseOutput": "JSON Object"
+                            },
+                            "schemas": {
+                                "input": {
+                                    "headers": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"Authorization\":{\"type\":\"string\"},\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[]}",
+                                        "fe_metadata": "[{\"parameterName\":\"Authorization\",\"type\":\"string\",\"repeating\":\"\",\"required\":\"\"},{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+                                    }
+                                },
+                                "output": {
+                                    "responseBody": {
+                                        "type": "json",
+                                        "value": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"properties\": {\n    \"data\": {\n      \"type\": \"string\"\n    }\n  },\n  \"type\": \"object\"\n}",
+                                        "fe_metadata": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"properties\": {\n    \"data\": {\n      \"type\": \"string\"\n    }\n  },\n  \"type\": \"object\"\n}"
+                                    },
+                                    "headers": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[]}",
+                                        "fe_metadata": "[{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "ParseJSONActivity",
+                        "name": "ParseJSONActivity",
+                        "description": "Parses JSON string into JSON object",
+                        "activity": {
+                            "ref": "#parsejson",
+                            "input": {
+                                "validate": false,
+                                "jsonString": "=(cl_utils.GTFSAdapter($activity[InvokeRESTService].responseBody.data, 0, false))"
+                            },
+                            "schemas": {
+                                "output": {
+                                    "jsonObject": {
+                                        "type": "json",
+                                        "value": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"entity\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"id\": {\n                        \"type\": \"string\"\n                    },\n                    \"vehicle\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"congestion_level\": {\n                                \"type\": \"string\"\n                            },\n                            \"current_status\": {\n                                \"type\": \"null\"\n                            },\n                            \"current_stop_sequence\": {\n                                \"type\": \"null\"\n                            },\n                            \"occupancy_status\": {\n                                \"type\": \"string\"\n                            },\n                            \"position\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"bearing\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"latitude\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"longitude\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"odometer\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"speed\": {\n                                        \"type\": \"number\"\n                                    }\n                                }\n                            },\n                            \"stop_id\": {\n                                \"type\": \"null\"\n                            },\n                            \"timestamp\": {\n                                \"type\": \"string\"\n                            },\n                            \"trip\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"direction_id\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"route_id\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"schedule_relationship\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"start_date\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"start_time\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"trip_id\": {\n                                        \"type\": \"string\"\n                                    }\n                                }\n                            },\n                            \"vehicle\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"id\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"label\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"license_plate\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"tfnsw_vehicle_descriptor\": {\n                                        \"type\": \"null\"\n                                    }\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}",
+                                        "fe_metadata": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"entity\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"id\": {\n                        \"type\": \"string\"\n                    },\n                    \"vehicle\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"congestion_level\": {\n                                \"type\": \"string\"\n                            },\n                            \"current_status\": {\n                                \"type\": \"null\"\n                            },\n                            \"current_stop_sequence\": {\n                                \"type\": \"null\"\n                            },\n                            \"occupancy_status\": {\n                                \"type\": \"string\"\n                            },\n                            \"position\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"bearing\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"latitude\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"longitude\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"odometer\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"speed\": {\n                                        \"type\": \"number\"\n                                    }\n                                }\n                            },\n                            \"stop_id\": {\n                                \"type\": \"null\"\n                            },\n                            \"timestamp\": {\n                                \"type\": \"string\"\n                            },\n                            \"trip\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"direction_id\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"route_id\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"schedule_relationship\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"start_date\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"start_time\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"trip_id\": {\n                                        \"type\": \"string\"\n                                    }\n                                }\n                            },\n                            \"vehicle\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"id\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"label\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"license_plate\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"tfnsw_vehicle_descriptor\": {\n                                        \"type\": \"null\"\n                                    }\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "ConfigureHTTPResponse",
+                        "name": "ConfigureHTTPResponse",
+                        "description": "Configure HTTP Response Activity",
+                        "activity": {
+                            "ref": "#httpresponse",
+                            "input": {
+                                "trigger": "ReceiveHTTPMessage",
+                                "responsecode": "200",
+                                "input": {
+                                    "mapping": {
+                                        "body": {
+                                            "data": "=$activity[ParseJSONActivity].jsonObject"
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{}}}}}}",
+                                        "fe_metadata": "{\"body\":{\"data\":{}}}"
+                                    }
+                                },
+                                "output": {
+                                    "response": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{}}}}}}",
+                                        "fe_metadata": "{\"body\":{\"data\":{}}}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "Return",
+                        "name": "Return",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": "=$activity[ConfigureHTTPResponse].code",
+                                    "responseBody": "=$activity[ConfigureHTTPResponse].response"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "CopyOfReturn",
+                        "name": "CopyOfReturn",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": 200,
+                                    "responseBody": {
+                                        "mapping": {
+                                            "body": "=$activity[InvokeRESTService].responseBody",
+                                            "headers": "=$activity[InvokeRESTService].headers"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "Return1",
+                        "name": "Return1",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": 500,
+                                    "responseBody": {
+                                        "mapping": {
+                                            "body": "Unknown Error, Please try again."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "metadata": {
+                    "input": [
+                        {
+                            "name": "queryParams",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"json\":{\"type\":\"boolean\"}}"
+                            }
+                        }
+                    ],
+                    "output": [
+                        {
+                            "name": "code",
+                            "type": "integer"
+                        },
+                        {
+                            "name": "responseBody",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}"
+                            }
+                        }
+                    ],
+                    "fe_metadata": {
+                        "input": "{\"type\":\"object\",\"title\":\"ReceiveHTTPMessage\",\"properties\":{\"queryParams\":{\"type\":\"object\",\"properties\":{\"json\":{\"type\":\"boolean\"}},\"required\":[\"json\"]}}}",
+                        "output": "{\"type\":\"object\",\"title\":\"Inputs\",\"properties\":{\"code\":{\"type\":\"integer\",\"required\":false},\"responseBody\":{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}},\"required\":[]}"
+                    }
+                },
+                "explicitReply": true,
+                "flowId": "77a17bf1-6d80-4feb-95a6-ccd9efb3d799"
+            }
+        },
+        {
+            "id": "flow:Get_All_Incidents",
+            "data": {
+                "name": "Get All Incidents",
+                "description": "This will return the list of all reported incidents",
+                "links": [
+                    {
+                        "id": 1,
+                        "from": "MySQLQuery",
+                        "to": "ConfigureHTTPResponse",
+                        "type": "default"
+                    },
+                    {
+                        "id": 2,
+                        "from": "ConfigureHTTPResponse",
+                        "to": "Return",
+                        "type": "default"
+                    },
+                    {
+                        "id": 3,
+                        "from": "MySQLQuery",
+                        "to": "CopyOfReturn",
+                        "type": "expression",
+                        "label": "MySQLQuery to CopyOfReturn",
+                        "value": "array.count($activity[MySQLQuery].Output.records)==0"
+                    }
+                ],
+                "tasks": [
+                    {
+                        "id": "MySQLQuery",
+                        "name": "MySQLQuery",
+                        "description": "This activity executes query on a MySQL database",
+                        "settings": {
+                            "retryOnError": {
+                                "count": 0,
+                                "interval": 0
+                            }
+                        },
+                        "activity": {
+                            "ref": "#query",
+                            "input": {
+                                "Connection": "conn://6c5cefd0-b7d1-11eb-9856-41db67230f7c",
+                                "QueryName": "",
+                                "Query": "SELECT * FROM (\n                SELECT  * FROM gtfs_alertcasetracking ga \n                UNION ALL\n                SELECT  * FROM gtfs_incidenthistory gi \n) \nas l ORDER BY caseRef ASC;",
+                                "manualmode": false,
+                                "Fields": [
+                                    {
+                                        "FieldName": "alert_id",
+                                        "Type": "VARCHAR",
+                                        "Selected": true,
+                                        "Parameter": false,
+                                        "isEditable": false
+                                    },
+                                    {
+                                        "FieldName": "caseRef",
+                                        "Type": "VARCHAR",
+                                        "Selected": true,
+                                        "Parameter": false,
+                                        "isEditable": false
+                                    },
+                                    {
+                                        "FieldName": "case_url",
+                                        "Type": "VARCHAR",
+                                        "Selected": true,
+                                        "Parameter": false,
+                                        "isEditable": false
+                                    },
+                                    {
+                                        "FieldName": "start_time",
+                                        "Type": "VARCHAR",
+                                        "Selected": true,
+                                        "Parameter": false,
+                                        "isEditable": false
+                                    },
+                                    {
+                                        "FieldName": "end_time",
+                                        "Type": "VARCHAR",
+                                        "Selected": true,
+                                        "Parameter": false,
+                                        "isEditable": false
+                                    },
+                                    {
+                                        "FieldName": "case_state",
+                                        "Type": "VARCHAR",
+                                        "Selected": true,
+                                        "Parameter": false,
+                                        "isEditable": false
+                                    },
+                                    {
+                                        "FieldName": "incident_url",
+                                        "Type": "VARCHAR",
+                                        "Selected": true,
+                                        "Parameter": false,
+                                        "isEditable": false
+                                    },
+                                    {
+                                        "FieldName": "location",
+                                        "Type": "VARCHAR",
+                                        "Selected": true,
+                                        "Parameter": false,
+                                        "isEditable": false
+                                    }
+                                ],
+                                "State": "02d9cf85-1c96-4af1-a19d-13f91f41ba91SELECT * FROM (\n                SELECT  * FROM gtfs_alertcasetracking ga \n                UNION ALL\n                SELECT  * FROM gtfs_incidenthistory gi \n) \nas l ORDER BY caseRef ASC;"
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"definitions\":{},\"properties\":{\"parameters\":{\"type\":\"object\",\"properties\":{}}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"definitions\":{},\"properties\":{\"parameters\":{\"type\":\"object\",\"properties\":{}}}}"
+                                    }
+                                },
+                                "output": {
+                                    "Output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"definitions\":{},\"properties\":{\"records\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"alert_id\":{\"type\":\"string\"},\"caseRef\":{\"type\":\"string\"},\"case_url\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"end_time\":{\"type\":\"string\"},\"case_state\":{\"type\":\"string\"},\"incident_url\":{\"type\":\"string\"},\"location\":{\"type\":\"string\"}}}}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"definitions\":{},\"properties\":{\"records\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"alert_id\":{\"type\":\"string\"},\"caseRef\":{\"type\":\"string\"},\"case_url\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"end_time\":{\"type\":\"string\"},\"case_state\":{\"type\":\"string\"},\"incident_url\":{\"type\":\"string\"},\"location\":{\"type\":\"string\"}}}}}}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "ConfigureHTTPResponse",
+                        "name": "ConfigureHTTPResponse",
+                        "description": "Configure HTTP Response Activity",
+                        "activity": {
+                            "ref": "#httpresponse",
+                            "input": {
+                                "trigger": "ReceiveHTTPMessage",
+                                "responsecode": "200",
+                                "input": {
+                                    "mapping": {
+                                        "body": {
+                                            "@foreach($activity[MySQLQuery].Output.records,body)": {
+                                                "=": "$loop"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"alert_id\":{\"type\":\"string\",\"default\":\"\"},\"case reference id\":{\"type\":\"string\",\"default\":\"\"},\"case url\":{\"type\":\"string\",\"default\":\"\"},\"start time\":{\"type\":\"string\",\"default\":\"\"},\"end time\":{\"type\":\"string\",\"default\":\"\"},\"case state\":{\"type\":\"string\",\"default\":\"\"},\"incident location\":{\"type\":\"string\",\"default\":\"\"},\"incident url\":{\"type\":\"string\",\"default\":\"\"}}}}}}",
+                                        "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"alert_id\":{\"type\":\"string\",\"default\":\"\"},\"case reference id\":{\"type\":\"string\",\"default\":\"\"},\"case url\":{\"type\":\"string\",\"default\":\"\"},\"start time\":{\"type\":\"string\",\"default\":\"\"},\"end time\":{\"type\":\"string\",\"default\":\"\"},\"case state\":{\"type\":\"string\",\"default\":\"\"},\"incident location\":{\"type\":\"string\",\"default\":\"\"},\"incident url\":{\"type\":\"string\",\"default\":\"\"}}}}}}"
+                                    }
+                                },
+                                "output": {
+                                    "response": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"alert_id\":{\"type\":\"string\",\"default\":\"\"},\"case reference id\":{\"type\":\"string\",\"default\":\"\"},\"case url\":{\"type\":\"string\",\"default\":\"\"},\"start time\":{\"type\":\"string\",\"default\":\"\"},\"end time\":{\"type\":\"string\",\"default\":\"\"},\"case state\":{\"type\":\"string\",\"default\":\"\"},\"incident location\":{\"type\":\"string\",\"default\":\"\"},\"incident url\":{\"type\":\"string\",\"default\":\"\"}}}}}}",
+                                        "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"alert_id\":{\"type\":\"string\",\"default\":\"\"},\"case reference id\":{\"type\":\"string\",\"default\":\"\"},\"case url\":{\"type\":\"string\",\"default\":\"\"},\"start time\":{\"type\":\"string\",\"default\":\"\"},\"end time\":{\"type\":\"string\",\"default\":\"\"},\"case state\":{\"type\":\"string\",\"default\":\"\"},\"incident location\":{\"type\":\"string\",\"default\":\"\"},\"incident url\":{\"type\":\"string\",\"default\":\"\"}}}}}}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "Return",
+                        "name": "Return",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": "=$activity[ConfigureHTTPResponse].code",
+                                    "responseBody": "=$activity[ConfigureHTTPResponse].response"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "CopyOfReturn",
+                        "name": "CopyOfReturn",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": 200,
+                                    "responseBody": {
+                                        "mapping": {
+                                            "body": "INCIDENT DATA UNAVAILABLE"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "metadata": {
+                    "input": [],
+                    "output": [
+                        {
+                            "name": "code",
+                            "type": "integer"
+                        },
+                        {
+                            "name": "responseBody",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}"
+                            }
+                        }
+                    ],
+                    "fe_metadata": {
+                        "input": "{}",
+                        "output": "{\"type\":\"object\",\"title\":\"Inputs\",\"properties\":{\"code\":{\"type\":\"integer\",\"required\":false},\"responseBody\":{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}},\"required\":[]}"
+                    }
+                },
+                "explicitReply": true,
+                "flowId": "6a1dd93c-f218-4445-8e50-4282cdb19e7f"
+            }
+        },
+        {
+            "id": "flow:Get_Incident_details_by_Case_ReferenceID",
+            "data": {
+                "name": "Get Incident details by Case ReferenceID",
+                "description": "This will generate the incident details for requested case reference id",
+                "links": [
+                    {
+                        "id": 1,
+                        "from": "LogMessage",
+                        "to": "LiveAppsGetCase",
+                        "type": "default"
+                    },
+                    {
+                        "id": 2,
+                        "from": "LiveAppsGetCase",
+                        "to": "Mapper",
+                        "type": "default"
+                    },
+                    {
+                        "id": 3,
+                        "from": "Mapper",
+                        "to": "ConfigureHTTPResponse",
+                        "type": "default"
+                    },
+                    {
+                        "id": 4,
+                        "from": "ConfigureHTTPResponse",
+                        "to": "Return",
+                        "type": "default"
+                    },
+                    {
+                        "id": 5,
+                        "from": "LiveAppsGetCase",
+                        "to": "CopyOfConfigureHTTPResponse",
+                        "type": "expression",
+                        "label": "LiveAppsGetCasetoCopyOfConfigureHTTPResponse",
+                        "value": "isdefined($activity[LiveAppsGetCase].data)==null"
+                    },
+                    {
+                        "id": 6,
+                        "from": "CopyOfConfigureHTTPResponse",
+                        "to": "CopyOfReturn",
+                        "type": "default"
+                    },
+                    {
+                        "id": 7,
+                        "from": "LiveAppsGetCase",
+                        "to": "CopyOfCopyOfConfigureHTTPResponse",
+                        "type": "error",
+                        "label": "LiveAppsGetCase to CopyOfCopyOfConfigureHTTPResponse"
+                    },
+                    {
+                        "id": 8,
+                        "from": "CopyOfCopyOfConfigureHTTPResponse",
+                        "to": "Return1",
+                        "type": "default"
+                    }
+                ],
+                "tasks": [
+                    {
+                        "id": "LogMessage",
+                        "name": "LogMessage",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "INFO",
+                                "flowInfo": false,
+                                "message": "=string.concat(\"######### request for case ref no : \", $flow.pathParams.case_reference, \" ######\")"
+                            }
+                        }
+                    },
+                    {
+                        "id": "LiveAppsGetCase",
+                        "name": "LiveAppsGetCase",
+                        "description": "Live Apps Get Case",
+                        "activity": {
+                            "ref": "#get",
+                            "input": {
+                                "applicationId": "4785",
+                                "sandboxId": "6440",
+                                "caseRef": "=$flow.pathParams.case_reference"
+                            },
+                            "schemas": {
+                                "output": {
+                                    "data": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"properties\":{\"State\":{\"type\":\"string\",\"title\":\"State\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"2\",\"internalName\":\"state\"},\"enum\":[\"Reported\",\"Open\",\"Resolved\",\"Close\"]},\"AlertID\":{\"type\":\"string\",\"maxLength\":50,\"title\":\"Alert ID\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"3\",\"internalName\":\"AlertID\",\"isSummary\":true}},\"AlertType\":{\"type\":\"string\",\"maxLength\":50,\"title\":\"Alert Type\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"4\",\"internalName\":\"AlertType\",\"isSummary\":true}},\"Description\":{\"type\":\"string\",\"maxLength\":250,\"title\":\"Description\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"5\",\"internalName\":\"Description\"}},\"Severity\":{\"type\":\"string\",\"maxLength\":50,\"title\":\"Severity\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"6\",\"internalName\":\"Severity\",\"isSummary\":true}},\"AssignToResource\":{\"type\":\"string\",\"maxLength\":100,\"title\":\"AssignToResource\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"27\",\"internalName\":\"AssignToResource\"}},\"IncidentLocation\":{\"type\":\"string\",\"maxLength\":500,\"title\":\"IncidentLocation\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"28\",\"internalName\":\"IncidentLocation\"}},\"AffectedParties\":{\"type\":\"object\",\"properties\":{\"AgencyID\":{\"type\":\"string\",\"maxLength\":50,\"title\":\"Agency ID\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"11\",\"internalName\":\"AgencyID\"}},\"RouteID\":{\"type\":\"string\",\"maxLength\":50,\"title\":\"Route ID\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"14\",\"internalName\":\"RouteID\"}},\"StopID\":{\"type\":\"string\",\"maxLength\":50,\"title\":\"Stop ID\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"15\",\"internalName\":\"StopID\"}}}},\"DateCreated\":{\"type\":\"string\",\"format\":\"date\",\"title\":\"Date Created\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"8\",\"internalName\":\"DateCreated\",\"constraints\":{\"type\":\"constraint\",\"initialValue\":\"now\"}}},\"DateUpdated\":{\"type\":\"string\",\"format\":\"date\",\"title\":\"Date Updated\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"9\",\"internalName\":\"DateUpdated\",\"constraints\":{\"type\":\"constraint\",\"initialValue\":\"now\"}}},\"TimeCreated\":{\"type\":\"string\",\"format\":\"date-time\",\"title\":\"Time Created\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"19\",\"internalName\":\"TimeCreated\",\"constraints\":{\"type\":\"constraint\",\"initialValue\":\"now\"}}},\"TimeUpdated\":{\"type\":\"string\",\"format\":\"date-time\",\"title\":\"Time Updated\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"20\",\"internalName\":\"TimeUpdated\",\"constraints\":{\"type\":\"constraint\",\"initialValue\":\"now\"}}},\"ResolutionSummary\":{\"type\":\"string\",\"maxLength\":5000,\"title\":\"Resolution Summary\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"21\",\"internalName\":\"ResolutionSummary\"}},\"Notes\":{\"type\":\"string\",\"maxLength\":5000,\"title\":\"Notes\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"22\",\"internalName\":\"Notes\"}}},\"required\":[\"State\"]}",
+                                        "fe_metadata": "{\"type\":\"object\",\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"properties\":{\"State\":{\"type\":\"string\",\"title\":\"State\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"2\",\"internalName\":\"state\"},\"enum\":[\"Reported\",\"Open\",\"Resolved\",\"Close\"]},\"AlertID\":{\"type\":\"string\",\"maxLength\":50,\"title\":\"Alert ID\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"3\",\"internalName\":\"AlertID\",\"isSummary\":true}},\"AlertType\":{\"type\":\"string\",\"maxLength\":50,\"title\":\"Alert Type\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"4\",\"internalName\":\"AlertType\",\"isSummary\":true}},\"Description\":{\"type\":\"string\",\"maxLength\":250,\"title\":\"Description\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"5\",\"internalName\":\"Description\"}},\"Severity\":{\"type\":\"string\",\"maxLength\":50,\"title\":\"Severity\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"6\",\"internalName\":\"Severity\",\"isSummary\":true}},\"AssignToResource\":{\"type\":\"string\",\"maxLength\":100,\"title\":\"AssignToResource\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"27\",\"internalName\":\"AssignToResource\"}},\"IncidentLocation\":{\"type\":\"string\",\"maxLength\":500,\"title\":\"IncidentLocation\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"28\",\"internalName\":\"IncidentLocation\"}},\"AffectedParties\":{\"type\":\"object\",\"properties\":{\"AgencyID\":{\"type\":\"string\",\"maxLength\":50,\"title\":\"Agency ID\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"11\",\"internalName\":\"AgencyID\"}},\"RouteID\":{\"type\":\"string\",\"maxLength\":50,\"title\":\"Route ID\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"14\",\"internalName\":\"RouteID\"}},\"StopID\":{\"type\":\"string\",\"maxLength\":50,\"title\":\"Stop ID\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"15\",\"internalName\":\"StopID\"}}}},\"DateCreated\":{\"type\":\"string\",\"format\":\"date\",\"title\":\"Date Created\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"8\",\"internalName\":\"DateCreated\",\"constraints\":{\"type\":\"constraint\",\"initialValue\":\"now\"}}},\"DateUpdated\":{\"type\":\"string\",\"format\":\"date\",\"title\":\"Date Updated\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"9\",\"internalName\":\"DateUpdated\",\"constraints\":{\"type\":\"constraint\",\"initialValue\":\"now\"}}},\"TimeCreated\":{\"type\":\"string\",\"format\":\"date-time\",\"title\":\"Time Created\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"19\",\"internalName\":\"TimeCreated\",\"constraints\":{\"type\":\"constraint\",\"initialValue\":\"now\"}}},\"TimeUpdated\":{\"type\":\"string\",\"format\":\"date-time\",\"title\":\"Time Updated\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"20\",\"internalName\":\"TimeUpdated\",\"constraints\":{\"type\":\"constraint\",\"initialValue\":\"now\"}}},\"ResolutionSummary\":{\"type\":\"string\",\"maxLength\":5000,\"title\":\"Resolution Summary\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"21\",\"internalName\":\"ResolutionSummary\"}},\"Notes\":{\"type\":\"string\",\"maxLength\":5000,\"title\":\"Notes\",\"la_metadata\":{\"type\":\"metadata\",\"id\":\"22\",\"internalName\":\"Notes\"}}},\"required\":[\"State\"]}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "Mapper",
+                        "name": "Mapper",
+                        "description": "Mapper Activity",
+                        "activity": {
+                            "ref": "#mapper",
+                            "input": {
+                                "input": {
+                                    "mapping": {
+                                        "data": "=$activity[LiveAppsGetCase].data"
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{}}}}",
+                                        "fe_metadata": "{\n    \"data\":{}\n}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{}}}}",
+                                        "fe_metadata": "{\n  \"data\": {}\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "ConfigureHTTPResponse",
+                        "name": "ConfigureHTTPResponse",
+                        "description": "Configure HTTP Response Activity",
+                        "activity": {
+                            "ref": "#httpresponse",
+                            "input": {
+                                "trigger": "ReceiveHTTPMessage",
+                                "responsecode": "200",
+                                "input": {
+                                    "mapping": {
+                                        "body": "=$activity[Mapper].output.data"
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"alert_id\":{\"type\":\"string\",\"default\":\"\"},\"case reference id\":{\"type\":\"string\",\"default\":\"\"},\"case url\":{\"type\":\"string\",\"default\":\"\"},\"start time\":{\"type\":\"string\",\"default\":\"\"},\"end time\":{\"type\":\"string\",\"default\":\"\"},\"case state\":{\"type\":\"string\",\"default\":\"\"},\"incident location\":{\"type\":\"string\",\"default\":\"\"},\"incident url\":{\"type\":\"string\",\"default\":\"\"}}}}}",
+                                        "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"alert_id\":{\"type\":\"string\",\"default\":\"\"},\"case reference id\":{\"type\":\"string\",\"default\":\"\"},\"case url\":{\"type\":\"string\",\"default\":\"\"},\"start time\":{\"type\":\"string\",\"default\":\"\"},\"end time\":{\"type\":\"string\",\"default\":\"\"},\"case state\":{\"type\":\"string\",\"default\":\"\"},\"incident location\":{\"type\":\"string\",\"default\":\"\"},\"incident url\":{\"type\":\"string\",\"default\":\"\"}}}}}"
+                                    }
+                                },
+                                "output": {
+                                    "response": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"alert_id\":{\"type\":\"string\",\"default\":\"\"},\"case reference id\":{\"type\":\"string\",\"default\":\"\"},\"case url\":{\"type\":\"string\",\"default\":\"\"},\"start time\":{\"type\":\"string\",\"default\":\"\"},\"end time\":{\"type\":\"string\",\"default\":\"\"},\"case state\":{\"type\":\"string\",\"default\":\"\"},\"incident location\":{\"type\":\"string\",\"default\":\"\"},\"incident url\":{\"type\":\"string\",\"default\":\"\"}}}}}",
+                                        "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"alert_id\":{\"type\":\"string\",\"default\":\"\"},\"case reference id\":{\"type\":\"string\",\"default\":\"\"},\"case url\":{\"type\":\"string\",\"default\":\"\"},\"start time\":{\"type\":\"string\",\"default\":\"\"},\"end time\":{\"type\":\"string\",\"default\":\"\"},\"case state\":{\"type\":\"string\",\"default\":\"\"},\"incident location\":{\"type\":\"string\",\"default\":\"\"},\"incident url\":{\"type\":\"string\",\"default\":\"\"}}}}}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "Return",
+                        "name": "Return",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": "=$activity[ConfigureHTTPResponse].code",
+                                    "responseBody": "=$activity[ConfigureHTTPResponse].response"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "CopyOfConfigureHTTPResponse",
+                        "name": "CopyOfConfigureHTTPResponse",
+                        "description": "Configure HTTP Response Activity",
+                        "activity": {
+                            "ref": "#httpresponse",
+                            "input": {
+                                "trigger": "ReceiveHTTPMessage",
+                                "responsecode": "404",
+                                "input": {
+                                    "mapping": {
+                                        "body": {
+                                            "message": "=string.concat(\"The Case ID : \", $flow.pathParams.case_reference, \" does not exist, please enter correct one.\")"
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"message\":{\"type\":\"string\",\"default\":\"Not found\"}}}}}",
+                                        "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"message\":{\"type\":\"string\",\"default\":\"Not found\"}}}}}"
+                                    }
+                                },
+                                "output": {
+                                    "response": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"message\":{\"type\":\"string\",\"default\":\"Not found\"}}}}}",
+                                        "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"message\":{\"type\":\"string\",\"default\":\"Not found\"}}}}}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "CopyOfReturn",
+                        "name": "CopyOfReturn",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": "=$activity[CopyOfConfigureHTTPResponse].code",
+                                    "responseBody": "=$activity[CopyOfConfigureHTTPResponse].response"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "CopyOfCopyOfConfigureHTTPResponse",
+                        "name": "CopyOfCopyOfConfigureHTTPResponse",
+                        "description": "Configure HTTP Response Activity",
+                        "activity": {
+                            "ref": "#httpresponse",
+                            "input": {
+                                "trigger": "ReceiveHTTPMessage",
+                                "responsecode": "404",
+                                "input": {
+                                    "mapping": {
+                                        "body": {
+                                            "message": "=string.concat(\" Case ID :\", $flow.pathParams.case_reference, \"  does not exist, please try with valid Case ID.\")"
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"message\":{\"type\":\"string\",\"default\":\"Not found\"}}}}}",
+                                        "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"message\":{\"type\":\"string\",\"default\":\"Not found\"}}}}}"
+                                    }
+                                },
+                                "output": {
+                                    "response": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"message\":{\"type\":\"string\",\"default\":\"Not found\"}}}}}",
+                                        "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"message\":{\"type\":\"string\",\"default\":\"Not found\"}}}}}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "Return1",
+                        "name": "Return1",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": "=$activity[CopyOfCopyOfConfigureHTTPResponse].code",
+                                    "responseBody": "=$activity[CopyOfCopyOfConfigureHTTPResponse].response.body"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "metadata": {
+                    "input": [
+                        {
+                            "name": "pathParams",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"case_reference\":{\"type\":\"string\"}}"
+                            }
+                        }
+                    ],
+                    "output": [
+                        {
+                            "name": "code",
+                            "type": "integer"
+                        },
+                        {
+                            "name": "responseBody",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}"
+                            }
+                        }
+                    ],
+                    "fe_metadata": {
+                        "input": "{\"type\":\"object\",\"title\":\"ReceiveHTTPMessage\",\"properties\":{\"pathParams\":{\"type\":\"object\",\"properties\":{\"case_reference\":{\"type\":\"string\"}},\"required\":[]}}}",
+                        "output": "{\"type\":\"object\",\"title\":\"Inputs\",\"properties\":{\"code\":{\"type\":\"integer\",\"required\":false},\"responseBody\":{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}},\"required\":[]}"
+                    }
+                },
+                "explicitReply": true,
+                "flowId": "35f903d4-f8f2-46e4-949f-43e47610f78a"
+            }
+        },
+        {
+            "id": "flow:Get_List_of_Buses_By_CongestionLevel",
+            "data": {
+                "name": "Get List of Buses By CongestionLevel",
+                "description": "This will generate a On Demand list of buses facing the congestion level denoted by Query Parameter",
+                "links": [
+                    {
+                        "id": 1,
+                        "from": "InvokeRESTService",
+                        "to": "ParseJSONActivity",
+                        "type": "default"
+                    },
+                    {
+                        "id": 2,
+                        "from": "ParseJSONActivity",
+                        "to": "getCongestedListByQueryParam",
+                        "type": "default"
+                    },
+                    {
+                        "id": 3,
+                        "from": "getCongestedListByQueryParam",
+                        "to": "ConfigureHTTPResponse",
+                        "type": "default"
+                    },
+                    {
+                        "id": 4,
+                        "from": "ConfigureHTTPResponse",
+                        "to": "Return",
+                        "type": "default"
+                    },
+                    {
+                        "id": 5,
+                        "from": "getCongestedListByQueryParam",
+                        "to": "ConfigureHTTPResponse1",
+                        "type": "expression",
+                        "label": "getCongestedListByQueryParamtoReturn1",
+                        "value": "array.count($activity[getCongestedListByQueryParam].output.entity)==0"
+                    },
+                    {
+                        "id": 6,
+                        "from": "ConfigureHTTPResponse1",
+                        "to": "Return1",
+                        "type": "default"
+                    },
+                    {
+                        "id": 7,
+                        "from": "InvokeRESTService",
+                        "to": "ConfigureHTTPResponse2",
+                        "type": "expression",
+                        "label": "InvokeRESTServicetoReturn2",
+                        "value": "$flow.queryParams.congestion_level!=\"UNKNOWN_CONGESTION_LEVEL\" && $flow.queryParams.congestion_level !=\"RUNNING_SMOOTHLY\" && $flow.queryParams.congestion_level !=\"STOP_AND_GO\" &&  $flow.queryParams.congestion_level !=\"CONGESTION\" && $flow.queryParams.congestion_level != \"SEVERE_CONGESTION\""
+                    },
+                    {
+                        "id": 8,
+                        "from": "ConfigureHTTPResponse2",
+                        "to": "Return2",
+                        "type": "default"
+                    }
+                ],
+                "tasks": [
+                    {
+                        "id": "InvokeRESTService",
+                        "name": "InvokeRESTService",
+                        "description": "Simple REST Activity",
+                        "settings": {
+                            "retryOnError": {
+                                "count": 0,
+                                "interval": 0
+                            }
+                        },
+                        "activity": {
+                            "ref": "#rest",
+                            "input": {
+                                "enableASR": false,
+                                "swagger": "",
+                                "authorization": false,
+                                "authorizationConn": "",
+                                "serviceName": "",
+                                "resourcePath": "",
+                                "Method": "GET",
+                                "Uri": "https://api.transport.nsw.gov.au:443/v1/gtfs/vehiclepos/buses",
+                                "Timeout": 0,
+                                "requestType": "application/json",
+                                "Use certificate for verification": false,
+                                "Server Certificate": "",
+                                "proxy": "",
+                                "host": "",
+                                "headers": {
+                                    "mapping": {
+                                        "Authorization": "=string.concat(\"apikey \",$property[\"TfNSW.Auth_Key\"])"
+                                    }
+                                }
+                            },
+                            "output": {
+                                "configureResponseCodes": false,
+                                "responseType": "other",
+                                "responseOutput": "JSON Object"
+                            },
+                            "schemas": {
+                                "input": {
+                                    "headers": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"Authorization\":{\"type\":\"string\"},\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[\"Authorization\"]}",
+                                        "fe_metadata": "[{\"parameterName\":\"Authorization\",\"type\":\"string\",\"repeating\":\"\",\"required\":\"true\"},{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+                                    }
+                                },
+                                "output": {
+                                    "responseBody": {
+                                        "type": "json",
+                                        "value": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"properties\": {\n    \"data\": {\n      \"type\": \"string\"\n    }\n  },\n  \"type\": \"object\"\n}",
+                                        "fe_metadata": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"properties\": {\n    \"data\": {\n      \"type\": \"string\"\n    }\n  },\n  \"type\": \"object\"\n}"
+                                    },
+                                    "headers": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[]}",
+                                        "fe_metadata": "[{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "ParseJSONActivity",
+                        "name": "ParseJSONActivity",
+                        "description": "Parses JSON string into JSON object",
+                        "activity": {
+                            "ref": "#parsejson",
+                            "input": {
+                                "validate": false,
+                                "jsonString": "=(cl_utils.GTFSAdapter($activity[InvokeRESTService].responseBody.data, 0, false))"
+                            },
+                            "schemas": {
+                                "output": {
+                                    "jsonObject": {
+                                        "type": "json",
+                                        "value": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"respMsg\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"id\": {\n                        \"type\": \"string\"\n                    },\n                    \"vehicle\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"congestionLevel\": {\n                                \"type\": \"string\"\n                            },\n                            \"current_status\": {\n                                \"type\": \"null\"\n                            },\n                            \"current_stop_sequence\": {\n                                \"type\": \"null\"\n                            },\n                            \"occupancy_status\": {\n                                \"type\": \"string\"\n                            },\n                            \"position\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"bearing\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"latitude\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"longitude\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"odometer\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"speed\": {\n                                        \"type\": \"number\"\n                                    }\n                                }\n                            },\n                            \"stop_id\": {\n                                \"type\": \"null\"\n                            },\n                            \"timestamp\": {\n                                \"type\": \"string\"\n                            },\n                            \"trip\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"direction_id\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"route_id\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"schedule_relationship\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"start_date\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"start_time\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"trip_id\": {\n                                        \"type\": \"string\"\n                                    }\n                                }\n                            },\n                            \"vehicle\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"id\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"label\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"license_plate\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"tfnsw_vehicle_descriptor\": {\n                                        \"type\": \"null\"\n                                    }\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}",
+                                        "fe_metadata": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"respMsg\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"id\": {\n                        \"type\": \"string\"\n                    },\n                    \"vehicle\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"congestionLevel\": {\n                                \"type\": \"string\"\n                            },\n                            \"current_status\": {\n                                \"type\": \"null\"\n                            },\n                            \"current_stop_sequence\": {\n                                \"type\": \"null\"\n                            },\n                            \"occupancy_status\": {\n                                \"type\": \"string\"\n                            },\n                            \"position\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"bearing\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"latitude\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"longitude\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"odometer\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"speed\": {\n                                        \"type\": \"number\"\n                                    }\n                                }\n                            },\n                            \"stop_id\": {\n                                \"type\": \"null\"\n                            },\n                            \"timestamp\": {\n                                \"type\": \"string\"\n                            },\n                            \"trip\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"direction_id\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"route_id\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"schedule_relationship\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"start_date\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"start_time\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"trip_id\": {\n                                        \"type\": \"string\"\n                                    }\n                                }\n                            },\n                            \"vehicle\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"id\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"label\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"license_plate\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"tfnsw_vehicle_descriptor\": {\n                                        \"type\": \"null\"\n                                    }\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "getCongestedListByQueryParam",
+                        "name": "getCongestedListByQueryParam",
+                        "description": "Mapper Activity",
+                        "activity": {
+                            "ref": "#mapper",
+                            "input": {
+                                "input": {
+                                    "mapping": {
+                                        "entity": {
+                                            "@foreach($activity[ParseJSONActivity].jsonObject.respMsg,entity, $loop.vehicle.congestionLevel==string.toUpper($flow.queryParams.congestion_level))": {
+                                                "id": "=$loop.id",
+                                                "occupancy_status": "=$loop.vehicle.occupancy_status",
+                                                "schedule_relationship": "=$loop.vehicle.trip.schedule_relationship",
+                                                "route_id": "=$loop.vehicle.trip.route_id",
+                                                "trip_id": "=$loop.vehicle.trip.trip_id",
+                                                "timestamp": "=$loop.vehicle.timestamp",
+                                                "speed": "=string.tostring($loop.vehicle.position.speed)",
+                                                "congestion_level": "=$loop.vehicle.congestionLevel",
+                                                "current_location": "=string.concat(\"longitude = \", string.tostring($loop.vehicle.position.longitude), \"  lattitude = \", string.tostring($loop.vehicle.position.latitude))"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"congestion_level\":{\"type\":\"string\"},\"occupancy_status\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"},\"current_location\":{\"type\":\"string\"},\"speed\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"},\"trip_id\":{\"type\":\"string\"},\"timestamp\":{\"type\":\"string\"}}}}}}",
+                                        "fe_metadata": "{\n\t\"entity\": [\n\t\t{\n\t\t\t\"id\": \"\",\n\t\t\t\"congestion_level\": \"\",\n\t\t\t\"occupancy_status\": \"\",\n\t\t\t\"schedule_relationship\": \"\",\n\t\t\t\"current_location\": \"\",\n\t\t\t\"speed\": \"\",\n\t\t\t\"route_id\": \"\",\n\t\t\t\"trip_id\": \"\",\n\t\t\t\"timestamp\": \"\"\n\t\t}\n\t]\n}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"congestion_level\":{\"type\":\"string\"},\"occupancy_status\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"},\"current_location\":{\"type\":\"string\"},\"speed\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"},\"trip_id\":{\"type\":\"string\"},\"timestamp\":{\"type\":\"string\"}}}}}}",
+                                        "fe_metadata": "{\n  \"entity\": [\n    {\n      \"id\": \"\",\n      \"congestion_level\": \"\",\n      \"occupancy_status\": \"\",\n      \"schedule_relationship\": \"\",\n      \"current_location\": \"\",\n      \"speed\": \"\",\n      \"route_id\": \"\",\n      \"trip_id\": \"\",\n      \"timestamp\": \"\"\n    }\n  ]\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "ConfigureHTTPResponse",
+                        "name": "ConfigureHTTPResponse",
+                        "description": "Configure HTTP Response Activity",
+                        "activity": {
+                            "ref": "#httpresponse",
+                            "input": {
+                                "trigger": "ReceiveHTTPMessage",
+                                "responsecode": "200",
+                                "input": {
+                                    "mapping": {
+                                        "body": {
+                                            "@foreach($activity[getCongestedListByQueryParam].output.entity,body)": {
+                                                "=": "$loop"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\",\"default\":\"\"},\"congestion_level\":{\"type\":\"string\",\"default\":\"\"},\"occupancy_status\":{\"type\":\"string\",\"default\":\"\"},\"schedule_relationship\":{\"type\":\"string\",\"default\":\"\"},\"current_location\":{\"type\":\"string\",\"default\":\"\"},\"speed\":{\"type\":\"string\",\"default\":\"\"},\"route_id\":{\"type\":\"string\",\"default\":\"\"},\"trip_id\":{\"type\":\"string\",\"default\":\"\"},\"timestamp\":{\"type\":\"string\",\"default\":\"\"}}}}}}",
+                                        "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\",\"default\":\"\"},\"congestion_level\":{\"type\":\"string\",\"default\":\"\"},\"occupancy_status\":{\"type\":\"string\",\"default\":\"\"},\"schedule_relationship\":{\"type\":\"string\",\"default\":\"\"},\"current_location\":{\"type\":\"string\",\"default\":\"\"},\"speed\":{\"type\":\"string\",\"default\":\"\"},\"route_id\":{\"type\":\"string\",\"default\":\"\"},\"trip_id\":{\"type\":\"string\",\"default\":\"\"},\"timestamp\":{\"type\":\"string\",\"default\":\"\"}}}}}}"
+                                    }
+                                },
+                                "output": {
+                                    "response": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\",\"default\":\"\"},\"congestion_level\":{\"type\":\"string\",\"default\":\"\"},\"occupancy_status\":{\"type\":\"string\",\"default\":\"\"},\"schedule_relationship\":{\"type\":\"string\",\"default\":\"\"},\"current_location\":{\"type\":\"string\",\"default\":\"\"},\"speed\":{\"type\":\"string\",\"default\":\"\"},\"route_id\":{\"type\":\"string\",\"default\":\"\"},\"trip_id\":{\"type\":\"string\",\"default\":\"\"},\"timestamp\":{\"type\":\"string\",\"default\":\"\"}}}}}}",
+                                        "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\",\"default\":\"\"},\"congestion_level\":{\"type\":\"string\",\"default\":\"\"},\"occupancy_status\":{\"type\":\"string\",\"default\":\"\"},\"schedule_relationship\":{\"type\":\"string\",\"default\":\"\"},\"current_location\":{\"type\":\"string\",\"default\":\"\"},\"speed\":{\"type\":\"string\",\"default\":\"\"},\"route_id\":{\"type\":\"string\",\"default\":\"\"},\"trip_id\":{\"type\":\"string\",\"default\":\"\"},\"timestamp\":{\"type\":\"string\",\"default\":\"\"}}}}}}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "Return",
+                        "name": "Return",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": "=$activity[ConfigureHTTPResponse].code",
+                                    "responseBody": "=$activity[ConfigureHTTPResponse].response"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "ConfigureHTTPResponse1",
+                        "name": "ConfigureHTTPResponse1",
+                        "description": "Configure HTTP Response Activity",
+                        "activity": {
+                            "ref": "#httpresponse",
+                            "input": {
+                                "trigger": "ReceiveHTTPMessage",
+                                "responsecode": "200",
+                                "input": {
+                                    "mapping": {
+                                        "body": {
+                                            "@foreach($activity[getCongestedListByQueryParam].output.entity,body)": {
+                                                "=": "$loop"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\",\"default\":\"\"},\"congestion_level\":{\"type\":\"string\",\"default\":\"\"},\"occupancy_status\":{\"type\":\"string\",\"default\":\"\"},\"schedule_relationship\":{\"type\":\"string\",\"default\":\"\"},\"current_location\":{\"type\":\"string\",\"default\":\"\"},\"speed\":{\"type\":\"string\",\"default\":\"\"},\"route_id\":{\"type\":\"string\",\"default\":\"\"},\"trip_id\":{\"type\":\"string\",\"default\":\"\"},\"timestamp\":{\"type\":\"string\",\"default\":\"\"}}}}}}",
+                                        "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\",\"default\":\"\"},\"congestion_level\":{\"type\":\"string\",\"default\":\"\"},\"occupancy_status\":{\"type\":\"string\",\"default\":\"\"},\"schedule_relationship\":{\"type\":\"string\",\"default\":\"\"},\"current_location\":{\"type\":\"string\",\"default\":\"\"},\"speed\":{\"type\":\"string\",\"default\":\"\"},\"route_id\":{\"type\":\"string\",\"default\":\"\"},\"trip_id\":{\"type\":\"string\",\"default\":\"\"},\"timestamp\":{\"type\":\"string\",\"default\":\"\"}}}}}}"
+                                    }
+                                },
+                                "output": {
+                                    "response": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\",\"default\":\"\"},\"congestion_level\":{\"type\":\"string\",\"default\":\"\"},\"occupancy_status\":{\"type\":\"string\",\"default\":\"\"},\"schedule_relationship\":{\"type\":\"string\",\"default\":\"\"},\"current_location\":{\"type\":\"string\",\"default\":\"\"},\"speed\":{\"type\":\"string\",\"default\":\"\"},\"route_id\":{\"type\":\"string\",\"default\":\"\"},\"trip_id\":{\"type\":\"string\",\"default\":\"\"},\"timestamp\":{\"type\":\"string\",\"default\":\"\"}}}}}}",
+                                        "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\",\"default\":\"\"},\"congestion_level\":{\"type\":\"string\",\"default\":\"\"},\"occupancy_status\":{\"type\":\"string\",\"default\":\"\"},\"schedule_relationship\":{\"type\":\"string\",\"default\":\"\"},\"current_location\":{\"type\":\"string\",\"default\":\"\"},\"speed\":{\"type\":\"string\",\"default\":\"\"},\"route_id\":{\"type\":\"string\",\"default\":\"\"},\"trip_id\":{\"type\":\"string\",\"default\":\"\"},\"timestamp\":{\"type\":\"string\",\"default\":\"\"}}}}}}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "Return1",
+                        "name": "Return1",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": 200,
+                                    "responseBody": "=$activity[ConfigureHTTPResponse1].response"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "ConfigureHTTPResponse2",
+                        "name": "ConfigureHTTPResponse2",
+                        "description": "Configure HTTP Response Activity",
+                        "activity": {
+                            "ref": "#httpresponse",
+                            "input": {
+                                "trigger": "ReceiveHTTPMessage",
+                                "responsecode": "404",
+                                "input": {
+                                    "mapping": {
+                                        "body": {
+                                            "message": "INCORRECT CONGESTION LEVEL USED, PLEASE CORRECT IT. THE CORRECT LEVELS ARE, 'UNKNOWN_CONGESTION_LEVEL, RUNNING_SMOOTHLY, STOP_AND_GO, CONGESTION and SEVERE_CONGESTION'"
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"message\":{\"type\":\"string\",\"default\":\"Not found\"}}}}}",
+                                        "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"message\":{\"type\":\"string\",\"default\":\"Not found\"}}}}}"
+                                    }
+                                },
+                                "output": {
+                                    "response": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"message\":{\"type\":\"string\",\"default\":\"Not found\"}}}}}",
+                                        "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"message\":{\"type\":\"string\",\"default\":\"Not found\"}}}}}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "Return2",
+                        "name": "Return2",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": "=$activity[ConfigureHTTPResponse2].code",
+                                    "responseBody": "=$activity[ConfigureHTTPResponse2].response"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "metadata": {
+                    "input": [
+                        {
+                            "name": "queryParams",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"congestion_level\":{\"type\":\"string\"}}"
+                            }
+                        }
+                    ],
+                    "output": [
+                        {
+                            "name": "code",
+                            "type": "integer"
+                        },
+                        {
+                            "name": "responseBody",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}"
+                            }
+                        }
+                    ],
+                    "fe_metadata": {
+                        "input": "{\"type\":\"object\",\"title\":\"ReceiveHTTPMessage\",\"properties\":{\"queryParams\":{\"type\":\"object\",\"properties\":{\"congestion_level\":{\"type\":\"string\"}},\"required\":[\"congestion_level\"]}}}",
+                        "output": "{\"type\":\"object\",\"title\":\"Inputs\",\"properties\":{\"code\":{\"type\":\"integer\",\"required\":false},\"responseBody\":{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}},\"required\":[]}"
+                    }
+                },
+                "explicitReply": true,
+                "flowId": "2c8de0bd-77b3-42e7-867c-d5db2676dd55"
+            }
+        },
+        {
+            "id": "flow:Get_Total_Number_of_Live_Vehicle",
+            "data": {
+                "name": "Get Total Number of Live Vehicle",
+                "description": "This will produce a number of buses running on road by tapping into live feed",
+                "links": [
+                    {
+                        "id": 1,
+                        "from": "InvokeRESTService",
+                        "to": "ParseJSONActivity",
+                        "type": "default"
+                    },
+                    {
+                        "id": 2,
+                        "from": "ParseJSONActivity",
+                        "to": "ConfigureHTTPResponse",
+                        "type": "default"
+                    },
+                    {
+                        "id": 3,
+                        "from": "ConfigureHTTPResponse",
+                        "to": "Return",
+                        "type": "default"
+                    }
+                ],
+                "tasks": [
+                    {
+                        "id": "InvokeRESTService",
+                        "name": "InvokeRESTService",
+                        "description": "Simple REST Activity",
+                        "settings": {
+                            "retryOnError": {
+                                "count": 0,
+                                "interval": 0
+                            }
+                        },
+                        "activity": {
+                            "ref": "#rest",
+                            "input": {
+                                "enableASR": false,
+                                "swagger": "",
+                                "authorization": false,
+                                "authorizationConn": "",
+                                "serviceName": "",
+                                "resourcePath": "",
+                                "Method": "GET",
+                                "Uri": "https://api.transport.nsw.gov.au:443/v1/gtfs/vehiclepos/buses",
+                                "Timeout": 0,
+                                "requestType": "application/json",
+                                "Use certificate for verification": false,
+                                "Server Certificate": "",
+                                "proxy": "",
+                                "host": "",
+                                "headers": {
+                                    "mapping": {
+                                        "Authorization": "=string.concat(\"apikey \",$property[\"TfNSW.Auth_Key\"])"
+                                    }
+                                }
+                            },
+                            "output": {
+                                "configureResponseCodes": false,
+                                "responseType": "other",
+                                "responseOutput": "JSON Object"
+                            },
+                            "schemas": {
+                                "input": {
+                                    "headers": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"Authorization\":{\"type\":\"string\"},\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[]}",
+                                        "fe_metadata": "[{\"parameterName\":\"Authorization\",\"type\":\"string\",\"repeating\":\"\",\"required\":\"\"},{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+                                    }
+                                },
+                                "output": {
+                                    "responseBody": {
+                                        "type": "json",
+                                        "value": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"properties\": {\n    \"data\": {\n      \"type\": \"string\"\n    }\n  },\n  \"type\": \"object\"\n}",
+                                        "fe_metadata": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"properties\": {\n    \"data\": {\n      \"type\": \"string\"\n    }\n  },\n  \"type\": \"object\"\n}"
+                                    },
+                                    "headers": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[]}",
+                                        "fe_metadata": "[{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "ParseJSONActivity",
+                        "name": "ParseJSONActivity",
+                        "description": "Parses JSON string into JSON object",
+                        "activity": {
+                            "ref": "#parsejson",
+                            "input": {
+                                "validate": false,
+                                "jsonString": "=(cl_utils.GTFSAdapter($activity[InvokeRESTService].responseBody.data, 0, false))"
+                            },
+                            "schemas": {
+                                "output": {
+                                    "jsonObject": {
+                                        "type": "json",
+                                        "value": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"respMsg\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"id\": {\n                        \"type\": \"string\"\n                    },\n                    \"vehicle\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"congestion_level\": {\n                                \"type\": \"string\"\n                            },\n                            \"current_status\": {\n                                \"type\": \"null\"\n                            },\n                            \"current_stop_sequence\": {\n                                \"type\": \"null\"\n                            },\n                            \"occupancy_status\": {\n                                \"type\": \"string\"\n                            },\n                            \"position\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"bearing\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"latitude\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"longitude\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"odometer\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"speed\": {\n                                        \"type\": \"number\"\n                                    }\n                                }\n                            },\n                            \"stop_id\": {\n                                \"type\": \"null\"\n                            },\n                            \"timestamp\": {\n                                \"type\": \"string\"\n                            },\n                            \"trip\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"direction_id\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"route_id\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"schedule_relationship\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"start_date\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"start_time\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"trip_id\": {\n                                        \"type\": \"string\"\n                                    }\n                                }\n                            },\n                            \"vehicle\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"id\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"label\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"license_plate\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"tfnsw_vehicle_descriptor\": {\n                                        \"type\": \"null\"\n                                    }\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}",
+                                        "fe_metadata": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"respMsg\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"id\": {\n                        \"type\": \"string\"\n                    },\n                    \"vehicle\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"congestion_level\": {\n                                \"type\": \"string\"\n                            },\n                            \"current_status\": {\n                                \"type\": \"null\"\n                            },\n                            \"current_stop_sequence\": {\n                                \"type\": \"null\"\n                            },\n                            \"occupancy_status\": {\n                                \"type\": \"string\"\n                            },\n                            \"position\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"bearing\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"latitude\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"longitude\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"odometer\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"speed\": {\n                                        \"type\": \"number\"\n                                    }\n                                }\n                            },\n                            \"stop_id\": {\n                                \"type\": \"null\"\n                            },\n                            \"timestamp\": {\n                                \"type\": \"string\"\n                            },\n                            \"trip\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"direction_id\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"route_id\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"schedule_relationship\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"start_date\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"start_time\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"trip_id\": {\n                                        \"type\": \"string\"\n                                    }\n                                }\n                            },\n                            \"vehicle\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"id\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"label\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"license_plate\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"tfnsw_vehicle_descriptor\": {\n                                        \"type\": \"null\"\n                                    }\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "ConfigureHTTPResponse",
+                        "name": "ConfigureHTTPResponse",
+                        "description": "Configure HTTP Response Activity",
+                        "activity": {
+                            "ref": "#httpresponse",
+                            "input": {
+                                "trigger": "ReceiveHTTPMessage",
+                                "responsecode": "200",
+                                "input": {
+                                    "mapping": {
+                                        "body": {
+                                            "Active Bus Count": "=string.tostring(array.count($activity[ParseJSONActivity].jsonObject.respMsg))"
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"Active Bus Count\":{\"type\":\"string\",\"default\":\"0\"}}}}}",
+                                        "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"Active Bus Count\":{\"type\":\"string\",\"default\":\"0\"}}}}}"
+                                    }
+                                },
+                                "output": {
+                                    "response": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"Active Bus Count\":{\"type\":\"string\",\"default\":\"0\"}}}}}",
+                                        "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"object\",\"properties\":{\"Active Bus Count\":{\"type\":\"string\",\"default\":\"0\"}}}}}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "Return",
+                        "name": "Return",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": "=$activity[ConfigureHTTPResponse].code",
+                                    "responseBody": "=$activity[ConfigureHTTPResponse].response"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "metadata": {
+                    "input": [],
+                    "output": [
+                        {
+                            "name": "code",
+                            "type": "integer"
+                        },
+                        {
+                            "name": "responseBody",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}"
+                            }
+                        }
+                    ],
+                    "fe_metadata": {
+                        "input": "{}",
+                        "output": "{\"type\":\"object\",\"title\":\"Inputs\",\"properties\":{\"code\":{\"type\":\"integer\",\"required\":false},\"responseBody\":{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}},\"required\":[]}"
+                    }
+                },
+                "explicitReply": true,
+                "flowId": "0975193e-8c0c-4b89-ac8a-4a1c71ab8e80"
+            }
+        }
+    ],
+    "properties": [
+        {
+            "name": "TfNSW.Auth_Key",
+            "type": "string",
+            "value": "NjbDt9ZpMPPhDp6yVo94flbCF7aIXYgyOFAH"
+        },
+        {
+            "name": "MySQL.GearHost-mySQL_14.Host",
+            "type": "string",
+            "value": "den1.mysql3.gear.host"
+        },
+        {
+            "name": "MySQL.GearHost-mySQL_14.Port",
+            "type": "float64",
+            "value": 3306
+        },
+        {
+            "name": "MySQL.GearHost-mySQL_14.Database_Name",
+            "type": "string",
+            "value": "gtfscontroldb"
+        },
+        {
+            "name": "MySQL.GearHost-mySQL_14.User",
+            "type": "string",
+            "value": "gtfscontroldb"
+        },
+        {
+            "name": "MySQL.GearHost-mySQL_14.Password",
+            "type": "string",
+            "value": "SECRET:ixP0iFVO21RBHffz09WVwA=="
+        },
+        {
+            "name": "MySQL.GearHost-mySQL_14.Maximum_Open_Connections",
+            "type": "float64",
+            "value": 0
+        },
+        {
+            "name": "MySQL.GearHost-mySQL_14.Maximum_Idle_Connections",
+            "type": "float64",
+            "value": 2
+        },
+        {
+            "name": "MySQL.GearHost-mySQL_14.Maximum_Connection_Lifetime",
+            "type": "string",
+            "value": 0
+        },
+        {
+            "name": "MySQL.GearHost-mySQL_14.Maximum_Connection_Retry_Attempts",
+            "type": "float64",
+            "value": 3
+        },
+        {
+            "name": "MySQL.GearHost-mySQL_14.Connection_Retry_Delay",
+            "type": "float64",
+            "value": 5
+        }
+    ],
+    "connections": {
+        "6c5cefd0-b7d1-11eb-9856-41db67230f7c": {
+            "id": "6c5cefd0-b7d1-11eb-9856-41db67230f7c",
+            "name": "GearHost-mySQL_14",
+            "ref": "#connection",
+            "isGlobal": true,
+            "settings": {
+                "name": "GearHost-mySQL_14",
+                "description": "",
+                "host": "=$property[\"MySQL.GearHost-mySQL_14.Host\"]",
+                "port": "=$property[\"MySQL.GearHost-mySQL_14.Port\"]",
+                "databaseName": "=$property[\"MySQL.GearHost-mySQL_14.Database_Name\"]",
+                "user": "=$property[\"MySQL.GearHost-mySQL_14.User\"]",
+                "password": "=$property[\"MySQL.GearHost-mySQL_14.Password\"]",
+                "maxopenconnection": "=$property[\"MySQL.GearHost-mySQL_14.Maximum_Open_Connections\"]",
+                "maxidleconnection": "=$property[\"MySQL.GearHost-mySQL_14.Maximum_Idle_Connections\"]",
+                "connmaxlifetime": "=$property[\"MySQL.GearHost-mySQL_14.Maximum_Connection_Lifetime\"]",
+                "maxconnectattempts": "=$property[\"MySQL.GearHost-mySQL_14.Maximum_Connection_Retry_Attempts\"]",
+                "connectionretrydelay": "=$property[\"MySQL.GearHost-mySQL_14.Connection_Retry_Delay\"]",
+                "onprem": false,
+                "tlsconfig": false,
+                "tlsparam": "Required",
+                "cacert": "",
+                "clientcert": "",
+                "clientkey": "",
+                "validatecert": false
+            }
+        }
+    },
+    "contrib": "W3sicmVmIjoiZ2l0LnRpYmNvLmNvbS9naXQvcHJvZHVjdC9pcGFhcy93aS1jb250cmliLmdpdC9jb250cmlidXRpb25zL0dlbmVyYWwiLCJzM2xvY2F0aW9uIjoiVGliY28vR2VuZXJhbCJ9LHsicmVmIjoiZ2l0LnRpYmNvLmNvbS9naXQvcHJvZHVjdC9pcGFhcy93aS1teXNxbC5naXQvc3JjL2FwcC9NeVNRTCIsInMzbG9jYXRpb24iOiJUaWJjby9NeVNRTCJ9LHsicmVmIjoiZW1lYS1zd2ktc3ZuLmVtZWEudGliY28uY29tL3N2bi9BcmllbC90Y2ktbGl2ZWFwcHMvdHJ1bmsvTGl2ZUFwcHMiLCJzM2xvY2F0aW9uIjoiVGliY28vTGl2ZUFwcHMifSx7InJlZiI6ImdpdGh1Yi5jb20vY2xhdy5haS9mbG9nby1jb21wb25lbnRzL2Z1bmN0aW9uL2NsX3V0aWxzIiwiczNsb2NhdGlvbiI6ImZsb2dvL2NsX3V0aWxzIn1d",
+    "fe_metadata": "UEsDBAoAAAAIANlgslKrqSRGFQAAABMAAAAIAAAAYXBwLmpzb26rViopykxPTy1yy8kvL1ayio6tBQBQSwECFAAKAAAACADZYLJSq6kkRhUAAAATAAAACAAAAAAAAAAAAAAAAAAAAAAAYXBwLmpzb25QSwUGAAAAAAEAAQA2AAAAOwAAAAAA"
+}

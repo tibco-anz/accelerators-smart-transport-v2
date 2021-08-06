@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<channel:Channel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:channel="http:///com/tibco/cep/designtime/core/model/service/channel" xmlns:designtime="http:///com/tibco/cep/designtime/core/model/designtime_ontology.ecore" namespace="/Channels/" folder="/Channels/" name="TCM" description="" GUID="5AADC493-20B5-AAEA-04D5-94E4607DE4E8" ownerProjectName="Alert_Processing">
+  <driver label="TCM" channel="/">
+    <properties>
+      <properties xsi:type="designtime:SimpleProperty" name="tcm.url" value="%%TCM_Connection/TCM_URL%%" mandatory="true"/>
+      <properties xsi:type="designtime:SimpleProperty" name="password" value="%%TCM_Connection/TCM_AUTH_Key%%" mandatory="true"/>
+    </properties>
+    <destinations folder="/Channels/TCM/" name="SydneyBuses_Alert" description="" GUID="04AD092B-E453-B19C-046F-360AA705E73A" ownerProjectName="Alert_Processing" eventURI="/Events/AlertMsgFeedEvent" serializerDeserializerClass="com.tibco.cep.driver.tcm.serializer.TCMSerializer" driverConfig="//@driver">
+      <properties>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.destination" value="SydneyBuses_Alert"/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.client.id" value=""/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.durable.name" value=""/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.durable.subscription.type" value="standard"/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.jsonPayload" value="true"/>
+      </properties>
+    </destinations>
+    <destinations folder="/Channels/TCM/" name="SydneyBuses_Notification" description="" GUID="6CFCB00F-2214-6E6E-BA7F-AE3717463DE6" ownerProjectName="Alert_Processing" eventURI="/Events/SendNotification" serializerDeserializerClass="com.tibco.cep.driver.tcm.serializer.TCMSerializer" driverConfig="//@driver">
+      <properties>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.destination" value="SydneyBuses_Notification"/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.client.id" value=""/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.durable.name" value=""/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.durable.subscription.type" value="standard"/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.jsonPayload" value="true"/>
+      </properties>
+    </destinations>
+    <destinations folder="/Channels/TCM/" name="SydneyBuses_caseCreated" description="" GUID="6CFCB00F-2214-6E6E-BA7F-AE3717463DE6" ownerProjectName="Alert_Processing" eventURI="/Events/LACaseCreatedEvent" serializerDeserializerClass="com.tibco.cep.driver.tcm.serializer.TCMSerializer" driverConfig="//@driver">
+      <properties>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.destination" value="SydneyBuses_caseCreated"/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.client.id" value=""/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.durable.name" value=""/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.durable.subscription.type" value="standard"/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.jsonPayload" value="true"/>
+      </properties>
+    </destinations>
+    <destinations folder="/Channels/TCM/" name="SydneyBuses_NormalFeedStream" description="" GUID="C8048FDB-47C3-6385-9B30-5F7FB344894B" ownerProjectName="Alert_Processing" eventURI="/Events/NormalFeedStreamEvent" serializerDeserializerClass="com.tibco.cep.driver.tcm.serializer.TCMSerializer" driverConfig="//@driver">
+      <properties>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.destination" value="SydneyBuses_NormalFeedStream"/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.client.id" value=""/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.durable.name" value=""/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.durable.subscription.type" value="standard"/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.jsonPayload" value="true"/>
+      </properties>
+    </destinations>
+    <destinations folder="/Channels/TCM/" name="DeptTransportVictoria" description="specially added for Dept Transport Victoria discovery for demo" GUID="C8048FDB-47C3-6385-9B30-5F7FB344894B" ownerProjectName="Alert_Processing" eventURI="/Events/DTVD/DTVD_MsgEvent" serializerDeserializerClass="com.tibco.cep.driver.tcm.serializer.TCMSerializer" driverConfig="//@driver">
+      <properties>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.destination" value="DeptTransportVictoria_liveFeed"/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.client.id" value=""/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.durable.name" value=""/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.durable.subscription.type" value="standard"/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.jsonPayload" value="true"/>
+      </properties>
+    </destinations>
+    <destinations folder="/Channels/TCM/" name="DeptTransportVictoria_Alert" description="specially added for Dept Transport Victoria discovery for demo" GUID="C8048FDB-47C3-6385-9B30-5F7FB344894B" ownerProjectName="Alert_Processing" eventURI="/Events/DTVD/DTVD_SendAlertEvent" serializerDeserializerClass="com.tibco.cep.driver.tcm.serializer.TCMSerializer" driverConfig="//@driver">
+      <properties>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.destination" value="DeptTransportVictoria_Alert"/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.client.id" value=""/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.durable.name" value=""/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.durable.subscription.type" value="standard"/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.jsonPayload" value="true"/>
+      </properties>
+    </destinations>
+    <destinations folder="/Channels/TCM/" name="DeptTransportVictoria_caseCreated" description="specially added for Dept Transport Victoria discovery for demo" GUID="C8048FDB-47C3-6385-9B30-5F7FB344894B" ownerProjectName="Alert_Processing" eventURI="/Events/DTVD/DTVD_LACaseCreatedEvent" serializerDeserializerClass="com.tibco.cep.driver.tcm.serializer.TCMSerializer" driverConfig="//@driver">
+      <properties>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.destination" value="DeptTransportVictoria_caseCreated"/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.client.id" value=""/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.durable.name" value=""/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.durable.subscription.type" value="standard"/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.jsonPayload" value="true"/>
+      </properties>
+    </destinations>
+    <destinations folder="/Channels/TCM/" name="SydneyBuses_1" description="" GUID="C8048FDB-47C3-6385-9B30-5F7FB344894B" ownerProjectName="Alert_Processing" eventURI="/Events/NormalFeed_TripUpdate" serializerDeserializerClass="com.tibco.cep.driver.tcm.serializer.TCMSerializer" driverConfig="//@driver">
+      <properties>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.destination" value="SydneyBuses_1"/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.client.id" value=""/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.durable.name" value=""/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.durable.subscription.type" value="standard"/>
+        <properties xsi:type="designtime:SimpleProperty" name="tcm.jsonPayload" value="true"/>
+      </properties>
+    </destinations>
+    <driverType xsi:type="channel:DriverTypeInfo" driverTypeName="TCM"/>
+  </driver>
+</channel:Channel>

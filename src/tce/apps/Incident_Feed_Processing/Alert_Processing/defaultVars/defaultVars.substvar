@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<repository xmlns="http://www.tibco.com/xmlns/repo/types/2002">
+    <globalVariables>
+        <globalVariable>
+            <name>IsJson</name>
+            <value>true</value>
+            <type>Boolean</type>
+            <deploymentSettable>true</deploymentSettable>
+            <serviceSettable>false</serviceSettable>
+            <description/>
+            <constraint/>
+            <modTime>1613226822544</modTime>
+        </globalVariable>
+        <globalVariable>
+            <name>avg_Speed</name>
+            <value>75</value>
+            <type>Integer</type>
+            <deploymentSettable>true</deploymentSettable>
+            <serviceSettable>false</serviceSettable>
+            <description/>
+            <constraint/>
+            <modTime>1619027921791</modTime>
+        </globalVariable>
+    </globalVariables>
+</repository>

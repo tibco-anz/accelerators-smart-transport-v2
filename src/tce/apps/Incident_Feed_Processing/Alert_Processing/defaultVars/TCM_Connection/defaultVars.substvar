@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<repository xmlns="http://www.tibco.com/xmlns/repo/types/2002">
+    <globalVariables>
+        <globalVariable>
+            <name>TCM_URL</name>
+            <value>wss://&lt;&gt;-apps.messaging.cloud.tibco.com/channel</value>
+            <type>String</type>
+            <deploymentSettable>true</deploymentSettable>
+            <serviceSettable>false</serviceSettable>
+            <description>This is a TCM-eFTL server URL to connect to server</description>
+            <constraint/>
+            <modTime>1621339357010</modTime>
+        </globalVariable>
+        <globalVariable>
+            <name>TCM_AUTH_Key</name>
+            <value>#!5PavUpU2hyGv0jfYc1YZ+A==</value>
+            <type>Password</type>
+            <deploymentSettable>true</deploymentSettable>
+            <serviceSettable>false</serviceSettable>
+            <description>This is a authentication key for your TCM Subscription</description>
+            <constraint/>
+            <modTime>1621339361891</modTime>
+        </globalVariable>
+    </globalVariables>
+</repository>

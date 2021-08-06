@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+			<title>Quick_Start</title>
+			<link rel="shortcut icon" href="https://docs.tibco.com/pub/businessevents-standard/5.4.0/doc/html/static/logo.png">
+				<meta name="referrer" content="strict-origin-when-cross-origin">
+					<style type="text/css" nonce="">
+      @import url("https://fonts.googleapis.com/css?family=Google+Sans");
+      @import url("https://fonts.googleapis.com/css?family=Roboto");
+
+      body {
+        font-family: Roboto, arial, sans, sans-serif;
+        margin: 0;
+      }
+
+      iframe {
+        border: 0;
+        frameborder: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      #header {
+        align-items: center;
+        background: white;
+        border-bottom: 1px #ccc solid;
+        display: flex;
+        height: 60px;
+        justify-content: space-between;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 100;
+      }
+
+      #header #title {
+        font-family: 'Google Sans';
+        font-size: large;
+        margin: auto 0 auto 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 70%;
+      }
+
+      #header #interval {
+        margin: auto 25px auto 0;
+        font-family: Roboto;
+        font-size: small;;
+      }
+
+      #footer {
+        background: #f0f0f0;
+        border-bottom: 1px #ccc solid;
+        bottom: 0;
+        font-family: Roboto;
+        font-size: small;
+        padding: 10px 10px;
+        position: fixed;
+        text-align: center;
+        width: 100%;
+      }
+
+      #contents {
+        padding: 100px 20% 50px 20%;
+      }
+
+      @media only screen and (max-device-width: 800px) {
+        #header {
+          border-bottom-width: 5px;
+          height: auto;
+          display: block;
+        }
+
+        #header #title {
+          font-size: 3em;
+          margin: auto 0 auto 20px;
+          width: 90%;
+        }
+
+        #header #interval {
+          font-size: 1.5em;
+          margin: 10px 0 auto 25px;
+        }
+
+        #contents {
+          padding: 150px 5% 80px;
+        }
+
+        #footer {
+          font-size: 2em;
+        }
+      }
+
+      .dash {
+        padding: 0 6px;
+      }
+					</style>
+				</head>
+				<body>
+					<div id="header">
+						<div id="title">Smart Transport Accelerator</div>
+					</div>
+					<div id="contents">
+						<style type="text/css">@import url('https://themes.googleusercontent.com/fonts/css?kit=lhDjYqiy3mZ0x6ROQEUoUw');ol.lst-kix_54kw3uh8dhqt-3{list-style-type:none}ol.lst-kix_54kw3uh8dhqt-4{list-style-type:none}ol.lst-kix_54kw3uh8dhqt-5{list-style-type:none}ol.lst-kix_54kw3uh8dhqt-6{list-style-type:none}ol.lst-kix_54kw3uh8dhqt-7{list-style-type:none}ol.lst-kix_54kw3uh8dhqt-8{list-style-type:none}ol.lst-kix_r1hwxp14qqtt-4.start{counter-reset:lst-ctn-kix_r1hwxp14qqtt-4 0}.lst-kix_usi0zfnz082a-2>li:before{content:"\0025a0  "}.lst-kix_usi0zfnz082a-0>li:before{content:"" counter(lst-ctn-kix_usi0zfnz082a-0,decimal) ". "}.lst-kix_usi0zfnz082a-4>li:before{content:"\0025cb  "}.lst-kix_3jj7pw3gvqky-7>li:before{content:"-  "}.lst-kix_3jj7pw3gvqky-5>li:before{content:"-  "}ol.lst-kix_kyan84g0syen-0.start{counter-reset:lst-ctn-kix_kyan84g0syen-0 0}.lst-kix_usi0zfnz082a-8>li:before{content:"\0025a0  "}.lst-kix_3jj7pw3gvqky-3>li:before{content:"-  "}.lst-kix_usi0zfnz082a-6>li:before{content:"\0025cf  "}.lst-kix_3jj7pw3gvqky-1>li:before{content:"-  "}ul.lst-kix_r838nbqybskb-4{list-style-type:none}ul.lst-kix_r838nbqybskb-5{list-style-type:none}ul.lst-kix_r838nbqybskb-2{list-style-type:none}ul.lst-kix_r838nbqybskb-3{list-style-type:none}.lst-kix_kyan84g0syen-7>li{counter-increment:lst-ctn-kix_kyan84g0syen-7}ul.lst-kix_r838nbqybskb-8{list-style-type:none}ul.lst-kix_r838nbqybskb-6{list-style-type:none}ul.lst-kix_r838nbqybskb-7{list-style-type:none}ol.lst-kix_kyan84g0syen-5.start{counter-reset:lst-ctn-kix_kyan84g0syen-5 0}ul.lst-kix_r838nbqybskb-0{list-style-type:none}ul.lst-kix_r838nbqybskb-1{list-style-type:none}.lst-kix_h969vcu9z3gl-6>li:before{content:"-  "}.lst-kix_h969vcu9z3gl-4>li:before{content:"-  "}.lst-kix_h969vcu9z3gl-8>li:before{content:"-  "}ol.lst-kix_54kw3uh8dhqt-0{list-style-type:none}ol.lst-kix_54kw3uh8dhqt-1{list-style-type:none}ol.lst-kix_54kw3uh8dhqt-2{list-style-type:none}.lst-kix_y5n3nq4jdbfn-3>li{counter-increment:lst-ctn-kix_y5n3nq4jdbfn-3}.lst-kix_9y1uz5iqpetj-8>li:before{content:"\0025a0  "}ol.lst-kix_joqvl6xskr7h-6.start{counter-reset:lst-ctn-kix_joqvl6xskr7h-6 0}.lst-kix_h969vcu9z3gl-0>li:before{content:"-  "}ol.lst-kix_5fipecttb5uy-6.start{counter-reset:lst-ctn-kix_5fipecttb5uy-6 0}.lst-kix_h969vcu9z3gl-2>li:before{content:"-  "}.lst-kix_9y1uz5iqpetj-6>li:before{content:"\0025cf  "}.lst-kix_9lqivl1e2gb7-2>li:before{content:"-  "}ol.lst-kix_1ht5dddy08l0-7.start{counter-reset:lst-ctn-kix_1ht5dddy08l0-7 0}.lst-kix_9lqivl1e2gb7-0>li:before{content:"-  "}.lst-kix_xbffn4m8wqp8-1>li{counter-increment:lst-ctn-kix_xbffn4m8wqp8-1}.lst-kix_54kw3uh8dhqt-0>li{counter-increment:lst-ctn-kix_54kw3uh8dhqt-0}ul.lst-kix_14mi6nppaprg-0{list-style-type:none}ul.lst-kix_14mi6nppaprg-1{list-style-type:none}ul.lst-kix_14mi6nppaprg-4{list-style-type:none}ul.lst-kix_14mi6nppaprg-5{list-style-type:none}ul.lst-kix_14mi6nppaprg-2{list-style-type:none}ul.lst-kix_14mi6nppaprg-3{list-style-type:none}.lst-kix_f286vjr4fl6m-6>li{counter-increment:lst-ctn-kix_f286vjr4fl6m-6}.lst-kix_eb8c0e92k51s-5>li{counter-increment:lst-ctn-kix_eb8c0e92k51s-5}.lst-kix_joqvl6xskr7h-8>li{counter-increment:lst-ctn-kix_joqvl6xskr7h-8}ul.lst-kix_14mi6nppaprg-8{list-style-type:none}ul.lst-kix_hlfksvx4f7ob-0{list-style-type:none}ul.lst-kix_14mi6nppaprg-6{list-style-type:none}ul.lst-kix_14mi6nppaprg-7{list-style-type:none}ul.lst-kix_hlfksvx4f7ob-3{list-style-type:none}ul.lst-kix_hlfksvx4f7ob-4{list-style-type:none}ul.lst-kix_hlfksvx4f7ob-1{list-style-type:none}ul.lst-kix_hlfksvx4f7ob-2{list-style-type:none}ul.lst-kix_hlfksvx4f7ob-7{list-style-type:none}ul.lst-kix_hlfksvx4f7ob-8{list-style-type:none}ul.lst-kix_hlfksvx4f7ob-5{list-style-type:none}.lst-kix_lxb3qakoy7ua-7>li:before{content:"\0025cb  "}ul.lst-kix_hlfksvx4f7ob-6{list-style-type:none}.lst-kix_w9s67o5stqwf-7>li:before{content:"-  "}.lst-kix_w9s67o5stqwf-5>li:before{content:"-  "}.lst-kix_w9s67o5stqwf-1>li:before{content:"-  "}.lst-kix_lxb3qakoy7ua-1>li:before{content:"\0025cb  "}.lst-kix_kyan84g0syen-0>li{counter-increment:lst-ctn-kix_kyan84g0syen-0}.lst-kix_w9s67o5stqwf-3>li:before{content:"-  "}.lst-kix_9lqivl1e2gb7-8>li:before{content:"-  "}.lst-kix_ogk8irat6kiw-8>li:before{content:"\00274f  "}.lst-kix_e5wn09qizjam-2>li{counter-increment:lst-ctn-kix_e5wn09qizjam-2}.lst-kix_lxb3qakoy7ua-5>li:before{content:"\0025a0  "}.lst-kix_v8d4qxzddgv2-0>li:before{content:"-  "}ol.lst-kix_f286vjr4fl6m-4.start{counter-reset:lst-ctn-kix_f286vjr4fl6m-4 0}.lst-kix_9y1uz5iqpetj-0>li:before{content:"\0025cf  "}.lst-kix_ogk8irat6kiw-4>li:before{content:"\00274f  "}.lst-kix_fwp859mpdf6-5>li{counter-increment:lst-ctn-kix_fwp859mpdf6-5}.lst-kix_ogk8irat6kiw-2>li:before{content:"\00274f  "}.lst-kix_ogk8irat6kiw-6>li:before{content:"\00274f  "}.lst-kix_9lqivl1e2gb7-4>li:before{content:"-  "}.lst-kix_9y1uz5iqpetj-4>li:before{content:"\0025cb  "}.lst-kix_lxb3qakoy7ua-3>li:before{content:"\0025cf  "}.lst-kix_9y1uz5iqpetj-2>li:before{content:"\0025a0  "}ol.lst-kix_y5n3nq4jdbfn-6.start{counter-reset:lst-ctn-kix_y5n3nq4jdbfn-6 0}.lst-kix_9lqivl1e2gb7-6>li:before{content:"-  "}.lst-kix_c5aecsr96lyz-2>li:before{content:"\0025a0  "}.lst-kix_upxjftk9isdy-1>li:before{content:"\0025cb  "}.lst-kix_55qn5zinx2rw-6>li:before{content:"\00274f  "}.lst-kix_v8d4qxzddgv2-6>li:before{content:"-  "}.lst-kix_ogk8irat6kiw-0>li:before{content:"\00274f  "}.lst-kix_v8d4qxzddgv2-2>li:before{content:"-  "}ul.lst-kix_usi0zfnz082a-8{list-style-type:none}ul.lst-kix_usi0zfnz082a-7{list-style-type:none}ul.lst-kix_usi0zfnz082a-6{list-style-type:none}ul.lst-kix_usi0zfnz082a-5{list-style-type:none}.lst-kix_55qn5zinx2rw-2>li:before{content:"\00274f  "}ul.lst-kix_usi0zfnz082a-4{list-style-type:none}ul.lst-kix_usi0zfnz082a-3{list-style-type:none}ul.lst-kix_usi0zfnz082a-2{list-style-type:none}ul.lst-kix_usi0zfnz082a-1{list-style-type:none}ol.lst-kix_y5n3nq4jdbfn-1.start{counter-reset:lst-ctn-kix_y5n3nq4jdbfn-1 0}.lst-kix_pcqr12a7891l-0>li{counter-increment:lst-ctn-kix_pcqr12a7891l-0}.lst-kix_c5aecsr96lyz-6>li:before{content:"\0025cf  "}.lst-kix_5c3pl0bjm1s3-3>li:before{content:"\0025cf  "}ol.lst-kix_e5wn09qizjam-2.start{counter-reset:lst-ctn-kix_e5wn09qizjam-2 0}.lst-kix_1ht5dddy08l0-4>li{counter-increment:lst-ctn-kix_1ht5dddy08l0-4}.lst-kix_pcqr12a7891l-7>li{counter-increment:lst-ctn-kix_pcqr12a7891l-7}.lst-kix_5c3pl0bjm1s3-7>li:before{content:"\0025cb  "}.lst-kix_r1hwxp14qqtt-6>li{counter-increment:lst-ctn-kix_r1hwxp14qqtt-6}ul.lst-kix_wok3eaw9bfcg-1{list-style-type:none}ul.lst-kix_wok3eaw9bfcg-2{list-style-type:none}.lst-kix_e5wn09qizjam-4>li{counter-increment:lst-ctn-kix_e5wn09qizjam-4}ul.lst-kix_wok3eaw9bfcg-0{list-style-type:none}.lst-kix_fwp859mpdf6-7>li{counter-increment:lst-ctn-kix_fwp859mpdf6-7}ol.lst-kix_xbffn4m8wqp8-2.start{counter-reset:lst-ctn-kix_xbffn4m8wqp8-2 0}ul.lst-kix_wok3eaw9bfcg-7{list-style-type:none}.lst-kix_b8jop7yichto-4>li{counter-increment:lst-ctn-kix_b8jop7yichto-4}ul.lst-kix_wok3eaw9bfcg-8{list-style-type:none}ul.lst-kix_wok3eaw9bfcg-5{list-style-type:none}ul.lst-kix_wok3eaw9bfcg-6{list-style-type:none}ul.lst-kix_wok3eaw9bfcg-3{list-style-type:none}ul.lst-kix_wok3eaw9bfcg-4{list-style-type:none}ul.lst-kix_dmce2p29yrbb-7{list-style-type:none}.lst-kix_v86jzpu4qwv6-8>li:before{content:"-  "}.lst-kix_7sernppwpjc1-1>li:before{content:"-  "}ul.lst-kix_dmce2p29yrbb-6{list-style-type:none}.lst-kix_i07dzheblzoo-2>li:before{content:"\0025a0  "}ul.lst-kix_dmce2p29yrbb-5{list-style-type:none}ul.lst-kix_dmce2p29yrbb-4{list-style-type:none}ul.lst-kix_dmce2p29yrbb-3{list-style-type:none}ul.lst-kix_dmce2p29yrbb-2{list-style-type:none}ul.lst-kix_dmce2p29yrbb-1{list-style-type:none}ul.lst-kix_dmce2p29yrbb-0{list-style-type:none}ol.lst-kix_yaskkidl4eoy-3.start{counter-reset:lst-ctn-kix_yaskkidl4eoy-3 0}.lst-kix_xbffn4m8wqp8-8>li{counter-increment:lst-ctn-kix_xbffn4m8wqp8-8}ol.lst-kix_54kw3uh8dhqt-5.start{counter-reset:lst-ctn-kix_54kw3uh8dhqt-5 0}.lst-kix_7sernppwpjc1-5>li:before{content:"-  "}ol.lst-kix_5fipecttb5uy-1.start{counter-reset:lst-ctn-kix_5fipecttb5uy-1 0}ul.lst-kix_dmce2p29yrbb-8{list-style-type:none}.lst-kix_xbffn4m8wqp8-3>li{counter-increment:lst-ctn-kix_xbffn4m8wqp8-3}.lst-kix_v86jzpu4qwv6-0>li:before{content:"-  "}.lst-kix_1ht5dddy08l0-2>li{counter-increment:lst-ctn-kix_1ht5dddy08l0-2}.lst-kix_mijmearkmjnl-2>li:before{content:"\0025a0  "}ol.lst-kix_oecnlfcdzh8w-3.start{counter-reset:lst-ctn-kix_oecnlfcdzh8w-3 0}.lst-kix_a9vnimywhdpd-8>li:before{content:"\0025a0  "}.lst-kix_v86jzpu4qwv6-4>li:before{content:"-  "}.lst-kix_mijmearkmjnl-6>li:before{content:"\0025cf  "}.lst-kix_r1hwxp14qqtt-8>li{counter-increment:lst-ctn-kix_r1hwxp14qqtt-8}.lst-kix_i07dzheblzoo-6>li:before{content:"\0025cf  "}.lst-kix_pcqr12a7891l-5>li{counter-increment:lst-ctn-kix_pcqr12a7891l-5}ol.lst-kix_joqvl6xskr7h-1.start{counter-reset:lst-ctn-kix_joqvl6xskr7h-1 0}ol.lst-kix_eb8c0e92k51s-4.start{counter-reset:lst-ctn-kix_eb8c0e92k51s-4 0}.lst-kix_dmce2p29yrbb-5>li:before{content:"-  "}ul.lst-kix_qp2xuaqmqx08-4{list-style-type:none}ul.lst-kix_qp2xuaqmqx08-3{list-style-type:none}ol.lst-kix_1ht5dddy08l0-2.start{counter-reset:lst-ctn-kix_1ht5dddy08l0-2 0}ul.lst-kix_qp2xuaqmqx08-2{list-style-type:none}ul.lst-kix_qp2xuaqmqx08-1{list-style-type:none}ul.lst-kix_qp2xuaqmqx08-0{list-style-type:none}.lst-kix_dmce2p29yrbb-1>li:before{content:"-  "}.lst-kix_b8jop7yichto-6>li{counter-increment:lst-ctn-kix_b8jop7yichto-6}ol.lst-kix_oa849csponl4-0.start{counter-reset:lst-ctn-kix_oa849csponl4-0 0}.lst-kix_8yoay3beoero-2>li:before{content:"\0025a0  "}.lst-kix_8yoay3beoero-6>li:before{content:"\0025cf  "}.lst-kix_a9vnimywhdpd-4>li:before{content:"\0025cb  "}ul.lst-kix_qp2xuaqmqx08-8{list-style-type:none}.lst-kix_f286vjr4fl6m-8>li{counter-increment:lst-ctn-kix_f286vjr4fl6m-8}ul.lst-kix_qp2xuaqmqx08-7{list-style-type:none}ul.lst-kix_qp2xuaqmqx08-6{list-style-type:none}ul.lst-kix_qp2xuaqmqx08-5{list-style-type:none}.lst-kix_eb8c0e92k51s-2>li:before{content:"" counter(lst-ctn-kix_eb8c0e92k51s-2,lower-roman) ". "}.lst-kix_eb8c0e92k51s-6>li:before{content:"" counter(lst-ctn-kix_eb8c0e92k51s-6,decimal) ". "}ol.lst-kix_54kw3uh8dhqt-8.start{counter-reset:lst-ctn-kix_54kw3uh8dhqt-8 0}.lst-kix_r1hwxp14qqtt-1>li{counter-increment:lst-ctn-kix_r1hwxp14qqtt-1}.lst-kix_a9vnimywhdpd-0>li:before{content:"\0025cf  "}.lst-kix_14mi6nppaprg-4>li:before{content:"-  "}.lst-kix_14mi6nppaprg-2>li:before{content:"-  "}ol.lst-kix_5tlqkax8pn8h-5.start{counter-reset:lst-ctn-kix_5tlqkax8pn8h-5 0}.lst-kix_1ht5dddy08l0-3>li:before{content:"" counter(lst-ctn-kix_1ht5dddy08l0-3,decimal) ". "}ul.lst-kix_s3sq7ed4q79u-2{list-style-type:none}.lst-kix_hlfksvx4f7ob-3>li:before{content:"\0025cf  "}ul.lst-kix_s3sq7ed4q79u-1{list-style-type:none}ul.lst-kix_s3sq7ed4q79u-0{list-style-type:none}ol.lst-kix_e5wn09qizjam-0.start{counter-reset:lst-ctn-kix_e5wn09qizjam-0 0}.lst-kix_qxsub0urh8b5-3>li:before{content:"\0025cf  "}ul.lst-kix_kejj0mnh36fn-4{list-style-type:none}ul.lst-kix_kejj0mnh36fn-3{list-style-type:none}ul.lst-kix_kejj0mnh36fn-2{list-style-type:none}.lst-kix_q5n1whvesm8z-8>li:before{content:"" counter(lst-ctn-kix_q5n1whvesm8z-8,lower-roman) ". "}ul.lst-kix_kejj0mnh36fn-1{list-style-type:none}ul.lst-kix_kejj0mnh36fn-0{list-style-type:none}.lst-kix_sqi2eeqkjqi1-1>li:before{content:"\0025cb  "}.lst-kix_q5n1whvesm8z-6>li:before{content:"" counter(lst-ctn-kix_q5n1whvesm8z-6,decimal) ". "}ul.lst-kix_kejj0mnh36fn-8{list-style-type:none}ul.lst-kix_kejj0mnh36fn-7{list-style-type:none}ul.lst-kix_kejj0mnh36fn-6{list-style-type:none}ul.lst-kix_kejj0mnh36fn-5{list-style-type:none}ol.lst-kix_oecnlfcdzh8w-1.start{counter-reset:lst-ctn-kix_oecnlfcdzh8w-1 0}ul.lst-kix_2ixtida4q52v-8{list-style-type:none}.lst-kix_qxsub0urh8b5-5>li:before{content:"\0025a0  "}ul.lst-kix_2ixtida4q52v-5{list-style-type:none}ul.lst-kix_2ixtida4q52v-4{list-style-type:none}ul.lst-kix_2ixtida4q52v-7{list-style-type:none}ul.lst-kix_2ixtida4q52v-6{list-style-type:none}ul.lst-kix_2ixtida4q52v-1{list-style-type:none}.lst-kix_1ht5dddy08l0-1>li:before{content:"" counter(lst-ctn-kix_1ht5dddy08l0-1,lower-latin) ". "}ul.lst-kix_2ixtida4q52v-0{list-style-type:none}ol.lst-kix_54kw3uh8dhqt-3.start{counter-reset:lst-ctn-kix_54kw3uh8dhqt-3 0}ul.lst-kix_2ixtida4q52v-3{list-style-type:none}ul.lst-kix_2ixtida4q52v-2{list-style-type:none}.lst-kix_lvqs51bnwmx-3>li:before{content:"-  "}.lst-kix_q5n1whvesm8z-0>li:before{content:"" counter(lst-ctn-kix_q5n1whvesm8z-0,decimal) ". "}.lst-kix_150nvl8gjcuy-5>li:before{content:"\0025a0  "}.lst-kix_lvqs51bnwmx-1>li:before{content:"-  "}.lst-kix_150nvl8gjcuy-3>li:before{content:"\0025cf  "}ol.lst-kix_5tlqkax8pn8h-0.start{counter-reset:lst-ctn-kix_5tlqkax8pn8h-0 0}.lst-kix_oecnlfcdzh8w-3>li:before{content:"" counter(lst-ctn-kix_oecnlfcdzh8w-3,decimal) ". "}.lst-kix_eb8c0e92k51s-3>li{counter-increment:lst-ctn-kix_eb8c0e92k51s-3}.lst-kix_oecnlfcdzh8w-1>li:before{content:"" counter(lst-ctn-kix_oecnlfcdzh8w-1,lower-latin) ". "}.lst-kix_f286vjr4fl6m-1>li{counter-increment:lst-ctn-kix_f286vjr4fl6m-1}.lst-kix_5fipecttb5uy-5>li{counter-increment:lst-ctn-kix_5fipecttb5uy-5}.lst-kix_e5wn09qizjam-7>li:before{content:"" counter(lst-ctn-kix_e5wn09qizjam-7,lower-latin) ". "}.lst-kix_2ixtida4q52v-5>li:before{content:"\0025a0  "}.lst-kix_2ixtida4q52v-3>li:before{content:"\0025cf  "}.lst-kix_54kw3uh8dhqt-6>li:before{content:"" counter(lst-ctn-kix_54kw3uh8dhqt-6,decimal) ". "}ol.lst-kix_y5n3nq4jdbfn-3.start{counter-reset:lst-ctn-kix_y5n3nq4jdbfn-3 0}.lst-kix_e5wn09qizjam-1>li:before{content:"" counter(lst-ctn-kix_e5wn09qizjam-1,lower-latin) ". "}.lst-kix_54kw3uh8dhqt-4>li:before{content:"" counter(lst-ctn-kix_54kw3uh8dhqt-4,lower-latin) ". "}.lst-kix_hlfksvx4f7ob-5>li:before{content:"\0025a0  "}ul.lst-kix_n3tj4l2tfvjs-1{list-style-type:none}ul.lst-kix_n3tj4l2tfvjs-2{list-style-type:none}ul.lst-kix_n3tj4l2tfvjs-0{list-style-type:none}.lst-kix_24j33d900kc7-6>li:before{content:"-  "}ol.lst-kix_150nvl8gjcuy-0.start{counter-reset:lst-ctn-kix_150nvl8gjcuy-0 0}ol.lst-kix_e5wn09qizjam-7.start{counter-reset:lst-ctn-kix_e5wn09qizjam-7 0}.lst-kix_nje0xadfpcg4-6>li:before{content:"\0025cf  "}ol.lst-kix_kyan84g0syen-5{list-style-type:none}ol.lst-kix_kyan84g0syen-4{list-style-type:none}ol.lst-kix_kyan84g0syen-7{list-style-type:none}ol.lst-kix_kyan84g0syen-6{list-style-type:none}.lst-kix_f286vjr4fl6m-3>li:before{content:"" counter(lst-ctn-kix_f286vjr4fl6m-3,decimal) ". "}.lst-kix_nje0xadfpcg4-8>li:before{content:"\0025a0  "}ol.lst-kix_kyan84g0syen-1{list-style-type:none}ol.lst-kix_kyan84g0syen-0{list-style-type:none}.lst-kix_24j33d900kc7-4>li:before{content:"-  "}ol.lst-kix_kyan84g0syen-3{list-style-type:none}ol.lst-kix_kyan84g0syen-2{list-style-type:none}ul.lst-kix_9lqivl1e2gb7-5{list-style-type:none}ul.lst-kix_9lqivl1e2gb7-4{list-style-type:none}ul.lst-kix_9lqivl1e2gb7-3{list-style-type:none}ul.lst-kix_9lqivl1e2gb7-2{list-style-type:none}ul.lst-kix_9lqivl1e2gb7-8{list-style-type:none}ol.lst-kix_kyan84g0syen-8{list-style-type:none}ul.lst-kix_9lqivl1e2gb7-7{list-style-type:none}ul.lst-kix_9lqivl1e2gb7-6{list-style-type:none}.lst-kix_f286vjr4fl6m-1>li:before{content:"" counter(lst-ctn-kix_f286vjr4fl6m-1,lower-latin) ". "}ul.lst-kix_n3tj4l2tfvjs-7{list-style-type:none}ul.lst-kix_n3tj4l2tfvjs-8{list-style-type:none}ul.lst-kix_n3tj4l2tfvjs-5{list-style-type:none}.lst-kix_f286vjr4fl6m-4>li{counter-increment:lst-ctn-kix_f286vjr4fl6m-4}.lst-kix_r10uc3zfx1kf-2>li:before{content:"\00274f  "}ul.lst-kix_n3tj4l2tfvjs-6{list-style-type:none}ul.lst-kix_n3tj4l2tfvjs-3{list-style-type:none}ul.lst-kix_n3tj4l2tfvjs-4{list-style-type:none}.lst-kix_o5luukcvtasg-6>li:before{content:"\0025cf  "}.lst-kix_fwp859mpdf6-0>li{counter-increment:lst-ctn-kix_fwp859mpdf6-0}.lst-kix_o5luukcvtasg-4>li:before{content:"\0025cb  "}.lst-kix_madkam6f1iws-0>li:before{content:"\00274f  "}ol.lst-kix_5fipecttb5uy-3.start{counter-reset:lst-ctn-kix_5fipecttb5uy-3 0}ul.lst-kix_9lqivl1e2gb7-1{list-style-type:none}.lst-kix_nje0xadfpcg4-0>li:before{content:"\0025cf  "}ul.lst-kix_9lqivl1e2gb7-0{list-style-type:none}ol.lst-kix_y5n3nq4jdbfn-8.start{counter-reset:lst-ctn-kix_y5n3nq4jdbfn-8 0}.lst-kix_5fipecttb5uy-4>li:before{content:"" counter(lst-ctn-kix_5fipecttb5uy-4,lower-latin) ". "}.lst-kix_kyan84g0syen-5>li{counter-increment:lst-ctn-kix_kyan84g0syen-5}ol.lst-kix_5tlqkax8pn8h-7.start{counter-reset:lst-ctn-kix_5tlqkax8pn8h-7 0}.lst-kix_5fipecttb5uy-6>li:before{content:"" counter(lst-ctn-kix_5fipecttb5uy-6,decimal) ". "}.lst-kix_bssn06ffrn47-2>li:before{content:"\00274f  "}.lst-kix_bssn06ffrn47-4>li:before{content:"\00274f  "}.lst-kix_5fipecttb5uy-1>li{counter-increment:lst-ctn-kix_5fipecttb5uy-1}ol.lst-kix_xbffn4m8wqp8-5.start{counter-reset:lst-ctn-kix_xbffn4m8wqp8-5 0}.lst-kix_5tlqkax8pn8h-6>li:before{content:"" counter(lst-ctn-kix_5tlqkax8pn8h-6,decimal) ". "}ol.lst-kix_e5wn09qizjam-5.start{counter-reset:lst-ctn-kix_e5wn09qizjam-5 0}.lst-kix_5tlqkax8pn8h-4>li:before{content:"" counter(lst-ctn-kix_5tlqkax8pn8h-4,lower-latin) ". "}.lst-kix_madkam6f1iws-6>li:before{content:"\00274f  "}.lst-kix_sqi2eeqkjqi1-3>li:before{content:"\0025cf  "}.lst-kix_madkam6f1iws-8>li:before{content:"\00274f  "}ol.lst-kix_usi0zfnz082a-0.start{counter-reset:lst-ctn-kix_usi0zfnz082a-0 0}.lst-kix_r10uc3zfx1kf-4>li:before{content:"\00274f  "}ul.lst-kix_s3sq7ed4q79u-6{list-style-type:none}ul.lst-kix_s3sq7ed4q79u-5{list-style-type:none}ul.lst-kix_s3sq7ed4q79u-4{list-style-type:none}ul.lst-kix_s3sq7ed4q79u-3{list-style-type:none}ul.lst-kix_s3sq7ed4q79u-8{list-style-type:none}ul.lst-kix_s3sq7ed4q79u-7{list-style-type:none}.lst-kix_1ht5dddy08l0-6>li{counter-increment:lst-ctn-kix_1ht5dddy08l0-6}.lst-kix_r1hwxp14qqtt-4>li{counter-increment:lst-ctn-kix_r1hwxp14qqtt-4}.lst-kix_upxjftk9isdy-3>li:before{content:"\0025cf  "}ol.lst-kix_kyan84g0syen-8.start{counter-reset:lst-ctn-kix_kyan84g0syen-8 0}ol.lst-kix_yaskkidl4eoy-6.start{counter-reset:lst-ctn-kix_yaskkidl4eoy-6 0}.lst-kix_wok3eaw9bfcg-0>li:before{content:"\0025cf  "}ol.lst-kix_xbffn4m8wqp8-7.start{counter-reset:lst-ctn-kix_xbffn4m8wqp8-7 0}.lst-kix_yaskkidl4eoy-4>li{counter-increment:lst-ctn-kix_yaskkidl4eoy-4}.lst-kix_c5aecsr96lyz-0>li:before{content:"\0025cf  "}.lst-kix_14rk34yzn4ll-4>li:before{content:"\0025cb  "}.lst-kix_q5n1whvesm8z-8>li{counter-increment:lst-ctn-kix_q5n1whvesm8z-8}.lst-kix_1blicfbuz9jc-0>li:before{content:"-  "}.lst-kix_v8d4qxzddgv2-8>li:before{content:"-  "}.lst-kix_55qn5zinx2rw-4>li:before{content:"\00274f  "}.lst-kix_eb8c0e92k51s-0>li{counter-increment:lst-ctn-kix_eb8c0e92k51s-0}.lst-kix_5tlqkax8pn8h-6>li{counter-increment:lst-ctn-kix_5tlqkax8pn8h-6}.lst-kix_oa849csponl4-8>li:before{content:"" counter(lst-ctn-kix_oa849csponl4-8,lower-roman) ". "}ol.lst-kix_yaskkidl4eoy-8.start{counter-reset:lst-ctn-kix_yaskkidl4eoy-8 0}.lst-kix_fwp859mpdf6-3>li{counter-increment:lst-ctn-kix_fwp859mpdf6-3}.lst-kix_qp2xuaqmqx08-4>li:before{content:"\00274f  "}.lst-kix_joqvl6xskr7h-1>li{counter-increment:lst-ctn-kix_joqvl6xskr7h-1}.lst-kix_r1hwxp14qqtt-4>li:before{content:"" counter(lst-ctn-kix_r1hwxp14qqtt-0,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-1,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-2,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-3,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-4,decimal) ". "}.lst-kix_wok3eaw9bfcg-8>li:before{content:"\0025a0  "}ol.lst-kix_fwp859mpdf6-7{list-style-type:none}ol.lst-kix_fwp859mpdf6-8{list-style-type:none}.lst-kix_c5aecsr96lyz-8>li:before{content:"\0025a0  "}ol.lst-kix_fwp859mpdf6-3{list-style-type:none}ol.lst-kix_fwp859mpdf6-4{list-style-type:none}.lst-kix_e5wn09qizjam-0>li{counter-increment:lst-ctn-kix_e5wn09qizjam-0}ol.lst-kix_fwp859mpdf6-5{list-style-type:none}ol.lst-kix_fwp859mpdf6-6{list-style-type:none}ol.lst-kix_fwp859mpdf6-0{list-style-type:none}ol.lst-kix_fwp859mpdf6-1{list-style-type:none}ol.lst-kix_54kw3uh8dhqt-0.start{counter-reset:lst-ctn-kix_54kw3uh8dhqt-0 0}ol.lst-kix_fwp859mpdf6-2{list-style-type:none}.lst-kix_5c3pl0bjm1s3-1>li:before{content:"\0025cb  "}ol.lst-kix_5fipecttb5uy-8.start{counter-reset:lst-ctn-kix_5fipecttb5uy-8 0}.lst-kix_7kcw8ca7cpkk-1>li:before{content:"-  "}.lst-kix_5fipecttb5uy-8>li{counter-increment:lst-ctn-kix_5fipecttb5uy-8}.lst-kix_i07dzheblzoo-0>li:before{content:"\0025cf  "}.lst-kix_7sernppwpjc1-7>li:before{content:"-  "}.lst-kix_7r26hmefqxlz-0>li:before{content:"-  "}.lst-kix_e5wn09qizjam-7>li{counter-increment:lst-ctn-kix_e5wn09qizjam-7}.lst-kix_7r26hmefqxlz-8>li:before{content:"-  "}.lst-kix_5tlqkax8pn8h-2>li{counter-increment:lst-ctn-kix_5tlqkax8pn8h-2}.lst-kix_n3tj4l2tfvjs-7>li:before{content:"\0025cb  "}.lst-kix_oa849csponl4-0>li:before{content:"" counter(lst-ctn-kix_oa849csponl4-0,decimal) ". "}.lst-kix_8izowsl2o168-4>li:before{content:"\0025cb  "}ol.lst-kix_f286vjr4fl6m-1.start{counter-reset:lst-ctn-kix_f286vjr4fl6m-1 0}ul.lst-kix_v8d4qxzddgv2-0{list-style-type:none}.lst-kix_qm9hkxcig6cu-7>li:before{content:"\0025cb  "}ul.lst-kix_v8d4qxzddgv2-2{list-style-type:none}.lst-kix_y5n3nq4jdbfn-0>li:before{content:"" counter(lst-ctn-kix_y5n3nq4jdbfn-0,decimal) ". "}ul.lst-kix_v8d4qxzddgv2-1{list-style-type:none}ul.lst-kix_v8d4qxzddgv2-4{list-style-type:none}ul.lst-kix_v8d4qxzddgv2-3{list-style-type:none}ul.lst-kix_v8d4qxzddgv2-6{list-style-type:none}ul.lst-kix_v8d4qxzddgv2-5{list-style-type:none}ul.lst-kix_v8d4qxzddgv2-8{list-style-type:none}ul.lst-kix_v8d4qxzddgv2-7{list-style-type:none}.lst-kix_ghz5yf7zqdw2-5>li:before{content:"\0025a0  "}.lst-kix_oa849csponl4-3>li{counter-increment:lst-ctn-kix_oa849csponl4-3}.lst-kix_v86jzpu4qwv6-2>li:before{content:"-  "}.lst-kix_mijmearkmjnl-4>li:before{content:"\0025cb  "}.lst-kix_a9vnimywhdpd-6>li:before{content:"\0025cf  "}.lst-kix_joqvl6xskr7h-4>li{counter-increment:lst-ctn-kix_joqvl6xskr7h-4}.lst-kix_pcqr12a7891l-1>li:before{content:"" counter(lst-ctn-kix_pcqr12a7891l-1,lower-latin) ". "}.lst-kix_s3sq7ed4q79u-6>li:before{content:"-  "}.lst-kix_q5n1whvesm8z-4>li{counter-increment:lst-ctn-kix_q5n1whvesm8z-4}.lst-kix_xbffn4m8wqp8-4>li:before{content:"" counter(lst-ctn-kix_xbffn4m8wqp8-4,lower-latin) ". "}.lst-kix_b8jop7yichto-6>li:before{content:"" counter(lst-ctn-kix_b8jop7yichto-6,decimal) ". "}.lst-kix_kyan84g0syen-2>li{counter-increment:lst-ctn-kix_kyan84g0syen-2}.lst-kix_y5n3nq4jdbfn-8>li:before{content:"" counter(lst-ctn-kix_y5n3nq4jdbfn-8,lower-roman) ". "}.lst-kix_i07dzheblzoo-8>li:before{content:"\0025a0  "}.lst-kix_iw9e0zk5bknq-5>li:before{content:"\0025a0  "}.lst-kix_eb8c0e92k51s-0>li:before{content:"" counter(lst-ctn-kix_eb8c0e92k51s-0,decimal) ". "}.lst-kix_yaskkidl4eoy-6>li:before{content:"" counter(lst-ctn-kix_yaskkidl4eoy-6,decimal) ". "}ul.lst-kix_7kcw8ca7cpkk-4{list-style-type:none}ul.lst-kix_7kcw8ca7cpkk-3{list-style-type:none}ul.lst-kix_7kcw8ca7cpkk-6{list-style-type:none}ul.lst-kix_7kcw8ca7cpkk-5{list-style-type:none}ul.lst-kix_7kcw8ca7cpkk-8{list-style-type:none}ul.lst-kix_7kcw8ca7cpkk-7{list-style-type:none}.lst-kix_54kw3uh8dhqt-2>li{counter-increment:lst-ctn-kix_54kw3uh8dhqt-2}.lst-kix_dmce2p29yrbb-3>li:before{content:"-  "}.lst-kix_oecnlfcdzh8w-3>li{counter-increment:lst-ctn-kix_oecnlfcdzh8w-3}.lst-kix_kyan84g0syen-2>li:before{content:"" counter(lst-ctn-kix_kyan84g0syen-2,lower-roman) ". "}ul.lst-kix_7kcw8ca7cpkk-0{list-style-type:none}ul.lst-kix_7kcw8ca7cpkk-2{list-style-type:none}ul.lst-kix_7kcw8ca7cpkk-1{list-style-type:none}.lst-kix_eb8c0e92k51s-7>li{counter-increment:lst-ctn-kix_eb8c0e92k51s-7}.lst-kix_eb8c0e92k51s-8>li:before{content:"" counter(lst-ctn-kix_eb8c0e92k51s-8,lower-roman) ". "}.lst-kix_8yoay3beoero-4>li:before{content:"\0025cb  "}ol.lst-kix_5tlqkax8pn8h-2.start{counter-reset:lst-ctn-kix_5tlqkax8pn8h-2 0}.lst-kix_1ht5dddy08l0-7>li{counter-increment:lst-ctn-kix_1ht5dddy08l0-7}.lst-kix_r1hwxp14qqtt-3>li{counter-increment:lst-ctn-kix_r1hwxp14qqtt-3}ol.lst-kix_150nvl8gjcuy-0{list-style-type:none}.lst-kix_oa849csponl4-7>li{counter-increment:lst-ctn-kix_oa849csponl4-7}.lst-kix_7yep2crf8uqn-3>li:before{content:"\0025cf  "}ol.lst-kix_y5n3nq4jdbfn-4.start{counter-reset:lst-ctn-kix_y5n3nq4jdbfn-4 0}.lst-kix_7yep2crf8uqn-2>li:before{content:"\0025a0  "}ol.lst-kix_eb8c0e92k51s-1.start{counter-reset:lst-ctn-kix_eb8c0e92k51s-1 0}ol.lst-kix_xbffn4m8wqp8-1{list-style-type:none}ol.lst-kix_xbffn4m8wqp8-0{list-style-type:none}ol.lst-kix_xbffn4m8wqp8-5{list-style-type:none}ol.lst-kix_xbffn4m8wqp8-4{list-style-type:none}ol.lst-kix_xbffn4m8wqp8-3{list-style-type:none}ol.lst-kix_xbffn4m8wqp8-2{list-style-type:none}ol.lst-kix_xbffn4m8wqp8-8{list-style-type:none}ol.lst-kix_xbffn4m8wqp8-7{list-style-type:none}ol.lst-kix_xbffn4m8wqp8-6{list-style-type:none}.lst-kix_7yep2crf8uqn-5>li:before{content:"\0025a0  "}.lst-kix_7yep2crf8uqn-6>li:before{content:"\0025cf  "}ol.lst-kix_pcqr12a7891l-8.start{counter-reset:lst-ctn-kix_pcqr12a7891l-8 0}.lst-kix_7yep2crf8uqn-8>li:before{content:"\0025a0  "}.lst-kix_gjwgbgw8ll1n-3>li:before{content:"\0025cf  "}ol.lst-kix_q5n1whvesm8z-1.start{counter-reset:lst-ctn-kix_q5n1whvesm8z-1 0}ol.lst-kix_usi0zfnz082a-0{list-style-type:none}.lst-kix_gjwgbgw8ll1n-0>li:before{content:"\0025cf  "}.lst-kix_xbffn4m8wqp8-5>li{counter-increment:lst-ctn-kix_xbffn4m8wqp8-5}.lst-kix_fwp859mpdf6-2>li:before{content:"" counter(lst-ctn-kix_fwp859mpdf6-2,lower-roman) ". "}.lst-kix_gjwgbgw8ll1n-6>li:before{content:"\0025cf  "}.lst-kix_fwp859mpdf6-4>li:before{content:"" counter(lst-ctn-kix_fwp859mpdf6-4,lower-latin) ". "}ol.lst-kix_eb8c0e92k51s-6.start{counter-reset:lst-ctn-kix_eb8c0e92k51s-6 0}.lst-kix_r838nbqybskb-3>li:before{content:"\00274f  "}.lst-kix_y5n3nq4jdbfn-1>li:before{content:"" counter(lst-ctn-kix_y5n3nq4jdbfn-1,lower-latin) ". "}.lst-kix_b8jop7yichto-2>li{counter-increment:lst-ctn-kix_b8jop7yichto-2}.lst-kix_fwp859mpdf6-1>li:before{content:"" counter(lst-ctn-kix_fwp859mpdf6-1,lower-latin) ". "}.lst-kix_pcqr12a7891l-4>li:before{content:"" counter(lst-ctn-kix_pcqr12a7891l-4,lower-latin) ". "}.lst-kix_pcqr12a7891l-6>li:before{content:"" counter(lst-ctn-kix_pcqr12a7891l-6,decimal) ". "}.lst-kix_qm9hkxcig6cu-8>li:before{content:"\0025a0  "}.lst-kix_oecnlfcdzh8w-7>li{counter-increment:lst-ctn-kix_oecnlfcdzh8w-7}.lst-kix_fwp859mpdf6-8>li:before{content:"" counter(lst-ctn-kix_fwp859mpdf6-8,lower-roman) ". "}.lst-kix_kejj0mnh36fn-6>li:before{content:"-  "}ol.lst-kix_pcqr12a7891l-3.start{counter-reset:lst-ctn-kix_pcqr12a7891l-3 0}.lst-kix_5fipecttb5uy-0>li{counter-increment:lst-ctn-kix_5fipecttb5uy-0}.lst-kix_pcqr12a7891l-0>li:before{content:"" counter(lst-ctn-kix_pcqr12a7891l-0,decimal) ". "}.lst-kix_ng9d0mstyr43-8>li:before{content:"-  "}.lst-kix_qm9hkxcig6cu-2>li:before{content:"\0025a0  "}.lst-kix_ghz5yf7zqdw2-6>li:before{content:"\0025cf  "}.lst-kix_n3tj4l2tfvjs-1>li:before{content:"\0025cb  "}.lst-kix_qm9hkxcig6cu-4>li:before{content:"\0025cb  "}.lst-kix_pcqr12a7891l-3>li{counter-increment:lst-ctn-kix_pcqr12a7891l-3}ol.lst-kix_r1hwxp14qqtt-2.start{counter-reset:lst-ctn-kix_r1hwxp14qqtt-2 0}ol.lst-kix_q5n1whvesm8z-6.start{counter-reset:lst-ctn-kix_q5n1whvesm8z-6 0}.lst-kix_iw9e0zk5bknq-6>li:before{content:"\0025cf  "}ul.lst-kix_c5aecsr96lyz-7{list-style-type:none}.lst-kix_joqvl6xskr7h-7>li:before{content:"" counter(lst-ctn-kix_joqvl6xskr7h-7,lower-latin) ". "}ul.lst-kix_c5aecsr96lyz-8{list-style-type:none}ul.lst-kix_c5aecsr96lyz-5{list-style-type:none}ul.lst-kix_c5aecsr96lyz-6{list-style-type:none}ul.lst-kix_c5aecsr96lyz-3{list-style-type:none}ul.lst-kix_c5aecsr96lyz-4{list-style-type:none}ul.lst-kix_c5aecsr96lyz-1{list-style-type:none}ul.lst-kix_c5aecsr96lyz-2{list-style-type:none}.lst-kix_iw9e0zk5bknq-0>li:before{content:"\0025cf  "}.lst-kix_iw9e0zk5bknq-2>li:before{content:"\0025a0  "}ul.lst-kix_c5aecsr96lyz-0{list-style-type:none}.lst-kix_xbffn4m8wqp8-5>li:before{content:"" counter(lst-ctn-kix_xbffn4m8wqp8-5,lower-roman) ". "}.lst-kix_joqvl6xskr7h-3>li{counter-increment:lst-ctn-kix_joqvl6xskr7h-3}.lst-kix_joqvl6xskr7h-1>li:before{content:"" counter(lst-ctn-kix_joqvl6xskr7h-1,lower-latin) ". "}.lst-kix_y5n3nq4jdbfn-7>li:before{content:"" counter(lst-ctn-kix_y5n3nq4jdbfn-7,lower-latin) ". "}.lst-kix_ghz5yf7zqdw2-2>li:before{content:"\0025a0  "}.lst-kix_joqvl6xskr7h-3>li:before{content:"" counter(lst-ctn-kix_joqvl6xskr7h-3,decimal) ". "}.lst-kix_ng9d0mstyr43-2>li:before{content:"-  "}.lst-kix_kejj0mnh36fn-2>li:before{content:"-  "}.lst-kix_5tlqkax8pn8h-1>li{counter-increment:lst-ctn-kix_5tlqkax8pn8h-1}.lst-kix_kejj0mnh36fn-0>li:before{content:"-  "}.lst-kix_ghz5yf7zqdw2-0>li:before{content:"\0025cf  "}.lst-kix_xbffn4m8wqp8-1>li:before{content:"" counter(lst-ctn-kix_xbffn4m8wqp8-1,lower-latin) ". "}.lst-kix_xbffn4m8wqp8-6>li{counter-increment:lst-ctn-kix_xbffn4m8wqp8-6}ol.lst-kix_f286vjr4fl6m-0{list-style-type:none}ol.lst-kix_f286vjr4fl6m-1{list-style-type:none}ol.lst-kix_f286vjr4fl6m-4{list-style-type:none}ol.lst-kix_f286vjr4fl6m-5{list-style-type:none}ol.lst-kix_f286vjr4fl6m-2{list-style-type:none}ol.lst-kix_f286vjr4fl6m-3{list-style-type:none}ol.lst-kix_f286vjr4fl6m-8{list-style-type:none}ol.lst-kix_f286vjr4fl6m-6{list-style-type:none}ol.lst-kix_f286vjr4fl6m-7{list-style-type:none}ul.lst-kix_14rk34yzn4ll-3{list-style-type:none}ul.lst-kix_14rk34yzn4ll-4{list-style-type:none}ul.lst-kix_14rk34yzn4ll-1{list-style-type:none}ul.lst-kix_14rk34yzn4ll-2{list-style-type:none}.lst-kix_1blicfbuz9jc-8>li:before{content:"-  "}ul.lst-kix_14rk34yzn4ll-0{list-style-type:none}ul.lst-kix_14rk34yzn4ll-7{list-style-type:none}ul.lst-kix_14rk34yzn4ll-8{list-style-type:none}.lst-kix_q5n1whvesm8z-2>li{counter-increment:lst-ctn-kix_q5n1whvesm8z-2}ul.lst-kix_14rk34yzn4ll-5{list-style-type:none}ul.lst-kix_14rk34yzn4ll-6{list-style-type:none}.lst-kix_1blicfbuz9jc-2>li:before{content:"-  "}.lst-kix_14rk34yzn4ll-7>li:before{content:"\0025cb  "}.lst-kix_wok3eaw9bfcg-2>li:before{content:"\0025a0  "}.lst-kix_1blicfbuz9jc-5>li:before{content:"-  "}.lst-kix_wok3eaw9bfcg-3>li:before{content:"\0025cf  "}ul.lst-kix_i07dzheblzoo-2{list-style-type:none}.lst-kix_1blicfbuz9jc-6>li:before{content:"-  "}ul.lst-kix_i07dzheblzoo-3{list-style-type:none}ul.lst-kix_i07dzheblzoo-0{list-style-type:none}ul.lst-kix_i07dzheblzoo-1{list-style-type:none}.lst-kix_14rk34yzn4ll-6>li:before{content:"\0025cf  "}ul.lst-kix_lxb3qakoy7ua-5{list-style-type:none}ul.lst-kix_lxb3qakoy7ua-4{list-style-type:none}ul.lst-kix_i07dzheblzoo-8{list-style-type:none}ul.lst-kix_lxb3qakoy7ua-3{list-style-type:none}ul.lst-kix_lxb3qakoy7ua-2{list-style-type:none}ul.lst-kix_i07dzheblzoo-6{list-style-type:none}ul.lst-kix_lxb3qakoy7ua-1{list-style-type:none}.lst-kix_54kw3uh8dhqt-5>li{counter-increment:lst-ctn-kix_54kw3uh8dhqt-5}ul.lst-kix_i07dzheblzoo-7{list-style-type:none}.lst-kix_oa849csponl4-6>li:before{content:"" counter(lst-ctn-kix_oa849csponl4-6,decimal) ". "}ul.lst-kix_lxb3qakoy7ua-0{list-style-type:none}ul.lst-kix_i07dzheblzoo-4{list-style-type:none}ul.lst-kix_i07dzheblzoo-5{list-style-type:none}.lst-kix_5fipecttb5uy-6>li{counter-increment:lst-ctn-kix_5fipecttb5uy-6}.lst-kix_14rk34yzn4ll-3>li:before{content:"\0025cf  "}.lst-kix_r1hwxp14qqtt-6>li:before{content:"" counter(lst-ctn-kix_r1hwxp14qqtt-0,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-1,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-2,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-3,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-4,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-5,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-6,decimal) ". "}.lst-kix_54kw3uh8dhqt-3>li{counter-increment:lst-ctn-kix_54kw3uh8dhqt-3}.lst-kix_qp2xuaqmqx08-6>li:before{content:"\00274f  "}ul.lst-kix_lxb3qakoy7ua-8{list-style-type:none}ul.lst-kix_lxb3qakoy7ua-7{list-style-type:none}ul.lst-kix_lxb3qakoy7ua-6{list-style-type:none}.lst-kix_wok3eaw9bfcg-6>li:before{content:"\0025cf  "}.lst-kix_8izowsl2o168-7>li:before{content:"\0025cb  "}.lst-kix_8izowsl2o168-3>li:before{content:"\0025cf  "}ol.lst-kix_r1hwxp14qqtt-6.start{counter-reset:lst-ctn-kix_r1hwxp14qqtt-6 0}ol.lst-kix_q5n1whvesm8z-0.start{counter-reset:lst-ctn-kix_q5n1whvesm8z-0 0}.lst-kix_7kcw8ca7cpkk-2>li:before{content:"-  "}.lst-kix_7r26hmefqxlz-3>li:before{content:"-  "}.lst-kix_yaskkidl4eoy-0>li{counter-increment:lst-ctn-kix_yaskkidl4eoy-0}.lst-kix_n3tj4l2tfvjs-2>li:before{content:"\0025a0  "}.lst-kix_7r26hmefqxlz-2>li:before{content:"-  "}.lst-kix_7r26hmefqxlz-6>li:before{content:"-  "}ol.lst-kix_r1hwxp14qqtt-7.start{counter-reset:lst-ctn-kix_r1hwxp14qqtt-7 0}.lst-kix_oa849csponl4-3>li:before{content:"" counter(lst-ctn-kix_oa849csponl4-3,decimal) ". "}.lst-kix_n3tj4l2tfvjs-5>li:before{content:"\0025a0  "}.lst-kix_oa849csponl4-2>li:before{content:"" counter(lst-ctn-kix_oa849csponl4-2,lower-roman) ". "}.lst-kix_8izowsl2o168-6>li:before{content:"\0025cf  "}ol.lst-kix_eb8c0e92k51s-2.start{counter-reset:lst-ctn-kix_eb8c0e92k51s-2 0}.lst-kix_fwp859mpdf6-5>li:before{content:"" counter(lst-ctn-kix_fwp859mpdf6-5,lower-roman) ". "}.lst-kix_qm9hkxcig6cu-5>li:before{content:"\0025a0  "}.lst-kix_r838nbqybskb-0>li:before{content:"\00274f  "}.lst-kix_pcqr12a7891l-7>li:before{content:"" counter(lst-ctn-kix_pcqr12a7891l-7,lower-latin) ". "}.lst-kix_f286vjr4fl6m-3>li{counter-increment:lst-ctn-kix_f286vjr4fl6m-3}.lst-kix_ghz5yf7zqdw2-3>li:before{content:"\0025cf  "}.lst-kix_f286vjr4fl6m-4>li:before{content:"" counter(lst-ctn-kix_f286vjr4fl6m-4,lower-latin) ". "}.lst-kix_b8jop7yichto-0>li:before{content:"" counter(lst-ctn-kix_b8jop7yichto-0,decimal) ". "}.lst-kix_qm9hkxcig6cu-1>li:before{content:"\0025cb  "}ol.lst-kix_5tlqkax8pn8h-8{list-style-type:none}ol.lst-kix_5tlqkax8pn8h-7{list-style-type:none}.lst-kix_pcqr12a7891l-3>li:before{content:"" counter(lst-ctn-kix_pcqr12a7891l-3,decimal) ". "}ol.lst-kix_eb8c0e92k51s-5.start{counter-reset:lst-ctn-kix_eb8c0e92k51s-5 0}ol.lst-kix_5tlqkax8pn8h-6{list-style-type:none}ol.lst-kix_5tlqkax8pn8h-5{list-style-type:none}ol.lst-kix_5tlqkax8pn8h-4{list-style-type:none}ol.lst-kix_5tlqkax8pn8h-3{list-style-type:none}ol.lst-kix_5tlqkax8pn8h-2{list-style-type:none}.lst-kix_b8jop7yichto-4>li:before{content:"" counter(lst-ctn-kix_b8jop7yichto-4,lower-latin) ". "}ol.lst-kix_5tlqkax8pn8h-1{list-style-type:none}.lst-kix_b8jop7yichto-1>li{counter-increment:lst-ctn-kix_b8jop7yichto-1}ol.lst-kix_5tlqkax8pn8h-0{list-style-type:none}.lst-kix_f286vjr4fl6m-0>li:before{content:"" counter(lst-ctn-kix_f286vjr4fl6m-0,decimal) ". "}.lst-kix_iw9e0zk5bknq-3>li:before{content:"\0025cf  "}.lst-kix_joqvl6xskr7h-4>li:before{content:"" counter(lst-ctn-kix_joqvl6xskr7h-4,lower-latin) ". "}.lst-kix_s3sq7ed4q79u-8>li:before{content:"-  "}.lst-kix_joqvl6xskr7h-0>li:before{content:"" counter(lst-ctn-kix_joqvl6xskr7h-0,decimal) ". "}.lst-kix_kejj0mnh36fn-3>li:before{content:"-  "}.lst-kix_nje0xadfpcg4-5>li:before{content:"\0025a0  "}.lst-kix_xbffn4m8wqp8-2>li:before{content:"" counter(lst-ctn-kix_xbffn4m8wqp8-2,lower-roman) ". "}ul.lst-kix_7r26hmefqxlz-3{list-style-type:none}ul.lst-kix_7r26hmefqxlz-4{list-style-type:none}ul.lst-kix_7r26hmefqxlz-5{list-style-type:none}ul.lst-kix_7r26hmefqxlz-6{list-style-type:none}ol.lst-kix_y5n3nq4jdbfn-0.start{counter-reset:lst-ctn-kix_y5n3nq4jdbfn-0 0}ul.lst-kix_7r26hmefqxlz-0{list-style-type:none}.lst-kix_yaskkidl4eoy-8>li:before{content:"" counter(lst-ctn-kix_yaskkidl4eoy-8,lower-roman) ". "}ul.lst-kix_7r26hmefqxlz-1{list-style-type:none}ul.lst-kix_7r26hmefqxlz-2{list-style-type:none}.lst-kix_kyan84g0syen-4>li:before{content:"" counter(lst-ctn-kix_kyan84g0syen-4,lower-latin) ". "}.lst-kix_kyan84g0syen-8>li:before{content:"" counter(lst-ctn-kix_kyan84g0syen-8,lower-roman) ". "}.lst-kix_eb8c0e92k51s-1>li{counter-increment:lst-ctn-kix_eb8c0e92k51s-1}.lst-kix_sqi2eeqkjqi1-8>li:before{content:"\0025a0  "}ul.lst-kix_7r26hmefqxlz-7{list-style-type:none}ul.lst-kix_7r26hmefqxlz-8{list-style-type:none}.lst-kix_14mi6nppaprg-5>li:before{content:"-  "}.lst-kix_hlfksvx4f7ob-7>li:before{content:"\0025cb  "}.lst-kix_1ht5dddy08l0-5>li:before{content:"" counter(lst-ctn-kix_1ht5dddy08l0-5,lower-roman) ". "}.lst-kix_14mi6nppaprg-8>li:before{content:"-  "}.lst-kix_1ht5dddy08l0-2>li:before{content:"" counter(lst-ctn-kix_1ht5dddy08l0-2,lower-roman) ". "}ol.lst-kix_q5n1whvesm8z-2.start{counter-reset:lst-ctn-kix_q5n1whvesm8z-2 0}.lst-kix_5tlqkax8pn8h-7>li{counter-increment:lst-ctn-kix_5tlqkax8pn8h-7}ul.lst-kix_upxjftk9isdy-7{list-style-type:none}.lst-kix_hlfksvx4f7ob-1>li:before{content:"\0025cb  "}ul.lst-kix_upxjftk9isdy-8{list-style-type:none}ul.lst-kix_upxjftk9isdy-5{list-style-type:none}ul.lst-kix_upxjftk9isdy-6{list-style-type:none}ul.lst-kix_upxjftk9isdy-3{list-style-type:none}ul.lst-kix_upxjftk9isdy-4{list-style-type:none}ul.lst-kix_upxjftk9isdy-1{list-style-type:none}ul.lst-kix_upxjftk9isdy-2{list-style-type:none}.lst-kix_fwp859mpdf6-4>li{counter-increment:lst-ctn-kix_fwp859mpdf6-4}.lst-kix_b8jop7yichto-7>li{counter-increment:lst-ctn-kix_b8jop7yichto-7}ul.lst-kix_upxjftk9isdy-0{list-style-type:none}.lst-kix_qxsub0urh8b5-1>li:before{content:"\0025cb  "}ul.lst-kix_qm9hkxcig6cu-0{list-style-type:none}ul.lst-kix_qm9hkxcig6cu-1{list-style-type:none}.lst-kix_qxsub0urh8b5-7>li:before{content:"\0025cb  "}ol.lst-kix_yaskkidl4eoy-4{list-style-type:none}ol.lst-kix_yaskkidl4eoy-5{list-style-type:none}ol.lst-kix_yaskkidl4eoy-2{list-style-type:none}.lst-kix_qxsub0urh8b5-4>li:before{content:"\0025cb  "}ol.lst-kix_yaskkidl4eoy-3{list-style-type:none}ol.lst-kix_yaskkidl4eoy-0{list-style-type:none}ol.lst-kix_yaskkidl4eoy-1{list-style-type:none}.lst-kix_lvqs51bnwmx-5>li:before{content:"-  "}.lst-kix_oecnlfcdzh8w-7>li:before{content:"" counter(lst-ctn-kix_oecnlfcdzh8w-7,lower-latin) ". "}.lst-kix_lvqs51bnwmx-2>li:before{content:"-  "}.lst-kix_q5n1whvesm8z-2>li:before{content:"" counter(lst-ctn-kix_q5n1whvesm8z-2,lower-roman) ". "}ol.lst-kix_pcqr12a7891l-7.start{counter-reset:lst-ctn-kix_pcqr12a7891l-7 0}.lst-kix_150nvl8gjcuy-6>li:before{content:"\0025cf  "}ol.lst-kix_eb8c0e92k51s-7.start{counter-reset:lst-ctn-kix_eb8c0e92k51s-7 0}ol.lst-kix_q5n1whvesm8z-7.start{counter-reset:lst-ctn-kix_q5n1whvesm8z-7 0}.lst-kix_oecnlfcdzh8w-4>li:before{content:"" counter(lst-ctn-kix_oecnlfcdzh8w-4,lower-latin) ". "}.lst-kix_5fipecttb5uy-2>li:before{content:"" counter(lst-ctn-kix_5fipecttb5uy-2,lower-roman) ". "}ol.lst-kix_yaskkidl4eoy-8{list-style-type:none}ol.lst-kix_yaskkidl4eoy-6{list-style-type:none}ol.lst-kix_yaskkidl4eoy-7{list-style-type:none}.lst-kix_e5wn09qizjam-8>li:before{content:"" counter(lst-ctn-kix_e5wn09qizjam-8,lower-roman) ". "}.lst-kix_2ixtida4q52v-4>li:before{content:"\0025cb  "}.lst-kix_54kw3uh8dhqt-8>li:before{content:"" counter(lst-ctn-kix_54kw3uh8dhqt-8,lower-roman) ". "}.lst-kix_e5wn09qizjam-5>li:before{content:"" counter(lst-ctn-kix_e5wn09qizjam-5,lower-roman) ". "}.lst-kix_54kw3uh8dhqt-2>li:before{content:"" counter(lst-ctn-kix_54kw3uh8dhqt-2,lower-roman) ". "}.lst-kix_54kw3uh8dhqt-5>li:before{content:"" counter(lst-ctn-kix_54kw3uh8dhqt-5,lower-roman) ". "}.lst-kix_2ixtida4q52v-1>li:before{content:"\0025cb  "}.lst-kix_hlfksvx4f7ob-4>li:before{content:"\0025cb  "}ol.lst-kix_pcqr12a7891l-2.start{counter-reset:lst-ctn-kix_pcqr12a7891l-2 0}.lst-kix_e5wn09qizjam-2>li:before{content:"" counter(lst-ctn-kix_e5wn09qizjam-2,lower-roman) ". "}.lst-kix_bssn06ffrn47-8>li:before{content:"\00274f  "}.lst-kix_1ht5dddy08l0-1>li{counter-increment:lst-ctn-kix_1ht5dddy08l0-1}.lst-kix_r10uc3zfx1kf-0>li:before{content:"\00274f  "}ul.lst-kix_8yoay3beoero-0{list-style-type:none}ul.lst-kix_8yoay3beoero-1{list-style-type:none}ul.lst-kix_8yoay3beoero-2{list-style-type:none}ul.lst-kix_8yoay3beoero-3{list-style-type:none}ul.lst-kix_8yoay3beoero-4{list-style-type:none}ul.lst-kix_8yoay3beoero-5{list-style-type:none}ul.lst-kix_8yoay3beoero-6{list-style-type:none}ul.lst-kix_8yoay3beoero-7{list-style-type:none}ul.lst-kix_8yoay3beoero-8{list-style-type:none}.lst-kix_mijmearkmjnl-5>li:before{content:"\0025a0  "}.lst-kix_24j33d900kc7-0>li:before{content:"-  "}.lst-kix_2ixtida4q52v-7>li:before{content:"\0025cb  "}.lst-kix_madkam6f1iws-4>li:before{content:"\00274f  "}.lst-kix_s3sq7ed4q79u-5>li:before{content:"-  "}.lst-kix_o5luukcvtasg-8>li:before{content:"\0025a0  "}.lst-kix_y5n3nq4jdbfn-8>li{counter-increment:lst-ctn-kix_y5n3nq4jdbfn-8}.lst-kix_i07dzheblzoo-7>li:before{content:"\0025cb  "}.lst-kix_o5luukcvtasg-2>li:before{content:"\0025a0  "}.lst-kix_b8jop7yichto-7>li:before{content:"" counter(lst-ctn-kix_b8jop7yichto-7,lower-latin) ". "}.lst-kix_nje0xadfpcg4-2>li:before{content:"\0025a0  "}ol.lst-kix_r1hwxp14qqtt-5.start{counter-reset:lst-ctn-kix_r1hwxp14qqtt-5 0}.lst-kix_5fipecttb5uy-8>li:before{content:"" counter(lst-ctn-kix_5fipecttb5uy-8,lower-roman) ". "}.lst-kix_oa849csponl4-1>li{counter-increment:lst-ctn-kix_oa849csponl4-1}.lst-kix_yaskkidl4eoy-5>li:before{content:"" counter(lst-ctn-kix_yaskkidl4eoy-5,lower-roman) ". "}.lst-kix_xbffn4m8wqp8-0>li{counter-increment:lst-ctn-kix_xbffn4m8wqp8-0}ul.lst-kix_nje0xadfpcg4-2{list-style-type:none}ul.lst-kix_nje0xadfpcg4-1{list-style-type:none}ul.lst-kix_nje0xadfpcg4-0{list-style-type:none}ul.lst-kix_nje0xadfpcg4-6{list-style-type:none}ul.lst-kix_nje0xadfpcg4-5{list-style-type:none}ul.lst-kix_nje0xadfpcg4-4{list-style-type:none}ul.lst-kix_nje0xadfpcg4-3{list-style-type:none}ol.lst-kix_r1hwxp14qqtt-3.start{counter-reset:lst-ctn-kix_r1hwxp14qqtt-3 0}ol.lst-kix_pcqr12a7891l-5.start{counter-reset:lst-ctn-kix_pcqr12a7891l-5 0}ul.lst-kix_nje0xadfpcg4-8{list-style-type:none}ul.lst-kix_nje0xadfpcg4-7{list-style-type:none}.lst-kix_lvqs51bnwmx-8>li:before{content:"-  "}.lst-kix_5tlqkax8pn8h-2>li:before{content:"" counter(lst-ctn-kix_5tlqkax8pn8h-2,lower-roman) ". "}.lst-kix_kyan84g0syen-1>li:before{content:"" counter(lst-ctn-kix_kyan84g0syen-1,lower-latin) ". "}.lst-kix_e5wn09qizjam-8>li{counter-increment:lst-ctn-kix_e5wn09qizjam-8}.lst-kix_r10uc3zfx1kf-6>li:before{content:"\00274f  "}.lst-kix_a9vnimywhdpd-5>li:before{content:"\0025a0  "}.lst-kix_sqi2eeqkjqi1-5>li:before{content:"\0025a0  "}.lst-kix_upxjftk9isdy-7>li:before{content:"\0025cb  "}.lst-kix_5tlqkax8pn8h-8>li:before{content:"" counter(lst-ctn-kix_5tlqkax8pn8h-8,lower-roman) ". "}.lst-kix_f286vjr4fl6m-7>li:before{content:"" counter(lst-ctn-kix_f286vjr4fl6m-7,lower-latin) ". "}ol.lst-kix_q5n1whvesm8z-4.start{counter-reset:lst-ctn-kix_q5n1whvesm8z-4 0}.lst-kix_c5aecsr96lyz-1>li:before{content:"\0025cb  "}.lst-kix_c5aecsr96lyz-4>li:before{content:"\0025cb  "}ol.lst-kix_r1hwxp14qqtt-1.start{counter-reset:lst-ctn-kix_r1hwxp14qqtt-1 0}.lst-kix_oecnlfcdzh8w-1>li{counter-increment:lst-ctn-kix_oecnlfcdzh8w-1}.lst-kix_14rk34yzn4ll-0>li:before{content:"\0025cf  "}.lst-kix_v8d4qxzddgv2-1>li:before{content:"-  "}ol.lst-kix_q5n1whvesm8z-5.start{counter-reset:lst-ctn-kix_q5n1whvesm8z-5 0}.lst-kix_v8d4qxzddgv2-4>li:before{content:"-  "}.lst-kix_55qn5zinx2rw-0>li:before{content:"\00274f  "}.lst-kix_qp2xuaqmqx08-0>li:before{content:"\00274f  "}.lst-kix_r1hwxp14qqtt-3>li:before{content:"" counter(lst-ctn-kix_r1hwxp14qqtt-0,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-1,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-2,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-3,decimal) ". "}.lst-kix_r1hwxp14qqtt-0>li:before{content:"" counter(lst-ctn-kix_r1hwxp14qqtt-0,decimal) ". "}ol.lst-kix_pcqr12a7891l-4.start{counter-reset:lst-ctn-kix_pcqr12a7891l-4 0}ul.lst-kix_qxsub0urh8b5-0{list-style-type:none}ul.lst-kix_qxsub0urh8b5-1{list-style-type:none}ul.lst-kix_qxsub0urh8b5-2{list-style-type:none}ul.lst-kix_qxsub0urh8b5-3{list-style-type:none}ul.lst-kix_qxsub0urh8b5-4{list-style-type:none}ul.lst-kix_qxsub0urh8b5-5{list-style-type:none}ul.lst-kix_qxsub0urh8b5-6{list-style-type:none}ul.lst-kix_qxsub0urh8b5-7{list-style-type:none}ul.lst-kix_qxsub0urh8b5-8{list-style-type:none}.lst-kix_qp2xuaqmqx08-3>li:before{content:"\00274f  "}ul.lst-kix_ghz5yf7zqdw2-0{list-style-type:none}ul.lst-kix_ghz5yf7zqdw2-1{list-style-type:none}ul.lst-kix_ghz5yf7zqdw2-2{list-style-type:none}ul.lst-kix_ghz5yf7zqdw2-3{list-style-type:none}ul.lst-kix_ghz5yf7zqdw2-4{list-style-type:none}ul.lst-kix_ghz5yf7zqdw2-5{list-style-type:none}ul.lst-kix_ghz5yf7zqdw2-6{list-style-type:none}.lst-kix_fwp859mpdf6-1>li{counter-increment:lst-ctn-kix_fwp859mpdf6-1}ol.lst-kix_oecnlfcdzh8w-7{list-style-type:none}ul.lst-kix_3jj7pw3gvqky-0{list-style-type:none}.lst-kix_8izowsl2o168-0>li:before{content:"\0027a2  "}ol.lst-kix_oecnlfcdzh8w-6{list-style-type:none}ol.lst-kix_oecnlfcdzh8w-8{list-style-type:none}ul.lst-kix_3jj7pw3gvqky-7{list-style-type:none}ul.lst-kix_3jj7pw3gvqky-8{list-style-type:none}ul.lst-kix_3jj7pw3gvqky-5{list-style-type:none}ol.lst-kix_oecnlfcdzh8w-1{list-style-type:none}ul.lst-kix_3jj7pw3gvqky-6{list-style-type:none}ol.lst-kix_oecnlfcdzh8w-0{list-style-type:none}ul.lst-kix_3jj7pw3gvqky-3{list-style-type:none}ol.lst-kix_oecnlfcdzh8w-3{list-style-type:none}ul.lst-kix_3jj7pw3gvqky-4{list-style-type:none}ol.lst-kix_oecnlfcdzh8w-2{list-style-type:none}ul.lst-kix_3jj7pw3gvqky-1{list-style-type:none}ol.lst-kix_oecnlfcdzh8w-5{list-style-type:none}ul.lst-kix_3jj7pw3gvqky-2{list-style-type:none}ol.lst-kix_oecnlfcdzh8w-4{list-style-type:none}.lst-kix_7sernppwpjc1-0>li:before{content:"-  "}.lst-kix_i07dzheblzoo-1>li:before{content:"\0025cb  "}.lst-kix_v86jzpu4qwv6-6>li:before{content:"-  "}.lst-kix_yaskkidl4eoy-6>li{counter-increment:lst-ctn-kix_yaskkidl4eoy-6}ul.lst-kix_r10uc3zfx1kf-8{list-style-type:none}ul.lst-kix_r10uc3zfx1kf-7{list-style-type:none}ul.lst-kix_r10uc3zfx1kf-6{list-style-type:none}ul.lst-kix_r10uc3zfx1kf-5{list-style-type:none}.lst-kix_7kcw8ca7cpkk-8>li:before{content:"-  "}ul.lst-kix_r10uc3zfx1kf-0{list-style-type:none}ul.lst-kix_ghz5yf7zqdw2-7{list-style-type:none}.lst-kix_7kcw8ca7cpkk-5>li:before{content:"-  "}ul.lst-kix_ghz5yf7zqdw2-8{list-style-type:none}ol.lst-kix_r1hwxp14qqtt-0.start{counter-reset:lst-ctn-kix_r1hwxp14qqtt-0 0}ul.lst-kix_r10uc3zfx1kf-4{list-style-type:none}.lst-kix_7sernppwpjc1-3>li:before{content:"-  "}ul.lst-kix_r10uc3zfx1kf-3{list-style-type:none}ul.lst-kix_r10uc3zfx1kf-2{list-style-type:none}ul.lst-kix_r10uc3zfx1kf-1{list-style-type:none}.lst-kix_n3tj4l2tfvjs-8>li:before{content:"\0025a0  "}ol.lst-kix_pcqr12a7891l-0.start{counter-reset:lst-ctn-kix_pcqr12a7891l-0 0}.lst-kix_kyan84g0syen-4>li{counter-increment:lst-ctn-kix_kyan84g0syen-4}.lst-kix_y5n3nq4jdbfn-4>li:before{content:"" counter(lst-ctn-kix_y5n3nq4jdbfn-4,lower-latin) ". "}.lst-kix_ng9d0mstyr43-5>li:before{content:"-  "}.lst-kix_r838nbqybskb-6>li:before{content:"\00274f  "}.lst-kix_xbffn4m8wqp8-8>li:before{content:"" counter(lst-ctn-kix_xbffn4m8wqp8-8,lower-roman) ". "}.lst-kix_sqi2eeqkjqi1-0>li{counter-increment:lst-ctn-kix_sqi2eeqkjqi1-0}.lst-kix_r10uc3zfx1kf-3>li:before{content:"\00274f  "}.lst-kix_y5n3nq4jdbfn-5>li{counter-increment:lst-ctn-kix_y5n3nq4jdbfn-5}.lst-kix_i07dzheblzoo-4>li:before{content:"\0025cb  "}.lst-kix_o5luukcvtasg-5>li:before{content:"\0025a0  "}.lst-kix_mijmearkmjnl-8>li:before{content:"\0025a0  "}.lst-kix_joqvl6xskr7h-6>li{counter-increment:lst-ctn-kix_joqvl6xskr7h-6}.lst-kix_5fipecttb5uy-5>li:before{content:"" counter(lst-ctn-kix_5fipecttb5uy-5,lower-roman) ". "}.lst-kix_dmce2p29yrbb-7>li:before{content:"-  "}.lst-kix_s3sq7ed4q79u-2>li:before{content:"-  "}.lst-kix_5tlqkax8pn8h-4>li{counter-increment:lst-ctn-kix_5tlqkax8pn8h-4}.lst-kix_5tlqkax8pn8h-5>li:before{content:"" counter(lst-ctn-kix_5tlqkax8pn8h-5,lower-roman) ". "}.lst-kix_5fipecttb5uy-3>li{counter-increment:lst-ctn-kix_5fipecttb5uy-3}ul.lst-kix_qm9hkxcig6cu-4{list-style-type:none}ul.lst-kix_qm9hkxcig6cu-5{list-style-type:none}ul.lst-kix_qm9hkxcig6cu-2{list-style-type:none}ul.lst-kix_qm9hkxcig6cu-3{list-style-type:none}ul.lst-kix_qm9hkxcig6cu-8{list-style-type:none}ul.lst-kix_qm9hkxcig6cu-6{list-style-type:none}ul.lst-kix_qm9hkxcig6cu-7{list-style-type:none}.lst-kix_yaskkidl4eoy-2>li:before{content:"" counter(lst-ctn-kix_yaskkidl4eoy-2,lower-roman) ". "}.lst-kix_8yoay3beoero-8>li:before{content:"\0025a0  "}.lst-kix_a9vnimywhdpd-2>li:before{content:"\0025a0  "}.lst-kix_pcqr12a7891l-6>li{counter-increment:lst-ctn-kix_pcqr12a7891l-6}.lst-kix_sqi2eeqkjqi1-2>li:before{content:"\0025a0  "}.lst-kix_e5wn09qizjam-5>li{counter-increment:lst-ctn-kix_e5wn09qizjam-5}.lst-kix_madkam6f1iws-7>li:before{content:"\00274f  "}.lst-kix_lxb3qakoy7ua-6>li:before{content:"\0025cf  "}.lst-kix_eb8c0e92k51s-4>li:before{content:"" counter(lst-ctn-kix_eb8c0e92k51s-4,lower-latin) ". "}.lst-kix_ogk8irat6kiw-5>li:before{content:"\00274f  "}.lst-kix_9lqivl1e2gb7-7>li:before{content:"-  "}.lst-kix_9y1uz5iqpetj-3>li:before{content:"\0025cf  "}.lst-kix_joqvl6xskr7h-0>li{counter-increment:lst-ctn-kix_joqvl6xskr7h-0}ol.lst-kix_q5n1whvesm8z-8.start{counter-reset:lst-ctn-kix_q5n1whvesm8z-8 0}.lst-kix_3jj7pw3gvqky-8>li:before{content:"-  "}.lst-kix_usi0zfnz082a-1>li:before{content:"\0025cb  "}.lst-kix_usi0zfnz082a-5>li:before{content:"\0025a0  "}.lst-kix_3jj7pw3gvqky-6>li:before{content:"-  "}.lst-kix_fwp859mpdf6-6>li{counter-increment:lst-ctn-kix_fwp859mpdf6-6}.lst-kix_usi0zfnz082a-3>li:before{content:"\0025cf  "}ol.lst-kix_pcqr12a7891l-1.start{counter-reset:lst-ctn-kix_pcqr12a7891l-1 0}ol.lst-kix_fwp859mpdf6-0.start{counter-reset:lst-ctn-kix_fwp859mpdf6-0 0}.lst-kix_3jj7pw3gvqky-2>li:before{content:"-  "}.lst-kix_3jj7pw3gvqky-4>li:before{content:"-  "}.lst-kix_3jj7pw3gvqky-0>li:before{content:"-  "}ol.lst-kix_oecnlfcdzh8w-7.start{counter-reset:lst-ctn-kix_oecnlfcdzh8w-7 0}.lst-kix_usi0zfnz082a-7>li:before{content:"\0025cb  "}.lst-kix_e5wn09qizjam-3>li{counter-increment:lst-ctn-kix_e5wn09qizjam-3}ul.lst-kix_ng9d0mstyr43-8{list-style-type:none}ul.lst-kix_ng9d0mstyr43-7{list-style-type:none}.lst-kix_b8jop7yichto-5>li{counter-increment:lst-ctn-kix_b8jop7yichto-5}ol.lst-kix_oa849csponl4-4.start{counter-reset:lst-ctn-kix_oa849csponl4-4 0}ol.lst-kix_5tlqkax8pn8h-6.start{counter-reset:lst-ctn-kix_5tlqkax8pn8h-6 0}.lst-kix_joqvl6xskr7h-7>li{counter-increment:lst-ctn-kix_joqvl6xskr7h-7}.lst-kix_yaskkidl4eoy-3>li{counter-increment:lst-ctn-kix_yaskkidl4eoy-3}.lst-kix_5tlqkax8pn8h-5>li{counter-increment:lst-ctn-kix_5tlqkax8pn8h-5}.lst-kix_h969vcu9z3gl-3>li:before{content:"-  "}.lst-kix_h969vcu9z3gl-7>li:before{content:"-  "}ul.lst-kix_ng9d0mstyr43-2{list-style-type:none}ul.lst-kix_ng9d0mstyr43-1{list-style-type:none}ul.lst-kix_ng9d0mstyr43-0{list-style-type:none}.lst-kix_xbffn4m8wqp8-2>li{counter-increment:lst-ctn-kix_xbffn4m8wqp8-2}ul.lst-kix_ng9d0mstyr43-6{list-style-type:none}ul.lst-kix_ng9d0mstyr43-5{list-style-type:none}.lst-kix_h969vcu9z3gl-5>li:before{content:"-  "}ul.lst-kix_ng9d0mstyr43-4{list-style-type:none}ul.lst-kix_ng9d0mstyr43-3{list-style-type:none}.lst-kix_v86jzpu4qwv6-1>li:before{content:"-  "}ol.lst-kix_54kw3uh8dhqt-4.start{counter-reset:lst-ctn-kix_54kw3uh8dhqt-4 0}.lst-kix_v86jzpu4qwv6-3>li:before{content:"-  "}ol.lst-kix_eb8c0e92k51s-8.start{counter-reset:lst-ctn-kix_eb8c0e92k51s-8 0}ul.lst-kix_bssn06ffrn47-8{list-style-type:none}ul.lst-kix_bssn06ffrn47-4{list-style-type:none}ul.lst-kix_bssn06ffrn47-5{list-style-type:none}ul.lst-kix_bssn06ffrn47-6{list-style-type:none}.lst-kix_dmce2p29yrbb-8>li:before{content:"-  "}ul.lst-kix_bssn06ffrn47-7{list-style-type:none}ul.lst-kix_bssn06ffrn47-0{list-style-type:none}ul.lst-kix_bssn06ffrn47-1{list-style-type:none}ul.lst-kix_bssn06ffrn47-2{list-style-type:none}ul.lst-kix_bssn06ffrn47-3{list-style-type:none}ol.lst-kix_y5n3nq4jdbfn-7.start{counter-reset:lst-ctn-kix_y5n3nq4jdbfn-7 0}.lst-kix_dmce2p29yrbb-6>li:before{content:"-  "}.lst-kix_eb8c0e92k51s-1>li:before{content:"" counter(lst-ctn-kix_eb8c0e92k51s-1,lower-latin) ". "}ol.lst-kix_q5n1whvesm8z-3.start{counter-reset:lst-ctn-kix_q5n1whvesm8z-3 0}.lst-kix_dmce2p29yrbb-2>li:before{content:"-  "}.lst-kix_dmce2p29yrbb-4>li:before{content:"-  "}ul.lst-kix_w9s67o5stqwf-0{list-style-type:none}ul.lst-kix_w9s67o5stqwf-1{list-style-type:none}ul.lst-kix_w9s67o5stqwf-2{list-style-type:none}ul.lst-kix_w9s67o5stqwf-3{list-style-type:none}ul.lst-kix_w9s67o5stqwf-4{list-style-type:none}ol.lst-kix_yaskkidl4eoy-7.start{counter-reset:lst-ctn-kix_yaskkidl4eoy-7 0}.lst-kix_dmce2p29yrbb-0>li:before{content:"-  "}ul.lst-kix_w9s67o5stqwf-5{list-style-type:none}.lst-kix_8yoay3beoero-7>li:before{content:"\0025cb  "}ul.lst-kix_w9s67o5stqwf-6{list-style-type:none}ul.lst-kix_w9s67o5stqwf-7{list-style-type:none}ul.lst-kix_w9s67o5stqwf-8{list-style-type:none}ol.lst-kix_pcqr12a7891l-6.start{counter-reset:lst-ctn-kix_pcqr12a7891l-6 0}.lst-kix_8yoay3beoero-3>li:before{content:"\0025cf  "}.lst-kix_8yoay3beoero-5>li:before{content:"\0025a0  "}.lst-kix_eb8c0e92k51s-4>li{counter-increment:lst-ctn-kix_eb8c0e92k51s-4}.lst-kix_eb8c0e92k51s-3>li:before{content:"" counter(lst-ctn-kix_eb8c0e92k51s-3,decimal) ". "}.lst-kix_eb8c0e92k51s-7>li:before{content:"" counter(lst-ctn-kix_eb8c0e92k51s-7,lower-latin) ". "}.lst-kix_8yoay3beoero-1>li:before{content:"\0025cb  "}ol.lst-kix_e5wn09qizjam-6.start{counter-reset:lst-ctn-kix_e5wn09qizjam-6 0}.lst-kix_eb8c0e92k51s-5>li:before{content:"" counter(lst-ctn-kix_eb8c0e92k51s-5,lower-roman) ". "}ol.lst-kix_xbffn4m8wqp8-6.start{counter-reset:lst-ctn-kix_xbffn4m8wqp8-6 0}ol.lst-kix_yaskkidl4eoy-2.start{counter-reset:lst-ctn-kix_yaskkidl4eoy-2 0}.lst-kix_55qn5zinx2rw-7>li:before{content:"\00274f  "}.lst-kix_v8d4qxzddgv2-7>li:before{content:"-  "}.lst-kix_55qn5zinx2rw-3>li:before{content:"\00274f  "}.lst-kix_c5aecsr96lyz-3>li:before{content:"\0025cf  "}.lst-kix_upxjftk9isdy-0>li:before{content:"\0025cf  "}.lst-kix_upxjftk9isdy-8>li:before{content:"\0025a0  "}.lst-kix_v8d4qxzddgv2-3>li:before{content:"-  "}ol.lst-kix_5fipecttb5uy-2.start{counter-reset:lst-ctn-kix_5fipecttb5uy-2 0}.lst-kix_y5n3nq4jdbfn-2>li{counter-increment:lst-ctn-kix_y5n3nq4jdbfn-2}ol.lst-kix_joqvl6xskr7h-2.start{counter-reset:lst-ctn-kix_joqvl6xskr7h-2 0}ol.lst-kix_1ht5dddy08l0-8.start{counter-reset:lst-ctn-kix_1ht5dddy08l0-8 0}.lst-kix_kyan84g0syen-8>li{counter-increment:lst-ctn-kix_kyan84g0syen-8}.lst-kix_5fipecttb5uy-4>li{counter-increment:lst-ctn-kix_5fipecttb5uy-4}ol.lst-kix_xbffn4m8wqp8-1.start{counter-reset:lst-ctn-kix_xbffn4m8wqp8-1 0}.lst-kix_c5aecsr96lyz-7>li:before{content:"\0025cb  "}.lst-kix_5c3pl0bjm1s3-4>li:before{content:"\0025cb  "}.lst-kix_54kw3uh8dhqt-1>li{counter-increment:lst-ctn-kix_54kw3uh8dhqt-1}.lst-kix_5c3pl0bjm1s3-8>li:before{content:"\0025a0  "}.lst-kix_5c3pl0bjm1s3-0>li:before{content:"\0025cf  "}.lst-kix_kyan84g0syen-1>li{counter-increment:lst-ctn-kix_kyan84g0syen-1}ul.lst-kix_mijmearkmjnl-1{list-style-type:none}.lst-kix_7sernppwpjc1-2>li:before{content:"-  "}.lst-kix_5fipecttb5uy-2>li{counter-increment:lst-ctn-kix_5fipecttb5uy-2}ul.lst-kix_mijmearkmjnl-0{list-style-type:none}ol.lst-kix_kyan84g0syen-4.start{counter-reset:lst-ctn-kix_kyan84g0syen-4 0}.lst-kix_7sernppwpjc1-6>li:before{content:"-  "}.lst-kix_v86jzpu4qwv6-7>li:before{content:"-  "}ul.lst-kix_mijmearkmjnl-7{list-style-type:none}ul.lst-kix_mijmearkmjnl-6{list-style-type:none}ul.lst-kix_mijmearkmjnl-8{list-style-type:none}ul.lst-kix_mijmearkmjnl-3{list-style-type:none}ul.lst-kix_mijmearkmjnl-2{list-style-type:none}ul.lst-kix_mijmearkmjnl-5{list-style-type:none}ul.lst-kix_mijmearkmjnl-4{list-style-type:none}.lst-kix_24j33d900kc7-3>li:before{content:"-  "}ol.lst-kix_r1hwxp14qqtt-8.start{counter-reset:lst-ctn-kix_r1hwxp14qqtt-8 0}.lst-kix_bssn06ffrn47-5>li:before{content:"\00274f  "}.lst-kix_9y1uz5iqpetj-5>li:before{content:"\0025a0  "}.lst-kix_9lqivl1e2gb7-1>li:before{content:"-  "}.lst-kix_oa849csponl4-2>li{counter-increment:lst-ctn-kix_oa849csponl4-2}.lst-kix_eb8c0e92k51s-6>li{counter-increment:lst-ctn-kix_eb8c0e92k51s-6}ol.lst-kix_y5n3nq4jdbfn-2.start{counter-reset:lst-ctn-kix_y5n3nq4jdbfn-2 0}.lst-kix_r10uc3zfx1kf-1>li:before{content:"\00274f  "}.lst-kix_o5luukcvtasg-7>li:before{content:"\0025cb  "}.lst-kix_oa849csponl4-4>li{counter-increment:lst-ctn-kix_oa849csponl4-4}.lst-kix_o5luukcvtasg-3>li:before{content:"\0025cf  "}.lst-kix_madkam6f1iws-1>li:before{content:"\00274f  "}.lst-kix_54kw3uh8dhqt-8>li{counter-increment:lst-ctn-kix_54kw3uh8dhqt-8}.lst-kix_5fipecttb5uy-3>li:before{content:"" counter(lst-ctn-kix_5fipecttb5uy-3,decimal) ". "}.lst-kix_bssn06ffrn47-1>li:before{content:"\00274f  "}.lst-kix_24j33d900kc7-7>li:before{content:"-  "}.lst-kix_5fipecttb5uy-7>li:before{content:"" counter(lst-ctn-kix_5fipecttb5uy-7,lower-latin) ". "}ol.lst-kix_e5wn09qizjam-1.start{counter-reset:lst-ctn-kix_e5wn09qizjam-1 0}.lst-kix_oecnlfcdzh8w-4>li{counter-increment:lst-ctn-kix_oecnlfcdzh8w-4}.lst-kix_5tlqkax8pn8h-7>li:before{content:"" counter(lst-ctn-kix_5tlqkax8pn8h-7,lower-latin) ". "}ul.lst-kix_madkam6f1iws-8{list-style-type:none}ul.lst-kix_madkam6f1iws-7{list-style-type:none}ol.lst-kix_kyan84g0syen-1.start{counter-reset:lst-ctn-kix_kyan84g0syen-1 0}ul.lst-kix_madkam6f1iws-6{list-style-type:none}ul.lst-kix_madkam6f1iws-5{list-style-type:none}.lst-kix_w9s67o5stqwf-8>li:before{content:"-  "}ul.lst-kix_madkam6f1iws-4{list-style-type:none}ul.lst-kix_madkam6f1iws-3{list-style-type:none}ul.lst-kix_madkam6f1iws-2{list-style-type:none}ul.lst-kix_madkam6f1iws-1{list-style-type:none}ul.lst-kix_madkam6f1iws-0{list-style-type:none}.lst-kix_y5n3nq4jdbfn-4>li{counter-increment:lst-ctn-kix_y5n3nq4jdbfn-4}.lst-kix_5tlqkax8pn8h-3>li:before{content:"" counter(lst-ctn-kix_5tlqkax8pn8h-3,decimal) ". "}.lst-kix_lxb3qakoy7ua-8>li:before{content:"\0025a0  "}.lst-kix_w9s67o5stqwf-4>li:before{content:"-  "}ol.lst-kix_oa849csponl4-6{list-style-type:none}ol.lst-kix_oa849csponl4-5{list-style-type:none}.lst-kix_w9s67o5stqwf-0>li:before{content:"-  "}ol.lst-kix_oa849csponl4-4{list-style-type:none}.lst-kix_madkam6f1iws-5>li:before{content:"\00274f  "}ol.lst-kix_oa849csponl4-3{list-style-type:none}ol.lst-kix_eb8c0e92k51s-3.start{counter-reset:lst-ctn-kix_eb8c0e92k51s-3 0}ol.lst-kix_oa849csponl4-8{list-style-type:none}ol.lst-kix_oa849csponl4-7{list-style-type:none}.lst-kix_lxb3qakoy7ua-0>li:before{content:"\0025cf  "}.lst-kix_ogk8irat6kiw-7>li:before{content:"\00274f  "}.lst-kix_r10uc3zfx1kf-5>li:before{content:"\00274f  "}ol.lst-kix_oa849csponl4-2{list-style-type:none}ol.lst-kix_oa849csponl4-1{list-style-type:none}ol.lst-kix_oa849csponl4-0{list-style-type:none}.lst-kix_ogk8irat6kiw-3>li:before{content:"\00274f  "}ol.lst-kix_1ht5dddy08l0-3.start{counter-reset:lst-ctn-kix_1ht5dddy08l0-3 0}.lst-kix_9y1uz5iqpetj-1>li:before{content:"\0025cb  "}.lst-kix_lxb3qakoy7ua-4>li:before{content:"\0025cb  "}.lst-kix_q5n1whvesm8z-5>li{counter-increment:lst-ctn-kix_q5n1whvesm8z-5}ol.lst-kix_oecnlfcdzh8w-2.start{counter-reset:lst-ctn-kix_oecnlfcdzh8w-2 0}.lst-kix_9lqivl1e2gb7-5>li:before{content:"-  "}.lst-kix_upxjftk9isdy-4>li:before{content:"\0025cb  "}.lst-kix_1ht5dddy08l0-6>li:before{content:"" counter(lst-ctn-kix_1ht5dddy08l0-6,decimal) ". "}ol.lst-kix_r1hwxp14qqtt-8{list-style-type:none}.lst-kix_1ht5dddy08l0-8>li:before{content:"" counter(lst-ctn-kix_1ht5dddy08l0-8,lower-roman) ". "}ol.lst-kix_r1hwxp14qqtt-6{list-style-type:none}.lst-kix_hlfksvx4f7ob-8>li:before{content:"\0025a0  "}ol.lst-kix_r1hwxp14qqtt-7{list-style-type:none}ol.lst-kix_r1hwxp14qqtt-4{list-style-type:none}ol.lst-kix_r1hwxp14qqtt-5{list-style-type:none}.lst-kix_14mi6nppaprg-1>li:before{content:"-  "}.lst-kix_14mi6nppaprg-7>li:before{content:"-  "}ol.lst-kix_r1hwxp14qqtt-2{list-style-type:none}ol.lst-kix_r1hwxp14qqtt-3{list-style-type:none}ol.lst-kix_r1hwxp14qqtt-0{list-style-type:none}ol.lst-kix_r1hwxp14qqtt-1{list-style-type:none}.lst-kix_hlfksvx4f7ob-2>li:before{content:"\0025a0  "}.lst-kix_qxsub0urh8b5-0>li:before{content:"\0025cf  "}.lst-kix_hlfksvx4f7ob-0>li:before{content:"\0025cf  "}.lst-kix_sqi2eeqkjqi1-0>li:before{content:"" counter(lst-ctn-kix_sqi2eeqkjqi1-0,decimal) ". "}.lst-kix_q5n1whvesm8z-7>li{counter-increment:lst-ctn-kix_q5n1whvesm8z-7}ol.lst-kix_5fipecttb5uy-5.start{counter-reset:lst-ctn-kix_5fipecttb5uy-5 0}.lst-kix_q5n1whvesm8z-5>li:before{content:"" counter(lst-ctn-kix_q5n1whvesm8z-5,lower-roman) ". "}.lst-kix_qxsub0urh8b5-8>li:before{content:"\0025a0  "}.lst-kix_usi0zfnz082a-0>li{counter-increment:lst-ctn-kix_usi0zfnz082a-0}.lst-kix_q5n1whvesm8z-3>li:before{content:"" counter(lst-ctn-kix_q5n1whvesm8z-3,decimal) ". "}.lst-kix_qxsub0urh8b5-6>li:before{content:"\0025cf  "}ol.lst-kix_f286vjr4fl6m-3.start{counter-reset:lst-ctn-kix_f286vjr4fl6m-3 0}ol.lst-kix_kyan84g0syen-6.start{counter-reset:lst-ctn-kix_kyan84g0syen-6 0}.lst-kix_lvqs51bnwmx-6>li:before{content:"-  "}.lst-kix_pcqr12a7891l-8>li{counter-increment:lst-ctn-kix_pcqr12a7891l-8}.lst-kix_1ht5dddy08l0-0>li:before{content:"" counter(lst-ctn-kix_1ht5dddy08l0-0,decimal) ". "}.lst-kix_oecnlfcdzh8w-8>li:before{content:"" counter(lst-ctn-kix_oecnlfcdzh8w-8,lower-roman) ". "}.lst-kix_lvqs51bnwmx-4>li:before{content:"-  "}ol.lst-kix_eb8c0e92k51s-0.start{counter-reset:lst-ctn-kix_eb8c0e92k51s-0 0}.lst-kix_oecnlfcdzh8w-6>li:before{content:"" counter(lst-ctn-kix_oecnlfcdzh8w-6,decimal) ". "}ol.lst-kix_yaskkidl4eoy-4.start{counter-reset:lst-ctn-kix_yaskkidl4eoy-4 0}.lst-kix_5fipecttb5uy-1>li:before{content:"" counter(lst-ctn-kix_5fipecttb5uy-1,lower-latin) ". "}.lst-kix_q5n1whvesm8z-0>li{counter-increment:lst-ctn-kix_q5n1whvesm8z-0}.lst-kix_150nvl8gjcuy-2>li:before{content:"\0025a0  "}.lst-kix_oecnlfcdzh8w-0>li:before{content:"" counter(lst-ctn-kix_oecnlfcdzh8w-0,decimal) ". "}ol.lst-kix_5fipecttb5uy-0.start{counter-reset:lst-ctn-kix_5fipecttb5uy-0 0}.lst-kix_150nvl8gjcuy-0>li:before{content:"" counter(lst-ctn-kix_150nvl8gjcuy-0,decimal) ". "}.lst-kix_e5wn09qizjam-4>li:before{content:"" counter(lst-ctn-kix_e5wn09qizjam-4,lower-latin) ". "}.lst-kix_2ixtida4q52v-2>li:before{content:"\0025a0  "}.lst-kix_e5wn09qizjam-6>li:before{content:"" counter(lst-ctn-kix_e5wn09qizjam-6,decimal) ". "}ol.lst-kix_f286vjr4fl6m-8.start{counter-reset:lst-ctn-kix_f286vjr4fl6m-8 0}.lst-kix_54kw3uh8dhqt-7>li:before{content:"" counter(lst-ctn-kix_54kw3uh8dhqt-7,lower-latin) ". "}ol.lst-kix_xbffn4m8wqp8-3.start{counter-reset:lst-ctn-kix_xbffn4m8wqp8-3 0}.lst-kix_2ixtida4q52v-0>li:before{content:"\0025cf  "}.lst-kix_54kw3uh8dhqt-1>li:before{content:"" counter(lst-ctn-kix_54kw3uh8dhqt-1,lower-latin) ". "}.lst-kix_pcqr12a7891l-1>li{counter-increment:lst-ctn-kix_pcqr12a7891l-1}.lst-kix_150nvl8gjcuy-8>li:before{content:"\0025a0  "}ol.lst-kix_1ht5dddy08l0-6.start{counter-reset:lst-ctn-kix_1ht5dddy08l0-6 0}ul.lst-kix_iw9e0zk5bknq-7{list-style-type:none}ul.lst-kix_iw9e0zk5bknq-8{list-style-type:none}ol.lst-kix_f286vjr4fl6m-5.start{counter-reset:lst-ctn-kix_f286vjr4fl6m-5 0}ol.lst-kix_54kw3uh8dhqt-1.start{counter-reset:lst-ctn-kix_54kw3uh8dhqt-1 0}.lst-kix_pcqr12a7891l-4>li{counter-increment:lst-ctn-kix_pcqr12a7891l-4}.lst-kix_mijmearkmjnl-1>li:before{content:"\0025cb  "}.lst-kix_b8jop7yichto-1>li:before{content:"" counter(lst-ctn-kix_b8jop7yichto-1,lower-latin) ". "}.lst-kix_b8jop7yichto-3>li:before{content:"" counter(lst-ctn-kix_b8jop7yichto-3,decimal) ". "}.lst-kix_mijmearkmjnl-7>li:before{content:"\0025cb  "}.lst-kix_oecnlfcdzh8w-6>li{counter-increment:lst-ctn-kix_oecnlfcdzh8w-6}ol.lst-kix_y5n3nq4jdbfn-5.start{counter-reset:lst-ctn-kix_y5n3nq4jdbfn-5 0}.lst-kix_i07dzheblzoo-3>li:before{content:"\0025cf  "}.lst-kix_i07dzheblzoo-5>li:before{content:"\0025a0  "}.lst-kix_s3sq7ed4q79u-1>li:before{content:"-  "}ol.lst-kix_xbffn4m8wqp8-8.start{counter-reset:lst-ctn-kix_xbffn4m8wqp8-8 0}ul.lst-kix_sqi2eeqkjqi1-4{list-style-type:none}ul.lst-kix_sqi2eeqkjqi1-3{list-style-type:none}ul.lst-kix_sqi2eeqkjqi1-2{list-style-type:none}ul.lst-kix_sqi2eeqkjqi1-1{list-style-type:none}ul.lst-kix_sqi2eeqkjqi1-8{list-style-type:none}ul.lst-kix_sqi2eeqkjqi1-7{list-style-type:none}ul.lst-kix_sqi2eeqkjqi1-6{list-style-type:none}ul.lst-kix_sqi2eeqkjqi1-5{list-style-type:none}ul.lst-kix_iw9e0zk5bknq-3{list-style-type:none}ul.lst-kix_iw9e0zk5bknq-4{list-style-type:none}.lst-kix_s3sq7ed4q79u-3>li:before{content:"-  "}ul.lst-kix_iw9e0zk5bknq-5{list-style-type:none}ul.lst-kix_iw9e0zk5bknq-6{list-style-type:none}ul.lst-kix_iw9e0zk5bknq-0{list-style-type:none}ul.lst-kix_iw9e0zk5bknq-1{list-style-type:none}ul.lst-kix_iw9e0zk5bknq-2{list-style-type:none}.lst-kix_yaskkidl4eoy-1>li{counter-increment:lst-ctn-kix_yaskkidl4eoy-1}.lst-kix_yaskkidl4eoy-8>li{counter-increment:lst-ctn-kix_yaskkidl4eoy-8}.lst-kix_54kw3uh8dhqt-6>li{counter-increment:lst-ctn-kix_54kw3uh8dhqt-6}.lst-kix_150nvl8gjcuy-0>li{counter-increment:lst-ctn-kix_150nvl8gjcuy-0}.lst-kix_yaskkidl4eoy-1>li:before{content:"" counter(lst-ctn-kix_yaskkidl4eoy-1,lower-latin) ". "}.lst-kix_yaskkidl4eoy-3>li:before{content:"" counter(lst-ctn-kix_yaskkidl4eoy-3,decimal) ". "}.lst-kix_oa849csponl4-6>li{counter-increment:lst-ctn-kix_oa849csponl4-6}.lst-kix_a9vnimywhdpd-1>li:before{content:"\0025cb  "}.lst-kix_kyan84g0syen-5>li:before{content:"" counter(lst-ctn-kix_kyan84g0syen-5,lower-roman) ". "}.lst-kix_kyan84g0syen-7>li:before{content:"" counter(lst-ctn-kix_kyan84g0syen-7,lower-latin) ". "}.lst-kix_a9vnimywhdpd-3>li:before{content:"\0025cf  "}.lst-kix_kyan84g0syen-6>li{counter-increment:lst-ctn-kix_kyan84g0syen-6}ol.lst-kix_5tlqkax8pn8h-8.start{counter-reset:lst-ctn-kix_5tlqkax8pn8h-8 0}.lst-kix_14rk34yzn4ll-1>li:before{content:"\0025cb  "}.lst-kix_oa849csponl4-5>li:before{content:"" counter(lst-ctn-kix_oa849csponl4-5,lower-roman) ". "}.lst-kix_v8d4qxzddgv2-5>li:before{content:"-  "}.lst-kix_55qn5zinx2rw-1>li:before{content:"\00274f  "}.lst-kix_1blicfbuz9jc-3>li:before{content:"-  "}ol.lst-kix_e5wn09qizjam-8.start{counter-reset:lst-ctn-kix_e5wn09qizjam-8 0}.lst-kix_qp2xuaqmqx08-7>li:before{content:"\00274f  "}.lst-kix_c5aecsr96lyz-5>li:before{content:"\0025a0  "}.lst-kix_wok3eaw9bfcg-5>li:before{content:"\0025a0  "}ol.lst-kix_f286vjr4fl6m-0.start{counter-reset:lst-ctn-kix_f286vjr4fl6m-0 0}.lst-kix_5c3pl0bjm1s3-6>li:before{content:"\0025cf  "}ol.lst-kix_b8jop7yichto-5{list-style-type:none}ol.lst-kix_b8jop7yichto-6{list-style-type:none}ol.lst-kix_b8jop7yichto-7{list-style-type:none}ol.lst-kix_b8jop7yichto-8{list-style-type:none}.lst-kix_8izowsl2o168-1>li:before{content:"\0025cb  "}.lst-kix_f286vjr4fl6m-0>li{counter-increment:lst-ctn-kix_f286vjr4fl6m-0}.lst-kix_f286vjr4fl6m-7>li{counter-increment:lst-ctn-kix_f286vjr4fl6m-7}ol.lst-kix_b8jop7yichto-0{list-style-type:none}ol.lst-kix_b8jop7yichto-1{list-style-type:none}ol.lst-kix_b8jop7yichto-2{list-style-type:none}ol.lst-kix_b8jop7yichto-3{list-style-type:none}ol.lst-kix_b8jop7yichto-4{list-style-type:none}.lst-kix_r1hwxp14qqtt-7>li:before{content:"" counter(lst-ctn-kix_r1hwxp14qqtt-0,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-1,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-2,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-3,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-4,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-5,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-6,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-7,decimal) ". "}.lst-kix_v86jzpu4qwv6-5>li:before{content:"-  "}ol.lst-kix_5fipecttb5uy-7.start{counter-reset:lst-ctn-kix_5fipecttb5uy-7 0}.lst-kix_n3tj4l2tfvjs-4>li:before{content:"\0025cb  "}.lst-kix_y5n3nq4jdbfn-0>li{counter-increment:lst-ctn-kix_y5n3nq4jdbfn-0}ol.lst-kix_5fipecttb5uy-1{list-style-type:none}ol.lst-kix_5fipecttb5uy-0{list-style-type:none}ol.lst-kix_5fipecttb5uy-3{list-style-type:none}ol.lst-kix_5fipecttb5uy-2{list-style-type:none}ol.lst-kix_5fipecttb5uy-5{list-style-type:none}.lst-kix_7sernppwpjc1-4>li:before{content:"-  "}.lst-kix_7kcw8ca7cpkk-4>li:before{content:"-  "}ol.lst-kix_5fipecttb5uy-4{list-style-type:none}.lst-kix_7r26hmefqxlz-5>li:before{content:"-  "}ol.lst-kix_5fipecttb5uy-7{list-style-type:none}ol.lst-kix_5fipecttb5uy-6{list-style-type:none}ol.lst-kix_5fipecttb5uy-8{list-style-type:none}.lst-kix_bssn06ffrn47-7>li:before{content:"\00274f  "}ul.lst-kix_7sernppwpjc1-2{list-style-type:none}ul.lst-kix_7sernppwpjc1-1{list-style-type:none}ul.lst-kix_7sernppwpjc1-0{list-style-type:none}.lst-kix_fwp859mpdf6-7>li:before{content:"" counter(lst-ctn-kix_fwp859mpdf6-7,lower-latin) ". "}ul.lst-kix_7sernppwpjc1-6{list-style-type:none}ul.lst-kix_7sernppwpjc1-5{list-style-type:none}ul.lst-kix_7sernppwpjc1-4{list-style-type:none}ul.lst-kix_7sernppwpjc1-3{list-style-type:none}.lst-kix_9y1uz5iqpetj-7>li:before{content:"\0025cb  "}.lst-kix_h969vcu9z3gl-1>li:before{content:"-  "}ol.lst-kix_5tlqkax8pn8h-1.start{counter-reset:lst-ctn-kix_5tlqkax8pn8h-1 0}.lst-kix_24j33d900kc7-1>li:before{content:"-  "}ol.lst-kix_5tlqkax8pn8h-4.start{counter-reset:lst-ctn-kix_5tlqkax8pn8h-4 0}.lst-kix_2ixtida4q52v-8>li:before{content:"\0025a0  "}.lst-kix_madkam6f1iws-3>li:before{content:"\00274f  "}.lst-kix_o5luukcvtasg-1>li:before{content:"\0025cb  "}.lst-kix_joqvl6xskr7h-6>li:before{content:"" counter(lst-ctn-kix_joqvl6xskr7h-6,decimal) ". "}.lst-kix_kejj0mnh36fn-5>li:before{content:"-  "}.lst-kix_nje0xadfpcg4-3>li:before{content:"\0025cf  "}.lst-kix_r1hwxp14qqtt-0>li{counter-increment:lst-ctn-kix_r1hwxp14qqtt-0}ul.lst-kix_7sernppwpjc1-8{list-style-type:none}ul.lst-kix_7sernppwpjc1-7{list-style-type:none}.lst-kix_ng9d0mstyr43-1>li:before{content:"-  "}.lst-kix_r838nbqybskb-2>li:before{content:"\00274f  "}ol.lst-kix_5tlqkax8pn8h-3.start{counter-reset:lst-ctn-kix_5tlqkax8pn8h-3 0}.lst-kix_5tlqkax8pn8h-1>li:before{content:"" counter(lst-ctn-kix_5tlqkax8pn8h-1,lower-latin) ". "}.lst-kix_r10uc3zfx1kf-7>li:before{content:"\00274f  "}.lst-kix_w9s67o5stqwf-2>li:before{content:"-  "}.lst-kix_sqi2eeqkjqi1-6>li:before{content:"\0025cf  "}li.li-bullet-0:before{margin-left:-18pt;white-space:nowrap;display:inline-block;min-width:18pt}.lst-kix_9lqivl1e2gb7-3>li:before{content:"-  "}.lst-kix_ogk8irat6kiw-1>li:before{content:"\00274f  "}.lst-kix_f286vjr4fl6m-6>li:before{content:"" counter(lst-ctn-kix_f286vjr4fl6m-6,decimal) ". "}.lst-kix_upxjftk9isdy-6>li:before{content:"\0025cf  "}.lst-kix_1ht5dddy08l0-3>li{counter-increment:lst-ctn-kix_1ht5dddy08l0-3}.lst-kix_r1hwxp14qqtt-7>li{counter-increment:lst-ctn-kix_r1hwxp14qqtt-7}.lst-kix_lxb3qakoy7ua-2>li:before{content:"\0025a0  "}ol.lst-kix_e5wn09qizjam-2{list-style-type:none}ol.lst-kix_e5wn09qizjam-1{list-style-type:none}ol.lst-kix_e5wn09qizjam-0{list-style-type:none}ol.lst-kix_1ht5dddy08l0-0.start{counter-reset:lst-ctn-kix_1ht5dddy08l0-0 0}ol.lst-kix_yaskkidl4eoy-5.start{counter-reset:lst-ctn-kix_yaskkidl4eoy-5 0}ol.lst-kix_xbffn4m8wqp8-4.start{counter-reset:lst-ctn-kix_xbffn4m8wqp8-4 0}.lst-kix_5fipecttb5uy-7>li{counter-increment:lst-ctn-kix_5fipecttb5uy-7}ol.lst-kix_e5wn09qizjam-8{list-style-type:none}.lst-kix_7yep2crf8uqn-1>li:before{content:"\0025cb  "}ol.lst-kix_e5wn09qizjam-7{list-style-type:none}ol.lst-kix_e5wn09qizjam-6{list-style-type:none}ol.lst-kix_e5wn09qizjam-5{list-style-type:none}ol.lst-kix_e5wn09qizjam-4{list-style-type:none}.lst-kix_yaskkidl4eoy-7>li{counter-increment:lst-ctn-kix_yaskkidl4eoy-7}.lst-kix_7yep2crf8uqn-0>li:before{content:"\0025cf  "}ol.lst-kix_e5wn09qizjam-3{list-style-type:none}ol.lst-kix_1ht5dddy08l0-5.start{counter-reset:lst-ctn-kix_1ht5dddy08l0-5 0}.lst-kix_7yep2crf8uqn-4>li:before{content:"\0025cb  "}ol.lst-kix_joqvl6xskr7h-4.start{counter-reset:lst-ctn-kix_joqvl6xskr7h-4 0}.lst-kix_7yep2crf8uqn-7>li:before{content:"\0025cb  "}.lst-kix_gjwgbgw8ll1n-1>li:before{content:"\0025cb  "}.lst-kix_gjwgbgw8ll1n-5>li:before{content:"\0025a0  "}.lst-kix_gjwgbgw8ll1n-4>li:before{content:"\0025cb  "}.lst-kix_gjwgbgw8ll1n-2>li:before{content:"\0025a0  "}.lst-kix_gjwgbgw8ll1n-8>li:before{content:"\0025a0  "}.lst-kix_gjwgbgw8ll1n-7>li:before{content:"\0025cb  "}.lst-kix_fwp859mpdf6-3>li:before{content:"" counter(lst-ctn-kix_fwp859mpdf6-3,decimal) ". "}.lst-kix_54kw3uh8dhqt-4>li{counter-increment:lst-ctn-kix_54kw3uh8dhqt-4}.lst-kix_qm9hkxcig6cu-6>li:before{content:"\0025cf  "}.lst-kix_r838nbqybskb-5>li:before{content:"\00274f  "}.lst-kix_pcqr12a7891l-8>li:before{content:"" counter(lst-ctn-kix_pcqr12a7891l-8,lower-roman) ". "}.lst-kix_fwp859mpdf6-6>li:before{content:"" counter(lst-ctn-kix_fwp859mpdf6-6,decimal) ". "}.lst-kix_y5n3nq4jdbfn-3>li:before{content:"" counter(lst-ctn-kix_y5n3nq4jdbfn-3,decimal) ". "}.lst-kix_r838nbqybskb-7>li:before{content:"\00274f  "}ol.lst-kix_e5wn09qizjam-4.start{counter-reset:lst-ctn-kix_e5wn09qizjam-4 0}.lst-kix_qm9hkxcig6cu-0>li:before{content:"\0025cf  "}.lst-kix_y5n3nq4jdbfn-7>li{counter-increment:lst-ctn-kix_y5n3nq4jdbfn-7}.lst-kix_ghz5yf7zqdw2-4>li:before{content:"\0025cb  "}ul.lst-kix_v86jzpu4qwv6-4{list-style-type:none}ul.lst-kix_v86jzpu4qwv6-5{list-style-type:none}ul.lst-kix_v86jzpu4qwv6-6{list-style-type:none}.lst-kix_pcqr12a7891l-2>li:before{content:"" counter(lst-ctn-kix_pcqr12a7891l-2,lower-roman) ". "}ul.lst-kix_v86jzpu4qwv6-7{list-style-type:none}ul.lst-kix_v86jzpu4qwv6-0{list-style-type:none}.lst-kix_ng9d0mstyr43-6>li:before{content:"-  "}ul.lst-kix_v86jzpu4qwv6-1{list-style-type:none}.lst-kix_xbffn4m8wqp8-7>li:before{content:"" counter(lst-ctn-kix_xbffn4m8wqp8-7,lower-latin) ". "}ul.lst-kix_v86jzpu4qwv6-2{list-style-type:none}ul.lst-kix_v86jzpu4qwv6-3{list-style-type:none}ol.lst-kix_kyan84g0syen-7.start{counter-reset:lst-ctn-kix_kyan84g0syen-7 0}ol.lst-kix_f286vjr4fl6m-2.start{counter-reset:lst-ctn-kix_f286vjr4fl6m-2 0}.lst-kix_kejj0mnh36fn-8>li:before{content:"-  "}ul.lst-kix_v86jzpu4qwv6-8{list-style-type:none}.lst-kix_ghz5yf7zqdw2-8>li:before{content:"\0025a0  "}.lst-kix_q5n1whvesm8z-1>li{counter-increment:lst-ctn-kix_q5n1whvesm8z-1}.lst-kix_iw9e0zk5bknq-4>li:before{content:"\0025cb  "}.lst-kix_xbffn4m8wqp8-3>li:before{content:"" counter(lst-ctn-kix_xbffn4m8wqp8-3,decimal) ". "}.lst-kix_joqvl6xskr7h-5>li:before{content:"" counter(lst-ctn-kix_joqvl6xskr7h-5,lower-roman) ". "}.lst-kix_iw9e0zk5bknq-8>li:before{content:"\0025a0  "}.lst-kix_kejj0mnh36fn-4>li:before{content:"-  "}.lst-kix_ng9d0mstyr43-4>li:before{content:"-  "}.lst-kix_y5n3nq4jdbfn-5>li:before{content:"" counter(lst-ctn-kix_y5n3nq4jdbfn-5,lower-roman) ". "}.lst-kix_ng9d0mstyr43-0>li:before{content:"-  "}.lst-kix_r838nbqybskb-1>li:before{content:"\00274f  "}ul.lst-kix_ogk8irat6kiw-0{list-style-type:none}ol.lst-kix_5fipecttb5uy-4.start{counter-reset:lst-ctn-kix_5fipecttb5uy-4 0}ul.lst-kix_ogk8irat6kiw-3{list-style-type:none}ul.lst-kix_ogk8irat6kiw-4{list-style-type:none}ul.lst-kix_ogk8irat6kiw-1{list-style-type:none}ul.lst-kix_ogk8irat6kiw-2{list-style-type:none}ul.lst-kix_ogk8irat6kiw-7{list-style-type:none}ul.lst-kix_ogk8irat6kiw-8{list-style-type:none}ul.lst-kix_ogk8irat6kiw-5{list-style-type:none}.lst-kix_pcqr12a7891l-2>li{counter-increment:lst-ctn-kix_pcqr12a7891l-2}ul.lst-kix_ogk8irat6kiw-6{list-style-type:none}ol.lst-kix_eb8c0e92k51s-6{list-style-type:none}ol.lst-kix_eb8c0e92k51s-5{list-style-type:none}ol.lst-kix_eb8c0e92k51s-8{list-style-type:none}ol.lst-kix_eb8c0e92k51s-7{list-style-type:none}.lst-kix_oa849csponl4-0>li{counter-increment:lst-ctn-kix_oa849csponl4-0}ol.lst-kix_oa849csponl4-7.start{counter-reset:lst-ctn-kix_oa849csponl4-7 0}.lst-kix_oecnlfcdzh8w-0>li{counter-increment:lst-ctn-kix_oecnlfcdzh8w-0}.lst-kix_1ht5dddy08l0-0>li{counter-increment:lst-ctn-kix_1ht5dddy08l0-0}ol.lst-kix_54kw3uh8dhqt-2.start{counter-reset:lst-ctn-kix_54kw3uh8dhqt-2 0}ol.lst-kix_oa849csponl4-6.start{counter-reset:lst-ctn-kix_oa849csponl4-6 0}.lst-kix_1blicfbuz9jc-1>li:before{content:"-  "}ol.lst-kix_y5n3nq4jdbfn-7{list-style-type:none}ol.lst-kix_y5n3nq4jdbfn-8{list-style-type:none}ul.lst-kix_7yep2crf8uqn-7{list-style-type:none}ul.lst-kix_7yep2crf8uqn-8{list-style-type:none}ul.lst-kix_7yep2crf8uqn-5{list-style-type:none}ul.lst-kix_7yep2crf8uqn-6{list-style-type:none}ul.lst-kix_7yep2crf8uqn-3{list-style-type:none}ul.lst-kix_7yep2crf8uqn-4{list-style-type:none}ul.lst-kix_7yep2crf8uqn-1{list-style-type:none}ul.lst-kix_7yep2crf8uqn-2{list-style-type:none}.lst-kix_b8jop7yichto-8>li{counter-increment:lst-ctn-kix_b8jop7yichto-8}ul.lst-kix_7yep2crf8uqn-0{list-style-type:none}.lst-kix_oa849csponl4-7>li:before{content:"" counter(lst-ctn-kix_oa849csponl4-7,lower-latin) ". "}.lst-kix_14rk34yzn4ll-2>li:before{content:"\0025a0  "}.lst-kix_qp2xuaqmqx08-2>li:before{content:"\00274f  "}.lst-kix_r1hwxp14qqtt-5>li:before{content:"" counter(lst-ctn-kix_r1hwxp14qqtt-0,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-1,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-2,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-3,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-4,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-5,decimal) ". "}.lst-kix_qp2xuaqmqx08-1>li:before{content:"\00274f  "}.lst-kix_qp2xuaqmqx08-5>li:before{content:"\00274f  "}.lst-kix_kyan84g0syen-0>li:before{content:"" counter(lst-ctn-kix_kyan84g0syen-0,decimal) ". "}ol.lst-kix_eb8c0e92k51s-2{list-style-type:none}ol.lst-kix_eb8c0e92k51s-1{list-style-type:none}.lst-kix_r1hwxp14qqtt-1>li:before{content:"" counter(lst-ctn-kix_r1hwxp14qqtt-0,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-1,decimal) ". "}ol.lst-kix_eb8c0e92k51s-4{list-style-type:none}ol.lst-kix_eb8c0e92k51s-3{list-style-type:none}ol.lst-kix_oecnlfcdzh8w-4.start{counter-reset:lst-ctn-kix_oecnlfcdzh8w-4 0}.lst-kix_r1hwxp14qqtt-2>li:before{content:"" counter(lst-ctn-kix_r1hwxp14qqtt-0,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-1,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-2,decimal) ". "}.lst-kix_wok3eaw9bfcg-7>li:before{content:"\0025cb  "}ol.lst-kix_eb8c0e92k51s-0{list-style-type:none}ol.lst-kix_f286vjr4fl6m-6.start{counter-reset:lst-ctn-kix_f286vjr4fl6m-6 0}ol.lst-kix_kyan84g0syen-3.start{counter-reset:lst-ctn-kix_kyan84g0syen-3 0}ul.lst-kix_gjwgbgw8ll1n-3{list-style-type:none}ul.lst-kix_gjwgbgw8ll1n-4{list-style-type:none}ul.lst-kix_gjwgbgw8ll1n-5{list-style-type:none}ul.lst-kix_gjwgbgw8ll1n-6{list-style-type:none}ol.lst-kix_54kw3uh8dhqt-6.start{counter-reset:lst-ctn-kix_54kw3uh8dhqt-6 0}ul.lst-kix_gjwgbgw8ll1n-7{list-style-type:none}ul.lst-kix_gjwgbgw8ll1n-8{list-style-type:none}ol.lst-kix_f286vjr4fl6m-7.start{counter-reset:lst-ctn-kix_f286vjr4fl6m-7 0}ul.lst-kix_gjwgbgw8ll1n-0{list-style-type:none}.lst-kix_8izowsl2o168-2>li:before{content:"\0025a0  "}ul.lst-kix_gjwgbgw8ll1n-1{list-style-type:none}ul.lst-kix_gjwgbgw8ll1n-2{list-style-type:none}ol.lst-kix_oecnlfcdzh8w-5.start{counter-reset:lst-ctn-kix_oecnlfcdzh8w-5 0}ol.lst-kix_e5wn09qizjam-3.start{counter-reset:lst-ctn-kix_e5wn09qizjam-3 0}.lst-kix_7kcw8ca7cpkk-3>li:before{content:"-  "}.lst-kix_7r26hmefqxlz-7>li:before{content:"-  "}ol.lst-kix_joqvl6xskr7h-4{list-style-type:none}ol.lst-kix_joqvl6xskr7h-5{list-style-type:none}ol.lst-kix_joqvl6xskr7h-3.start{counter-reset:lst-ctn-kix_joqvl6xskr7h-3 0}ol.lst-kix_joqvl6xskr7h-6{list-style-type:none}ol.lst-kix_joqvl6xskr7h-7{list-style-type:none}ol.lst-kix_joqvl6xskr7h-0{list-style-type:none}.lst-kix_5tlqkax8pn8h-8>li{counter-increment:lst-ctn-kix_5tlqkax8pn8h-8}ul.lst-kix_55qn5zinx2rw-0{list-style-type:none}ol.lst-kix_joqvl6xskr7h-1{list-style-type:none}ul.lst-kix_55qn5zinx2rw-1{list-style-type:none}ol.lst-kix_joqvl6xskr7h-2{list-style-type:none}.lst-kix_n3tj4l2tfvjs-6>li:before{content:"\0025cf  "}ul.lst-kix_55qn5zinx2rw-2{list-style-type:none}ol.lst-kix_joqvl6xskr7h-3{list-style-type:none}.lst-kix_7kcw8ca7cpkk-7>li:before{content:"-  "}ul.lst-kix_55qn5zinx2rw-3{list-style-type:none}ol.lst-kix_y5n3nq4jdbfn-5{list-style-type:none}ul.lst-kix_55qn5zinx2rw-4{list-style-type:none}ol.lst-kix_y5n3nq4jdbfn-6{list-style-type:none}.lst-kix_y5n3nq4jdbfn-6>li{counter-increment:lst-ctn-kix_y5n3nq4jdbfn-6}ul.lst-kix_55qn5zinx2rw-5{list-style-type:none}ol.lst-kix_y5n3nq4jdbfn-3{list-style-type:none}.lst-kix_7kcw8ca7cpkk-6>li:before{content:"-  "}ul.lst-kix_55qn5zinx2rw-6{list-style-type:none}ol.lst-kix_y5n3nq4jdbfn-4{list-style-type:none}ul.lst-kix_55qn5zinx2rw-7{list-style-type:none}ol.lst-kix_joqvl6xskr7h-8{list-style-type:none}ol.lst-kix_y5n3nq4jdbfn-1{list-style-type:none}ul.lst-kix_55qn5zinx2rw-8{list-style-type:none}ol.lst-kix_y5n3nq4jdbfn-2{list-style-type:none}ol.lst-kix_y5n3nq4jdbfn-0{list-style-type:none}ol.lst-kix_xbffn4m8wqp8-0.start{counter-reset:lst-ctn-kix_xbffn4m8wqp8-0 0}.lst-kix_e5wn09qizjam-6>li{counter-increment:lst-ctn-kix_e5wn09qizjam-6}ol.lst-kix_oecnlfcdzh8w-0.start{counter-reset:lst-ctn-kix_oecnlfcdzh8w-0 0}.lst-kix_r838nbqybskb-4>li:before{content:"\00274f  "}.lst-kix_joqvl6xskr7h-5>li{counter-increment:lst-ctn-kix_joqvl6xskr7h-5}ol.lst-kix_sqi2eeqkjqi1-0{list-style-type:none}.lst-kix_y5n3nq4jdbfn-2>li:before{content:"" counter(lst-ctn-kix_y5n3nq4jdbfn-2,lower-roman) ". "}.lst-kix_kejj0mnh36fn-7>li:before{content:"-  "}.lst-kix_ng9d0mstyr43-7>li:before{content:"-  "}.lst-kix_r838nbqybskb-8>li:before{content:"\00274f  "}.lst-kix_ghz5yf7zqdw2-7>li:before{content:"\0025cb  "}.lst-kix_joqvl6xskr7h-8>li:before{content:"" counter(lst-ctn-kix_joqvl6xskr7h-8,lower-roman) ". "}ol.lst-kix_54kw3uh8dhqt-7.start{counter-reset:lst-ctn-kix_54kw3uh8dhqt-7 0}ol.lst-kix_yaskkidl4eoy-1.start{counter-reset:lst-ctn-kix_yaskkidl4eoy-1 0}ol.lst-kix_sqi2eeqkjqi1-0.start{counter-reset:lst-ctn-kix_sqi2eeqkjqi1-0 0}.lst-kix_iw9e0zk5bknq-7>li:before{content:"\0025cb  "}ul.lst-kix_8izowsl2o168-0{list-style-type:none}.lst-kix_s3sq7ed4q79u-0>li:before{content:"-  "}.lst-kix_xbffn4m8wqp8-6>li:before{content:"" counter(lst-ctn-kix_xbffn4m8wqp8-6,decimal) ". "}.lst-kix_b8jop7yichto-8>li:before{content:"" counter(lst-ctn-kix_b8jop7yichto-8,lower-roman) ". "}ul.lst-kix_8izowsl2o168-3{list-style-type:none}ul.lst-kix_8izowsl2o168-4{list-style-type:none}ul.lst-kix_8izowsl2o168-1{list-style-type:none}ol.lst-kix_1ht5dddy08l0-4.start{counter-reset:lst-ctn-kix_1ht5dddy08l0-4 0}ul.lst-kix_8izowsl2o168-2{list-style-type:none}ul.lst-kix_8izowsl2o168-7{list-style-type:none}ul.lst-kix_8izowsl2o168-8{list-style-type:none}.lst-kix_nje0xadfpcg4-1>li:before{content:"\0025cb  "}ul.lst-kix_8izowsl2o168-5{list-style-type:none}.lst-kix_y5n3nq4jdbfn-6>li:before{content:"" counter(lst-ctn-kix_y5n3nq4jdbfn-6,decimal) ". "}ul.lst-kix_8izowsl2o168-6{list-style-type:none}ol.lst-kix_1ht5dddy08l0-1.start{counter-reset:lst-ctn-kix_1ht5dddy08l0-1 0}.lst-kix_ng9d0mstyr43-3>li:before{content:"-  "}.lst-kix_s3sq7ed4q79u-4>li:before{content:"-  "}ol.lst-kix_oa849csponl4-2.start{counter-reset:lst-ctn-kix_oa849csponl4-2 0}.lst-kix_eb8c0e92k51s-8>li{counter-increment:lst-ctn-kix_eb8c0e92k51s-8}.lst-kix_yaskkidl4eoy-4>li:before{content:"" counter(lst-ctn-kix_yaskkidl4eoy-4,lower-latin) ". "}ol.lst-kix_yaskkidl4eoy-0.start{counter-reset:lst-ctn-kix_yaskkidl4eoy-0 0}.lst-kix_yaskkidl4eoy-0>li:before{content:"" counter(lst-ctn-kix_yaskkidl4eoy-0,decimal) ". "}ol.lst-kix_oa849csponl4-1.start{counter-reset:lst-ctn-kix_oa849csponl4-1 0}.lst-kix_5tlqkax8pn8h-3>li{counter-increment:lst-ctn-kix_5tlqkax8pn8h-3}.lst-kix_sqi2eeqkjqi1-4>li:before{content:"\0025cb  "}ol.lst-kix_joqvl6xskr7h-0.start{counter-reset:lst-ctn-kix_joqvl6xskr7h-0 0}ol.lst-kix_kyan84g0syen-2.start{counter-reset:lst-ctn-kix_kyan84g0syen-2 0}.lst-kix_kyan84g0syen-3>li{counter-increment:lst-ctn-kix_kyan84g0syen-3}.lst-kix_fwp859mpdf6-2>li{counter-increment:lst-ctn-kix_fwp859mpdf6-2}.lst-kix_f286vjr4fl6m-8>li:before{content:"" counter(lst-ctn-kix_f286vjr4fl6m-8,lower-roman) ". "}.lst-kix_1ht5dddy08l0-7>li:before{content:"" counter(lst-ctn-kix_1ht5dddy08l0-7,lower-latin) ". "}.lst-kix_14mi6nppaprg-3>li:before{content:"-  "}.lst-kix_14mi6nppaprg-6>li:before{content:"-  "}.lst-kix_1ht5dddy08l0-4>li:before{content:"" counter(lst-ctn-kix_1ht5dddy08l0-4,lower-latin) ". "}.lst-kix_14mi6nppaprg-0>li:before{content:"-  "}ol.lst-kix_oa849csponl4-3.start{counter-reset:lst-ctn-kix_oa849csponl4-3 0}.lst-kix_qxsub0urh8b5-2>li:before{content:"\0025a0  "}ol.lst-kix_1ht5dddy08l0-5{list-style-type:none}.lst-kix_e5wn09qizjam-1>li{counter-increment:lst-ctn-kix_e5wn09qizjam-1}ol.lst-kix_1ht5dddy08l0-4{list-style-type:none}ol.lst-kix_1ht5dddy08l0-3{list-style-type:none}ol.lst-kix_1ht5dddy08l0-2{list-style-type:none}ol.lst-kix_1ht5dddy08l0-1{list-style-type:none}ol.lst-kix_1ht5dddy08l0-0{list-style-type:none}.lst-kix_yaskkidl4eoy-5>li{counter-increment:lst-ctn-kix_yaskkidl4eoy-5}.lst-kix_y5n3nq4jdbfn-1>li{counter-increment:lst-ctn-kix_y5n3nq4jdbfn-1}ol.lst-kix_b8jop7yichto-3.start{counter-reset:lst-ctn-kix_b8jop7yichto-3 0}ol.lst-kix_1ht5dddy08l0-8{list-style-type:none}ol.lst-kix_1ht5dddy08l0-7{list-style-type:none}ol.lst-kix_1ht5dddy08l0-6{list-style-type:none}.lst-kix_r1hwxp14qqtt-5>li{counter-increment:lst-ctn-kix_r1hwxp14qqtt-5}.lst-kix_q5n1whvesm8z-4>li:before{content:"" counter(lst-ctn-kix_q5n1whvesm8z-4,lower-latin) ". "}.lst-kix_q5n1whvesm8z-7>li:before{content:"" counter(lst-ctn-kix_q5n1whvesm8z-7,lower-latin) ". "}ol.lst-kix_joqvl6xskr7h-5.start{counter-reset:lst-ctn-kix_joqvl6xskr7h-5 0}.lst-kix_lvqs51bnwmx-7>li:before{content:"-  "}.lst-kix_q5n1whvesm8z-1>li:before{content:"" counter(lst-ctn-kix_q5n1whvesm8z-1,lower-latin) ". "}.lst-kix_lvqs51bnwmx-0>li:before{content:"-  "}.lst-kix_150nvl8gjcuy-7>li:before{content:"\0025cb  "}.lst-kix_54kw3uh8dhqt-0>li:before{content:"" counter(lst-ctn-kix_54kw3uh8dhqt-0,decimal) ". "}.lst-kix_oa849csponl4-5>li{counter-increment:lst-ctn-kix_oa849csponl4-5}.lst-kix_150nvl8gjcuy-4>li:before{content:"\0025cb  "}ul.lst-kix_9y1uz5iqpetj-0{list-style-type:none}.lst-kix_oecnlfcdzh8w-5>li:before{content:"" counter(lst-ctn-kix_oecnlfcdzh8w-5,lower-roman) ". "}ul.lst-kix_9y1uz5iqpetj-2{list-style-type:none}ul.lst-kix_9y1uz5iqpetj-1{list-style-type:none}ul.lst-kix_9y1uz5iqpetj-4{list-style-type:none}.lst-kix_1ht5dddy08l0-5>li{counter-increment:lst-ctn-kix_1ht5dddy08l0-5}ul.lst-kix_9y1uz5iqpetj-3{list-style-type:none}ul.lst-kix_9y1uz5iqpetj-6{list-style-type:none}ul.lst-kix_9y1uz5iqpetj-5{list-style-type:none}ul.lst-kix_9y1uz5iqpetj-8{list-style-type:none}.lst-kix_150nvl8gjcuy-1>li:before{content:"\0025cb  "}ul.lst-kix_9y1uz5iqpetj-7{list-style-type:none}.lst-kix_5fipecttb5uy-0>li:before{content:"" counter(lst-ctn-kix_5fipecttb5uy-0,decimal) ". "}ol.lst-kix_b8jop7yichto-8.start{counter-reset:lst-ctn-kix_b8jop7yichto-8 0}.lst-kix_oecnlfcdzh8w-2>li:before{content:"" counter(lst-ctn-kix_oecnlfcdzh8w-2,lower-roman) ". "}.lst-kix_2ixtida4q52v-6>li:before{content:"\0025cf  "}ol.lst-kix_oecnlfcdzh8w-6.start{counter-reset:lst-ctn-kix_oecnlfcdzh8w-6 0}ul.lst-kix_24j33d900kc7-1{list-style-type:none}.lst-kix_e5wn09qizjam-0>li:before{content:"" counter(lst-ctn-kix_e5wn09qizjam-0,decimal) ". "}.lst-kix_54kw3uh8dhqt-3>li:before{content:"" counter(lst-ctn-kix_54kw3uh8dhqt-3,decimal) ". "}ul.lst-kix_24j33d900kc7-2{list-style-type:none}.lst-kix_oecnlfcdzh8w-2>li{counter-increment:lst-ctn-kix_oecnlfcdzh8w-2}ul.lst-kix_24j33d900kc7-0{list-style-type:none}ul.lst-kix_24j33d900kc7-5{list-style-type:none}ul.lst-kix_24j33d900kc7-6{list-style-type:none}.lst-kix_mijmearkmjnl-0>li:before{content:"\0025cf  "}ul.lst-kix_24j33d900kc7-3{list-style-type:none}ul.lst-kix_24j33d900kc7-4{list-style-type:none}.lst-kix_e5wn09qizjam-3>li:before{content:"" counter(lst-ctn-kix_e5wn09qizjam-3,decimal) ". "}ul.lst-kix_24j33d900kc7-7{list-style-type:none}ul.lst-kix_24j33d900kc7-8{list-style-type:none}.lst-kix_hlfksvx4f7ob-6>li:before{content:"\0025cf  "}ul.lst-kix_a9vnimywhdpd-0{list-style-type:none}.lst-kix_bssn06ffrn47-6>li:before{content:"\00274f  "}ul.lst-kix_a9vnimywhdpd-2{list-style-type:none}ul.lst-kix_a9vnimywhdpd-1{list-style-type:none}ul.lst-kix_a9vnimywhdpd-4{list-style-type:none}ul.lst-kix_lvqs51bnwmx-0{list-style-type:none}ul.lst-kix_a9vnimywhdpd-3{list-style-type:none}.lst-kix_24j33d900kc7-2>li:before{content:"-  "}ul.lst-kix_lvqs51bnwmx-1{list-style-type:none}ul.lst-kix_a9vnimywhdpd-6{list-style-type:none}ul.lst-kix_lvqs51bnwmx-2{list-style-type:none}ul.lst-kix_a9vnimywhdpd-5{list-style-type:none}ul.lst-kix_lvqs51bnwmx-3{list-style-type:none}ul.lst-kix_a9vnimywhdpd-8{list-style-type:none}ul.lst-kix_lvqs51bnwmx-4{list-style-type:none}ul.lst-kix_a9vnimywhdpd-7{list-style-type:none}ul.lst-kix_lvqs51bnwmx-5{list-style-type:none}ul.lst-kix_lvqs51bnwmx-6{list-style-type:none}ul.lst-kix_lvqs51bnwmx-7{list-style-type:none}.lst-kix_q5n1whvesm8z-3>li{counter-increment:lst-ctn-kix_q5n1whvesm8z-3}ul.lst-kix_lvqs51bnwmx-8{list-style-type:none}.lst-kix_mijmearkmjnl-3>li:before{content:"\0025cf  "}.lst-kix_b8jop7yichto-5>li:before{content:"" counter(lst-ctn-kix_b8jop7yichto-5,lower-roman) ". "}ol.lst-kix_fwp859mpdf6-1.start{counter-reset:lst-ctn-kix_fwp859mpdf6-1 0}.lst-kix_a9vnimywhdpd-7>li:before{content:"\0025cb  "}.lst-kix_s3sq7ed4q79u-7>li:before{content:"-  "}.lst-kix_madkam6f1iws-2>li:before{content:"\00274f  "}ol.lst-kix_oa849csponl4-5.start{counter-reset:lst-ctn-kix_oa849csponl4-5 0}ul.lst-kix_h969vcu9z3gl-5{list-style-type:none}ul.lst-kix_h969vcu9z3gl-4{list-style-type:none}.lst-kix_bssn06ffrn47-0>li:before{content:"\00274f  "}ul.lst-kix_h969vcu9z3gl-3{list-style-type:none}ul.lst-kix_h969vcu9z3gl-2{list-style-type:none}ul.lst-kix_h969vcu9z3gl-1{list-style-type:none}ul.lst-kix_h969vcu9z3gl-0{list-style-type:none}.lst-kix_nje0xadfpcg4-4>li:before{content:"\0025cb  "}ul.lst-kix_h969vcu9z3gl-8{list-style-type:none}.lst-kix_24j33d900kc7-8>li:before{content:"-  "}ul.lst-kix_h969vcu9z3gl-7{list-style-type:none}ul.lst-kix_h969vcu9z3gl-6{list-style-type:none}.lst-kix_yaskkidl4eoy-7>li:before{content:"" counter(lst-ctn-kix_yaskkidl4eoy-7,lower-latin) ". "}ol.lst-kix_oa849csponl4-8.start{counter-reset:lst-ctn-kix_oa849csponl4-8 0}.lst-kix_yaskkidl4eoy-2>li{counter-increment:lst-ctn-kix_yaskkidl4eoy-2}ul.lst-kix_5c3pl0bjm1s3-0{list-style-type:none}ul.lst-kix_5c3pl0bjm1s3-1{list-style-type:none}ul.lst-kix_5c3pl0bjm1s3-2{list-style-type:none}.lst-kix_o5luukcvtasg-0>li:before{content:"\0025cf  "}ul.lst-kix_5c3pl0bjm1s3-3{list-style-type:none}ul.lst-kix_5c3pl0bjm1s3-4{list-style-type:none}ul.lst-kix_5c3pl0bjm1s3-5{list-style-type:none}ol.lst-kix_oecnlfcdzh8w-8.start{counter-reset:lst-ctn-kix_oecnlfcdzh8w-8 0}.lst-kix_5tlqkax8pn8h-0>li:before{content:"" counter(lst-ctn-kix_5tlqkax8pn8h-0,decimal) ". "}.lst-kix_xbffn4m8wqp8-7>li{counter-increment:lst-ctn-kix_xbffn4m8wqp8-7}.lst-kix_b8jop7yichto-3>li{counter-increment:lst-ctn-kix_b8jop7yichto-3}.lst-kix_r10uc3zfx1kf-8>li:before{content:"\00274f  "}.lst-kix_kyan84g0syen-3>li:before{content:"" counter(lst-ctn-kix_kyan84g0syen-3,decimal) ". "}.lst-kix_5tlqkax8pn8h-0>li{counter-increment:lst-ctn-kix_5tlqkax8pn8h-0}ol.lst-kix_joqvl6xskr7h-7.start{counter-reset:lst-ctn-kix_joqvl6xskr7h-7 0}ul.lst-kix_5c3pl0bjm1s3-6{list-style-type:none}ul.lst-kix_5c3pl0bjm1s3-7{list-style-type:none}ul.lst-kix_5c3pl0bjm1s3-8{list-style-type:none}.lst-kix_f286vjr4fl6m-5>li{counter-increment:lst-ctn-kix_f286vjr4fl6m-5}.lst-kix_f286vjr4fl6m-5>li:before{content:"" counter(lst-ctn-kix_f286vjr4fl6m-5,lower-roman) ". "}.lst-kix_sqi2eeqkjqi1-7>li:before{content:"\0025cb  "}.lst-kix_upxjftk9isdy-5>li:before{content:"\0025a0  "}.lst-kix_joqvl6xskr7h-2>li{counter-increment:lst-ctn-kix_joqvl6xskr7h-2}.lst-kix_14rk34yzn4ll-8>li:before{content:"\0025a0  "}.lst-kix_55qn5zinx2rw-5>li:before{content:"\00274f  "}.lst-kix_1blicfbuz9jc-4>li:before{content:"-  "}.lst-kix_oa849csponl4-8>li{counter-increment:lst-ctn-kix_oa849csponl4-8}.lst-kix_upxjftk9isdy-2>li:before{content:"\0025a0  "}.lst-kix_14rk34yzn4ll-5>li:before{content:"\0025a0  "}ol.lst-kix_fwp859mpdf6-8.start{counter-reset:lst-ctn-kix_fwp859mpdf6-8 0}.lst-kix_1blicfbuz9jc-7>li:before{content:"-  "}.lst-kix_wok3eaw9bfcg-1>li:before{content:"\0025cb  "}.lst-kix_oa849csponl4-4>li:before{content:"" counter(lst-ctn-kix_oa849csponl4-4,lower-latin) ". "}ul.lst-kix_150nvl8gjcuy-1{list-style-type:none}.lst-kix_1ht5dddy08l0-8>li{counter-increment:lst-ctn-kix_1ht5dddy08l0-8}ol.lst-kix_b8jop7yichto-6.start{counter-reset:lst-ctn-kix_b8jop7yichto-6 0}ul.lst-kix_150nvl8gjcuy-2{list-style-type:none}ul.lst-kix_150nvl8gjcuy-3{list-style-type:none}ul.lst-kix_150nvl8gjcuy-4{list-style-type:none}ul.lst-kix_150nvl8gjcuy-5{list-style-type:none}ul.lst-kix_150nvl8gjcuy-6{list-style-type:none}ul.lst-kix_150nvl8gjcuy-7{list-style-type:none}ul.lst-kix_150nvl8gjcuy-8{list-style-type:none}.lst-kix_r1hwxp14qqtt-2>li{counter-increment:lst-ctn-kix_r1hwxp14qqtt-2}.lst-kix_qp2xuaqmqx08-8>li:before{content:"\00274f  "}.lst-kix_wok3eaw9bfcg-4>li:before{content:"\0025cb  "}ol.lst-kix_joqvl6xskr7h-8.start{counter-reset:lst-ctn-kix_joqvl6xskr7h-8 0}.lst-kix_eb8c0e92k51s-2>li{counter-increment:lst-ctn-kix_eb8c0e92k51s-2}.lst-kix_8izowsl2o168-8>li:before{content:"\0025a0  "}.lst-kix_5c3pl0bjm1s3-5>li:before{content:"\0025a0  "}.lst-kix_54kw3uh8dhqt-7>li{counter-increment:lst-ctn-kix_54kw3uh8dhqt-7}.lst-kix_5c3pl0bjm1s3-2>li:before{content:"\0025a0  "}.lst-kix_q5n1whvesm8z-6>li{counter-increment:lst-ctn-kix_q5n1whvesm8z-6}ol.lst-kix_fwp859mpdf6-3.start{counter-reset:lst-ctn-kix_fwp859mpdf6-3 0}ol.lst-kix_b8jop7yichto-1.start{counter-reset:lst-ctn-kix_b8jop7yichto-1 0}.lst-kix_7sernppwpjc1-8>li:before{content:"-  "}ol.lst-kix_b8jop7yichto-0.start{counter-reset:lst-ctn-kix_b8jop7yichto-0 0}.lst-kix_r1hwxp14qqtt-8>li:before{content:"" counter(lst-ctn-kix_r1hwxp14qqtt-0,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-1,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-2,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-3,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-4,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-5,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-6,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-7,decimal) "." counter(lst-ctn-kix_r1hwxp14qqtt-8,decimal) ". "}.lst-kix_7kcw8ca7cpkk-0>li:before{content:"-  "}ol.lst-kix_fwp859mpdf6-2.start{counter-reset:lst-ctn-kix_fwp859mpdf6-2 0}.lst-kix_n3tj4l2tfvjs-3>li:before{content:"\0025cf  "}.lst-kix_7r26hmefqxlz-1>li:before{content:"-  "}ol.lst-kix_b8jop7yichto-7.start{counter-reset:lst-ctn-kix_b8jop7yichto-7 0}.lst-kix_oecnlfcdzh8w-8>li{counter-increment:lst-ctn-kix_oecnlfcdzh8w-8}.lst-kix_oa849csponl4-1>li:before{content:"" counter(lst-ctn-kix_oa849csponl4-1,lower-latin) ". "}.lst-kix_oecnlfcdzh8w-5>li{counter-increment:lst-ctn-kix_oecnlfcdzh8w-5}.lst-kix_8izowsl2o168-5>li:before{content:"\0025a0  "}.lst-kix_7r26hmefqxlz-4>li:before{content:"-  "}ol.lst-kix_q5n1whvesm8z-5{list-style-type:none}ol.lst-kix_q5n1whvesm8z-4{list-style-type:none}ol.lst-kix_q5n1whvesm8z-7{list-style-type:none}.lst-kix_nje0xadfpcg4-7>li:before{content:"\0025cb  "}ol.lst-kix_q5n1whvesm8z-6{list-style-type:none}.lst-kix_24j33d900kc7-5>li:before{content:"-  "}ol.lst-kix_q5n1whvesm8z-8{list-style-type:none}.lst-kix_fwp859mpdf6-0>li:before{content:"" counter(lst-ctn-kix_fwp859mpdf6-0,decimal) ". "}.lst-kix_pcqr12a7891l-5>li:before{content:"" counter(lst-ctn-kix_pcqr12a7891l-5,lower-roman) ". "}ul.lst-kix_1blicfbuz9jc-7{list-style-type:none}ul.lst-kix_1blicfbuz9jc-8{list-style-type:none}.lst-kix_f286vjr4fl6m-2>li:before{content:"" counter(lst-ctn-kix_f286vjr4fl6m-2,lower-roman) ". "}ul.lst-kix_1blicfbuz9jc-5{list-style-type:none}ul.lst-kix_1blicfbuz9jc-6{list-style-type:none}.lst-kix_b8jop7yichto-2>li:before{content:"" counter(lst-ctn-kix_b8jop7yichto-2,lower-roman) ". "}.lst-kix_qm9hkxcig6cu-3>li:before{content:"\0025cf  "}.lst-kix_n3tj4l2tfvjs-0>li:before{content:"\0025cf  "}.lst-kix_xbffn4m8wqp8-0>li:before{content:"" counter(lst-ctn-kix_xbffn4m8wqp8-0,decimal) ". "}ol.lst-kix_fwp859mpdf6-4.start{counter-reset:lst-ctn-kix_fwp859mpdf6-4 0}ul.lst-kix_1blicfbuz9jc-3{list-style-type:none}.lst-kix_xbffn4m8wqp8-4>li{counter-increment:lst-ctn-kix_xbffn4m8wqp8-4}ul.lst-kix_1blicfbuz9jc-4{list-style-type:none}ul.lst-kix_1blicfbuz9jc-1{list-style-type:none}ul.lst-kix_1blicfbuz9jc-2{list-style-type:none}ol.lst-kix_fwp859mpdf6-7.start{counter-reset:lst-ctn-kix_fwp859mpdf6-7 0}ul.lst-kix_1blicfbuz9jc-0{list-style-type:none}ol.lst-kix_b8jop7yichto-5.start{counter-reset:lst-ctn-kix_b8jop7yichto-5 0}.lst-kix_iw9e0zk5bknq-1>li:before{content:"\0025cb  "}ol.lst-kix_pcqr12a7891l-3{list-style-type:none}ol.lst-kix_pcqr12a7891l-2{list-style-type:none}.lst-kix_ghz5yf7zqdw2-1>li:before{content:"\0025cb  "}ol.lst-kix_pcqr12a7891l-1{list-style-type:none}.lst-kix_joqvl6xskr7h-2>li:before{content:"" counter(lst-ctn-kix_joqvl6xskr7h-2,lower-roman) ". "}ol.lst-kix_pcqr12a7891l-0{list-style-type:none}ol.lst-kix_q5n1whvesm8z-1{list-style-type:none}ol.lst-kix_pcqr12a7891l-7{list-style-type:none}ol.lst-kix_q5n1whvesm8z-0{list-style-type:none}ol.lst-kix_pcqr12a7891l-6{list-style-type:none}ol.lst-kix_q5n1whvesm8z-3{list-style-type:none}ol.lst-kix_pcqr12a7891l-5{list-style-type:none}ol.lst-kix_q5n1whvesm8z-2{list-style-type:none}ol.lst-kix_pcqr12a7891l-4{list-style-type:none}.lst-kix_bssn06ffrn47-3>li:before{content:"\00274f  "}ol.lst-kix_b8jop7yichto-2.start{counter-reset:lst-ctn-kix_b8jop7yichto-2 0}ol.lst-kix_pcqr12a7891l-8{list-style-type:none}.lst-kix_kejj0mnh36fn-1>li:before{content:"-  "}ul.lst-kix_o5luukcvtasg-8{list-style-type:none}ol.lst-kix_b8jop7yichto-4.start{counter-reset:lst-ctn-kix_b8jop7yichto-4 0}ol.lst-kix_fwp859mpdf6-6.start{counter-reset:lst-ctn-kix_fwp859mpdf6-6 0}.lst-kix_w9s67o5stqwf-6>li:before{content:"-  "}.lst-kix_b8jop7yichto-0>li{counter-increment:lst-ctn-kix_b8jop7yichto-0}.lst-kix_f286vjr4fl6m-2>li{counter-increment:lst-ctn-kix_f286vjr4fl6m-2}.lst-kix_kyan84g0syen-6>li:before{content:"" counter(lst-ctn-kix_kyan84g0syen-6,decimal) ". "}.lst-kix_fwp859mpdf6-8>li{counter-increment:lst-ctn-kix_fwp859mpdf6-8}ul.lst-kix_o5luukcvtasg-0{list-style-type:none}ul.lst-kix_o5luukcvtasg-1{list-style-type:none}ol.lst-kix_fwp859mpdf6-5.start{counter-reset:lst-ctn-kix_fwp859mpdf6-5 0}ul.lst-kix_o5luukcvtasg-2{list-style-type:none}ul.lst-kix_o5luukcvtasg-3{list-style-type:none}ul.lst-kix_o5luukcvtasg-4{list-style-type:none}ul.lst-kix_o5luukcvtasg-5{list-style-type:none}ul.lst-kix_o5luukcvtasg-6{list-style-type:none}ul.lst-kix_o5luukcvtasg-7{list-style-type:none}.lst-kix_8yoay3beoero-0>li:before{content:"\0025cf  "}.lst-kix_55qn5zinx2rw-8>li:before{content:"\00274f  "}ol{margin:0;padding:0}table td,table th{padding:0}.c11{border-right-style:solid;padding-top:0pt;border-top-width:0pt;border-right-width:0pt;padding-left:0pt;padding-bottom:6.9pt;line-height:1.25;page-break-after:avoid;border-left-width:0pt;border-top-style:solid;background-color:#ffffff;border-left-style:solid;border-bottom-width:0pt;border-bottom-style:solid;orphans:2;widows:2;text-align:left;padding-right:0pt}.c54{border-right-style:solid;padding-top:0pt;border-top-width:0pt;border-right-width:0pt;padding-bottom:0pt;line-height:1.05;border-left-width:0pt;border-top-style:solid;text-indent:-36pt;border-left-style:solid;border-bottom-width:0pt;border-bottom-style:solid;orphans:2;widows:2;text-align:justify;padding-right:0pt}.c21{border-right-style:solid;padding-top:0pt;border-top-width:0pt;border-right-width:0pt;padding-left:0pt;padding-bottom:0pt;line-height:1.02;border-left-width:0pt;border-top-style:solid;border-left-style:solid;border-bottom-width:0pt;border-bottom-style:solid;orphans:2;widows:2;text-align:justify;padding-right:0pt}.c13{border-right-style:solid;padding-top:0pt;border-top-width:0pt;border-right-width:0pt;padding-left:0pt;padding-bottom:6.9pt;line-height:1.25;border-left-width:0pt;border-top-style:solid;background-color:#ffffff;border-left-style:solid;border-bottom-width:0pt;border-bottom-style:solid;text-align:left;padding-right:0pt}.c37{margin-left:76.5pt;padding-top:0pt;text-indent:31.5pt;padding-bottom:0pt;line-height:1.0;orphans:2;widows:2;text-align:left}.c15{padding-top:16pt;padding-left:0pt;padding-bottom:11pt;line-height:1.05;page-break-after:avoid;orphans:2;widows:2;text-align:left}.c16{padding-top:12pt;text-indent:36pt;padding-bottom:4pt;line-height:1.05;page-break-after:avoid;orphans:2;widows:2;text-align:left}.c2{margin-left:36pt;padding-top:0pt;text-indent:36pt;padding-bottom:12pt;line-height:1.05;orphans:2;widows:2;text-align:left}.c39{padding-top:18pt;padding-bottom:11pt;line-height:1.05;page-break-after:avoid;orphans:2;widows:2;text-align:left}.c4{padding-top:0pt;padding-bottom:12pt;line-height:1.05;orphans:2;widows:2;text-align:left;height:12pt}.c0{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:12pt;font-family:"Arial";font-style:normal}.c33{margin-left:18pt;padding-top:3pt;padding-bottom:4pt;line-height:1.0;orphans:2;widows:2;text-align:left}.c20{margin-left:72pt;padding-top:0pt;padding-bottom:11pt;line-height:1.05;orphans:2;widows:2;text-align:left}.c58{padding-top:14pt;padding-bottom:4pt;line-height:1.05;page-break-after:avoid;orphans:2;widows:2;text-align:left}.c51{padding-top:0pt;padding-bottom:12pt;line-height:1.05;orphans:2;widows:2;text-align:center}.c32{padding-top:0pt;padding-bottom:11pt;line-height:1.05;orphans:2;widows:2;text-align:justify}.c18{padding-top:3pt;padding-bottom:12pt;line-height:1.0;orphans:2;widows:2;text-align:left}.c29{color:#434343;text-decoration:none;vertical-align:baseline;font-size:14pt;font-family:"Arial";font-style:normal}.c62{padding-top:0pt;padding-bottom:12pt;line-height:1.5;orphans:2;widows:2;text-align:left}.c52{padding-top:0pt;padding-bottom:12pt;line-height:1.05;orphans:2;widows:2;text-align:justify}.c40{padding-top:0pt;padding-bottom:11pt;line-height:1.05;orphans:2;widows:2;text-align:left}.c56{padding-top:0pt;padding-bottom:12pt;line-height:1.05;orphans:2;widows:2;text-align:right}.c8{padding-top:0pt;padding-bottom:12pt;line-height:1.05;orphans:2;widows:2;text-align:left}.c35{padding-top:10pt;padding-bottom:12pt;line-height:1.0;orphans:2;widows:2;text-align:left}.c31{color:#e01e5a;font-weight:400;text-decoration:none;vertical-align:baseline;font-family:"Consolas";font-style:normal}.c41{padding-top:0pt;padding-bottom:11pt;line-height:1.5;orphans:2;widows:2;text-align:justify}.c48{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-family:"Arial"}.c5{color:#000000;text-decoration:none;vertical-align:baseline;font-family:"Arial";font-style:normal}.c36{font-weight:400;text-decoration:none;vertical-align:baseline;font-family:"Arial";font-style:normal}.c30{text-decoration-skip-ink:none;-webkit-text-decoration-skip:none;color:#1155cc;text-decoration:underline}.c49{padding-top:0pt;padding-bottom:12pt;line-height:1.05;text-align:left}.c47{font-family:"Consolas";color:#e01e5a;font-weight:400}.c46{font-family:"Consolas";color:#1155cc;font-weight:400}.c3{font-size:12pt;font-weight:700}.c9{padding:0;margin:0}.c25{font-style:italic;color:#0000ff}.c14{font-weight:700;font-size:20pt}.c24{margin-left:18pt;text-indent:-18pt}.c1{color:inherit;text-decoration:inherit}.c53{max-width:468pt;padding:72pt 72pt 72pt 72pt}.c26{font-weight:700;font-size:16pt}.c61{color:#24292e}.c10{color:#222222}.c27{padding-left:0pt}.c60{margin-left:216pt}.c28{font-weight:700}.c6{margin-left:108pt}.c19{text-indent:36pt}.c38{font-size:13pt}.c12{margin-left:36pt}.c34{font-style:italic}.c55{background-color:#f8f8f8}.c45{height:12pt}.c22{color:#666666}.c59{color:#ff0000}.c7{font-size:12pt}.c42{margin-left:18pt}.c17{background-color:#ffffff}.c43{color:#4a86e8}.c57{font-size:11pt}.c50{height:20pt}.c23{margin-left:72pt}.c44{font-size:9pt}.title{padding-top:0pt;color:#000000;font-size:26pt;padding-bottom:3pt;font-family:"Arial";line-height:1.05;page-break-after:avoid;orphans:2;widows:2;text-align:left}.subtitle{padding-top:0pt;color:#666666;font-size:15pt;padding-bottom:16pt;font-family:"Arial";line-height:1.05;page-break-after:avoid;orphans:2;widows:2;text-align:left}li{color:#000000;font-size:12pt;font-family:"Arial"}p{margin:0;color:#000000;font-size:12pt;font-family:"Arial"}h1{border-right-style:solid;color:#000000;border-top-width:0pt;font-weight:700;padding-left:0pt;font-size:20pt;background-color:#ffffff;border-left-style:solid;font-family:"Arial";orphans:2;text-align:left;padding-top:0pt;border-right-width:0pt;padding-bottom:6.9pt;line-height:1.25;page-break-after:avoid;border-left-width:0pt;border-top-style:solid;border-bottom-width:0pt;border-bottom-style:solid;widows:2;padding-right:0pt}h2{padding-top:18pt;color:#000000;font-weight:700;font-size:16pt;padding-bottom:11pt;font-family:"Arial";line-height:1.05;page-break-after:avoid;orphans:2;widows:2;text-align:left}h3{padding-top:16pt;color:#434343;font-weight:700;font-size:14pt;padding-bottom:11pt;font-family:"Arial";line-height:1.05;page-break-after:avoid;orphans:2;widows:2;text-align:left}h4{padding-top:14pt;color:#666666;font-size:12pt;padding-bottom:4pt;font-family:"Arial";line-height:1.05;page-break-after:avoid;orphans:2;widows:2;text-align:left}h5{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.05;page-break-after:avoid;orphans:2;widows:2;text-align:left}h6{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.05;page-break-after:avoid;font-style:italic;orphans:2;widows:2;text-align:left}</style>
+<div class="c17 c53">
+	<h1 class="c13" id="h.3rlva313ikki">
+		<span class="c28">Table of Contents</span>
+	</h1>
+	<p class="c35">
+		<span class="c5 c3">
+			<a class="c1" href="#h.awkp2xlx12mt">Overall Solution Overview</a>
+		</span>
+		<span class="c5 c3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c35">
+		<span class="c5 c3">
+			<a class="c1" href="#h.wc4wbu3ha2vb">TIBCO Cloud Integration (TCI Flogo)</a>
+		</span>
+		<span class="c5 c3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c18 c42">
+		<span class="c0">
+			<a class="c1" href="#h.hnt7h835dwep">Custom TCI Flogo Extensions</a>
+		</span>
+		<span class="c0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c18 c42">
+		<span class="c0">
+			<a class="c1" href="#h.ksolpfxt7gt6">TCI Flogo Applications</a>
+		</span>
+		<span class="c0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c18 c12">
+		<span class="c0">
+			<a class="c1" href="#h.41wlt414tf1">SmartTransportAccelerator_MockAlertAPI</a>
+		</span>
+		<span class="c0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c18 c12">
+		<span class="c0">
+			<a class="c1" href="#h.cuzdjt1z2f81">SmartTransportAccelerator_PublishGTFS_v2</a>
+		</span>
+		<span class="c0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c18 c12">
+		<span class="c0">
+			<a class="c1" href="#h.j3zri1u73zn5">SmartTransportAccelerator_PublisheFTL</a>
+		</span>
+		<span class="c0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c18 c12">
+		<span class="c0">
+			<a class="c1" href="#h.cns614aa2xx2">SmartTransportAccelerator_LiveAppsCase</a>
+		</span>
+		<span class="c0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c18 c12">
+		<span class="c0">
+			<a class="c1" href="#h.iox391zdjxrv">SmartTransportAccelerator_APIsToMonetize</a>
+		</span>
+		<span class="c0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c35">
+		<span class="c5 c3">
+			<a class="c1" href="#h.l6isl6ryxbar">TIBCO Cloud Events (TCE)</a>
+		</span>
+		<span class="c5 c3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c18 c42">
+		<span class="c0">
+			<a class="c1" href="#h.y68gxg3azgpe">TIBCO Cloud Events Application</a>
+		</span>
+		<span class="c0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c18 c12">
+		<span class="c0">
+			<a class="c1" href="#h.sz9cwoc3zbyk">Incident_Feed_Processing</a>
+		</span>
+		<span class="c0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c35">
+		<span class="c5 c3">
+			<a class="c1" href="#h.w644nxl1mtex">TIBCO Cloud Messaging (TCM-eFTL)</a>
+		</span>
+		<span class="c5 c3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c35">
+		<span class="c5 c3">
+			<a class="c1" href="#h.fa2whp7q2o2v">TIBCO Cloud Live Apps</a>
+		</span>
+		<span class="c5 c3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c12 c18">
+		<span class="c0">
+			<a class="c1" href="#h.6h6fl48bzhqz">Alert_Processing</a>
+		</span>
+		<span class="c0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c35">
+		<span class="c5 c3">
+			<a class="c1" href="#h.ln2meyh01fcx">TIBCO Cloud Data Streams</a>
+		</span>
+		<span class="c5 c3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c18 c12">
+		<span class="c0">
+			<a class="c1" href="#h.3bodexakm6a7">NormalDataFeed_detail</a>
+		</span>
+		<span class="c0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c18 c12">
+		<span class="c0">
+			<a class="c1" href="#h.f9k5txkhe7wv">NormalDataFeed_header</a>
+		</span>
+		<span class="c0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c18 c12">
+		<span class="c0">
+			<a class="c1" href="#h.d6mz5vp8ssjd">IncidentData</a>
+		</span>
+		<span class="c0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c35">
+		<span class="c5 c3">
+			<a class="c1" href="#h.1q82ieh63b7v">TIBCO Cloud Spotfire</a>
+		</span>
+		<span class="c3 c5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c35">
+		<span class="c5 c3">
+			<a class="c1" href="#h.iyw6vf44y44u">Additional Information</a>
+		</span>
+		<span class="c5 c3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c18 c42">
+		<span class="c0">
+			<a class="c1" href="#h.mbj9sqmrdqj3">Performance Tuning</a>
+		</span>
+		<span class="c0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c35">
+		<span class="c5 c3">
+			<a class="c1" href="#h.523gg54wlyyl">Working with Non-GTFS Data</a>
+		</span>
+		<span class="c5 c3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c18 c42">
+		<span class="c0">
+			<a class="c1" href="#h.qelybflewli6">TIBCO Cloud Integration (TCI Flogo)</a>
+		</span>
+		<span class="c0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c18 c42">
+		<span class="c0">
+			<a class="c1" href="#h.rzzp17a5dpp4">TIBCO Cloud Events</a>
+		</span>
+		<span class="c0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c18 c42">
+		<span class="c0">
+			<a class="c1" href="#h.ciavzjxang3">TIBCO Cloud Live Apps</a>
+		</span>
+		<span class="c0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c18 c42">
+		<span class="c0">
+			<a class="c1" href="#h.u75tn8xz159g">TIBCO Cloud Data Stream</a>
+		</span>
+		<span class="c0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<p class="c33">
+		<span class="c0">
+			<a class="c1" href="#h.qlsdarci76in">TIBCO Cloud Spotfire</a>
+		</span>
+		<span class="c0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+	</p>
+	<hr style="page-break-before:always;display:none;">
+		<h1 class="c13 c50" id="h.txkqpqo9uv9n">
+			<span class="c5 c14"/>
+		</h1>
+		<h1 class="c13" id="h.awkp2xlx12mt">
+			<span>Overall</span>
+			<span class="c28">&nbsp;Solution Overview</span>
+		</h1>
+		<p class="c8 c17">
+			<span class="c0">In this section, we’ll cover the role played by each of the TIBCO Cloud™ applications used within the Accelerator, including: </span>
+		</p>
+		<ul class="c9 lst-kix_wok3eaw9bfcg-0 start">
+			<li class="c8 c27 c12 c17 li-bullet-0">
+				<span class="c3 c10">TIBCO Cloud™</span>
+				<span class="c7">&nbsp;</span>
+				<span class="c3">Integration</span>
+				<span class="c7">&nbsp;</span>
+				<span>- </span>
+				<span class="c7">Develop capability (powered by Flog</span>
+				<span>o</span>
+				<span class="c0">) for API-led and event-based integration</span>
+			</li>
+			<li class="c8 c27 c12 c17 li-bullet-0">
+				<span class="c3 c10">TIBCO Cloud™</span>
+				<span class="c7">&nbsp;</span>
+				<span class="c3">Events</span>
+				<span class="c0">&nbsp;for rule based detection of incident events</span>
+			</li>
+			<li class="c8 c27 c12 c17 li-bullet-0">
+				<span class="c3 c10">TIBCO Cloud™</span>
+				<span class="c3">Live Apps</span>
+				<span class="c0">&nbsp;for low-code case management</span>
+			</li>
+			<li class="c8 c27 c12 c17 li-bullet-0">
+				<span class="c3 c10">TIBCO Cloud™ </span>
+				<span class="c3">Data Streams</span>
+				<span class="c0">&nbsp;for stream processing </span>
+			</li>
+			<li class="c8 c27 c12 c17 li-bullet-0">
+				<span class="c3 c10">TIBCO Cloud™</span>
+				<span class="c3">&nbsp;Spotfire</span>
+				<span class="c0">&nbsp;for visualisations and analytics</span>
+			</li>
+		</ul>
+		<p class="c8 c17">
+			<span class="c0">These components are seen in the architecture diagram below</span>
+		</p>
+		<p class="c27 c12 c17 c54">
+			<span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 282.49px;">
+				<img alt="" src="1_Complete_Solution_Overview_readme_files/DgZ2Sohmt8HwrNDK_zv7WaT8AWZ7XOWb1HKnBKzniduR_SJi3YDAl7fWwUtD.png" style="width: 624.00px; height: 350.32px; margin-left: 0.00px; margin-top: -33.32px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+				</span>
+			</p>
+			<hr style="page-break-before:always;display:none;">
+				<p class="c4 c17">
+					<span class="c0"/>
+				</p>
+				<p class="c8 c17">
+					<span class="c0">The internal interaction diagram, below, shows the communication between the different components.</span>
+				</p>
+				<p class="c8 c17">
+					<span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 577.33px;">
+						<img alt="" src="1_Complete_Solution_Overview_readme_files/THNFOrP-y-JJGuBfvYOdOB7gsXcfFTk9QmIDUrebk3FKdtn6f1PRUoGxukV7.png" style="width: 624.00px; height: 577.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+						</span>
+					</p>
+					<p class="c17 c51">
+						<span class="c34 c7 c48">Internal Interaction Diagram</span>
+					</p>
+					<p class="c21 c17">
+						<span class="c36 c10 c7">Looking at step each in turn:</span>
+					</p>
+					<ol class="c9 lst-kix_q5n1whvesm8z-0 start" start="1">
+						<li class="c21 c12 c17 li-bullet-0">
+							<span class="c10 c7">The Develop capability of TIBCO Cloud™ Integration, powered by Flogo, (“</span>
+							<span class="c3 c10">Integration</span>
+							<span class="c10 c7">”
+ in the diagram) extracts and transforms the real-time GTFS position and
+ trip update feeds published on Transport for NSW's Open Data Hub in 
+Protobuf format. Integration publishes the live feed as streaming data 
+in JSON format to TIBCO Cloud™ Messaging eFTL service (“</span>
+							<span class="c3 c10">Messaging</span>
+							<span class="c36 c10 c7">”
+ in the diagram). Integration also has an Alert Feed that it publishes 
+to Messaging, to simulate incidents such as a breakdown or accident.</span>
+						</li>
+						<li class="c21 c12 c17 li-bullet-0">
+							<span class="c36 c10 c7">Messaging distributes these data streams by publishing a Normal_Feed_Event and an Alert_Created_Feed</span>
+						</li>
+						<li class="c21 c12 c17 li-bullet-0">
+							<span class="c10 c7">TIBCO Cloud™ Events (“</span>
+							<span class="c3 c10">Cloud Events</span>
+							<span class="c36 c10 c7">”
+ in the diagram) subscribes to the incoming Normal_Feed_Event and 
+Alert_Created_Feed streams and runs them through a series of prescribed 
+business rules. Based on these business rules, Cloud Events will publish
+ a Create_Case_Event back to Messaging, and, from there, to Integration.</span>
+						</li>
+						<li class="c21 c12 c17 li-bullet-0">
+							<span class="c10 c7">A Create_Case_Event message will trigger Integration to create a new case within TIBCO Cloud™ Live Apps (“</span>
+							<span class="c3 c10">Live Apps</span>
+							<span class="c36 c10 c7">”
+ in the diagram). It does this using a standard API based HTTP request. 
+Integration will also publish a Case_Created_Event to Messaging and 
+thence to Cloud Events.</span>
+						</li>
+						<li class="c21 c12 c17 li-bullet-0">
+							<span class="c36 c10 c7">Staff
+ can review and make decisions on how to process the case within Live 
+Apps. Decisions, such as closure of the case are sent back to 
+Integration using the Case_Created_Reply API call.</span>
+						</li>
+						<li class="c12 c17 c21 li-bullet-0">
+							<span class="c10 c7">When
+ the case is closed, Integration will publish a Alert_Closed_Event to 
+Messaging, which is also consumed by Cloud Events. Integration also 
+publishes an Alert_Feed_Stream to Messaging as well as to TIBCO Cloud™ 
+Data Streams (“</span>
+							<span class="c3 c10">Data Streams</span>
+							<span class="c10 c7 c36">” in the diagram)</span>
+						</li>
+						<li class="c21 c12 c17 li-bullet-0">
+							<span class="c36 c10 c7">Cloud
+ Event consumes the Alert_Closed_Event and the other streams mentioned 
+above, and publishes a &nbsp;general Create_NormalFeed_Stream_Event 
+feed.</span>
+						</li>
+						<li class="c21 c12 c17 li-bullet-0">
+							<span class="c10 c7">Data
+ Streams is used as a durable subscriber to the Alert_Feed_Stream and a 
+general Create_NormalFeed_Stream_Event feed and provides the live 
+streaming data directly to TIBCO Cloud™ Spotfire (“</span>
+							<span class="c3 c10">Cloud Spotfire</span>
+							<span class="c36 c10 c7">” in the diagram).</span>
+						</li>
+						<li class="c21 c12 c17 li-bullet-0">
+							<span class="c10 c7">Cloud Spotfire displays the visual analytics and allows a person to explore the data as well as open cases within Live Apps.</span>
+						</li>
+					</ol>
+					<hr style="page-break-before:always;display:none;">
+						<h1 class="c13 c50" id="h.pr13gacdqmbh">
+							<span class="c5 c14"/>
+						</h1>
+						<h1 class="c13" id="h.wc4wbu3ha2vb">
+							<span class="c28">TIBCO Cloud Integration (TCI Flogo)</span>
+						</h1>
+						<p class="c40">
+							<span class="c7">The </span>
+							<span>Accelerator</span>
+							<span class="c7">&nbsp;utilises </span>
+							<span>a number of</span>
+							<span class="c7">&nbsp;different
+ TIBCO Cloud Integration (TCI) applications and custom built extensions 
+for data integration &amp; transformation. These applications and 
+extensions </span>
+							<span>have been created using the Develop capability of TCI, powered by Flogo (TCI Flogo).</span>
+						</p>
+						<h2 class="c39" id="h.hnt7h835dwep">
+							<span class="c28">Custom TCI Flogo Extensions</span>
+							<span class="c5 c26">&nbsp;</span>
+						</h2>
+						<ol class="c9 lst-kix_5fipecttb5uy-0 start" start="1">
+							<li class="c40 c27 c12 li-bullet-0">
+								<span class="c3">Cl_utils_2.0</span>
+								<span class="c0">.zip </span>
+							</li>
+						</ol>
+						<p class="c40 c12">
+							<span class="c0">Using
+ open source go technology to convert and transform protobuf to JSON 
+format (much improved version w.r.t. Memory and CPU utilization compared
+ to v1 release)</span>
+						</p>
+						<ol class="c9 lst-kix_5fipecttb5uy-0" start="2">
+							<li class="c40 c27 c12 li-bullet-0">
+								<span class="c3">Arraymerge</span>
+								<span class="c0">.zip </span>
+							</li>
+						</ol>
+						<p class="c40 c12">
+							<span class="c0">Using
+ open source to identify &amp; merge arrays: &nbsp;The payload from two 
+different API response array sets based matching IDs. As well as 
+identifying non-matching sets of responses based on ID.</span>
+						</p>
+						<ol class="c9 lst-kix_5fipecttb5uy-0" start="3">
+							<li class="c27 c12 c32 li-bullet-0">
+								<span class="c3">Rest</span>
+								<span class="c0">.zip</span>
+							</li>
+						</ol>
+						<p class="c40 c19">
+							<span class="c0">This is an OSS invoke rest service activity used for calling the restful services. </span>
+						</p>
+						<ol class="c9 lst-kix_5fipecttb5uy-0" start="4">
+							<li class="c32 c27 c12 li-bullet-0">
+								<span class="c3">Actreply</span>
+								<span class="c0">.zip</span>
+							</li>
+						</ol>
+						<p class="c8 c12 c17">
+							<span class="c7 c61">This
+ activity allows you to reply to a trigger invocation and map output 
+values. After replying to the trigger, this activity will allow the flow
+ to continue further.</span>
+						</p>
+						<h2 class="c39" id="h.ksolpfxt7gt6">
+							<span>TCI </span>
+							<span class="c5 c26">Flogo Applications</span>
+						</h2>
+						<ol class="c9 lst-kix_yaskkidl4eoy-0 start" start="1">
+							<li class="c15 c12 li-bullet-0">
+								<h3 id="h.41wlt414tf1" style="display:inline">
+									<span class="c29 c28">SmartTransportAccelerator_MockAlertAPI</span>
+								</h3>
+							</li>
+						</ol>
+						<ul class="c9 lst-kix_7r26hmefqxlz-0 start">
+							<li class="c20 c27 li-bullet-0">
+								<span class="c0">The Public API is created with the sole purpose of asserting mock Alerts in the live GTFS feed subscribed from TfNSW. </span>
+							</li>
+							<li class="c20 c27 li-bullet-0">
+								<span class="c0">The
+ API will emit Live GTFS Position information for Clients and also, 
+randomly assert one alert payload in one of the buses based on 
+predefined rules.</span>
+							</li>
+							<li class="c20 c27 li-bullet-0">
+								<span class="c0">It
+ will produce only 3 alerts/hours. Currently, we’re targeting only 
+Alert_Accident,Alert_Techinical_Problem, Alert_Med_Emergency incidents 
+and with move forward we will be adding the remaining.</span>
+							</li>
+						</ul>
+						<ol class="c9 lst-kix_yaskkidl4eoy-0" start="2">
+							<li class="c15 c12 li-bullet-0">
+								<h3 id="h.cuzdjt1z2f81" style="display:inline">
+									<span class="c29 c28">SmartTransportAccelerator_PublishGTFS_v2</span>
+								</h3>
+							</li>
+						</ol>
+						<ul class="c9 lst-kix_24j33d900kc7-0 start">
+							<li class="c8 c27 c23 li-bullet-0">
+								<span class="c0">This app is discoverable via Cloud Mesh to get Live GTFS position and real time trip update feed from TfNSW's Open Data service.</span>
+							</li>
+							<li class="c8 c27 c23 li-bullet-0">
+								<span class="c0">And
+ run the required tasks to convert, transform and split the GTFS feed to
+ individual streaming messages for each entity contained in the feed.</span>
+							</li>
+							<li class="c8 c27 c23 li-bullet-0">
+								<span class="c7">Furthermore, each message will be published to TCM-eFTL via Publish to eFTL app. The messages will be published to separate </span>
+								<span>TCM-eFTL </span>
+								<span class="c0">destinations based on type of message feed (alert or normal feed).</span>
+							</li>
+						</ul>
+						<ol class="c9 lst-kix_yaskkidl4eoy-0" start="3">
+							<li class="c15 c12 li-bullet-0">
+								<h3 id="h.j3zri1u73zn5" style="display:inline">
+									<span class="c29 c28">SmartTransportAccelerator_PublisheFTL</span>
+								</h3>
+							</li>
+						</ol>
+						<ul class="c9 lst-kix_14mi6nppaprg-0 start">
+							<li class="c20 c27 li-bullet-0">
+								<span class="c7">Publish feed messages to eFTL server - Discoverable via Cloud Mesh to publish a streaming message to TCM</span>
+								<span>-</span>
+								<span class="c0">eFTL server.</span>
+							</li>
+						</ul>
+						<ol class="c9 lst-kix_yaskkidl4eoy-0" start="4">
+							<li class="c15 c12 li-bullet-0">
+								<h3 id="h.cns614aa2xx2" style="display:inline">
+									<span class="c29 c28">SmartTransportAccelerator_LiveAppsCase</span>
+								</h3>
+							</li>
+						</ol>
+						<ul class="c9 lst-kix_w9s67o5stqwf-0 start">
+							<li class="c8 c27 c23 li-bullet-0">
+								<span class="c0">The
+ app is configured to receive the TCM-eFTL messages generated by TCE 
+application events for different types of alert messages.</span>
+							</li>
+							<li class="c8 c27 c23 li-bullet-0">
+								<span class="c7">Once an application is triggered through a TCM-eFTL message, it will start the Live </span>
+								<span>A</span>
+								<span class="c7">pps case workflow by calling the </span>
+								<span class="c7">Live </span>
+								<span>A</span>
+								<span class="c7">pps</span>
+								<span class="c7">&nbsp;Application through TCI Flogo </span>
+								<span>Live Apps</span>
+								<span class="c0">&nbsp;Connector and respond back to the TCE app event with Case id, if created.</span>
+							</li>
+							<li class="c8 c27 c23 li-bullet-0">
+								<span class="c0">This
+ app keeps track of each case generated and its status by maintaining 
+the DB tables and periodically, checks the status of each case in the 
+DB.</span>
+							</li>
+							<li class="c8 c27 c23 li-bullet-0">
+								<span class="c7">Also, provide </span>
+								<span>TIBCO Cloud Mesh</span>
+								<span class="c7">&nbsp;API for </span>
+								<span>Live Apps</span>
+								<span class="c7">&nbsp;Application
+ to perform the task of Auto-assigning the Resource to Case for workflow
+ handling from available existing users in subscription using </span>
+								<span>Live Apps</span>
+								<span class="c7">&nbsp;ReST APIs.</span>
+							</li>
+						</ul>
+						<ol class="c9 lst-kix_yaskkidl4eoy-0" start="5">
+							<li class="c15 c12 li-bullet-0">
+								<h3 id="h.iox391zdjxrv" style="display:inline">
+									<span class="c29 c28">SmartTransportAccelerator_APIsToMonetize</span>
+								</h3>
+							</li>
+						</ol>
+						<ul class="c9 lst-kix_7sernppwpjc1-0 start">
+							<li class="c8 c27 c23 li-bullet-0">
+								<span class="c0">This app contains APIs that can be exposed publicly for external vendors to consume and use the live data or details.</span>
+							</li>
+							<li class="c8 c27 c23 li-bullet-0">
+								<span class="c0">The API list can grow based on user requirement and availability of the data.</span>
+							</li>
+						</ul>
+						<p class="c8">
+							<span class="c7">Please refer to the </span>
+							<span class="c30 c7">
+								<a class="c1" href="../docs/solution_implementation_details/2_Integration_Solution_Setup_readme.pdf">2_Integration_Solution_Setup_readme.pdf</a>
+							</span>
+							<span class="c22 c7">&nbsp;</span>
+							<span class="c7">and</span>
+							<span class="c22 c7">&nbsp;</span>
+							<span class="c0">follow the steps to configure above outlined applications and run them efficiently.</span>
+						</p>
+						<h1 class="c11" id="h.l6isl6ryxbar">
+							<span class="c5 c14">TIBCO Cloud Events (TCE)</span>
+						</h1>
+						<p class="c8">
+							<span class="c7">The </span>
+							<span>Accelerator uses TIBCO Cloud Events (TCE) as the </span>
+							<span class="c7">event processing application to </span>
+							<span>apply predefined rules to the</span>
+							<span class="c7">&nbsp;incoming feed messages or alerts reported from TIBCO Cloud Messaging. Events detected by Clo</span>
+							<span>ud Events will then </span>
+							<span class="c7">trigger </span>
+							<span>TCI Flogo</span>
+							<span class="c7">&nbsp;applications </span>
+							<span>to</span>
+							<span class="c7">&nbsp;start a TIBC</span>
+							<span>O Cloud </span>
+							<span class="c7">Live</span>
+							<span>&nbsp;A</span>
+							<span class="c0">pps case. </span>
+						</p>
+						<h2 class="c39" id="h.y68gxg3azgpe">
+							<span class="c5 c26">TIBCO Cloud Events Application</span>
+						</h2>
+						<ol class="c9 lst-kix_e5wn09qizjam-0 start" start="1">
+							<li class="c12 c15 li-bullet-0">
+								<h3 id="h.sz9cwoc3zbyk" style="display:inline">
+									<span class="c29 c28">Incident_Feed_Processing</span>
+								</h3>
+							</li>
+						</ol>
+						<ul class="c9 lst-kix_3jj7pw3gvqky-0 start">
+							<li class="c8 c27 c23 li-bullet-0">
+								<span class="c7">The application will process all incoming messages published through the </span>
+								<span>TCI Flogo</span>
+								<span class="c0">&nbsp;application (SmartTransportAccelerator_PublishGTFS_v2). </span>
+							</li>
+							<li class="c8 c27 c23 li-bullet-0">
+								<span class="c7">It will trigger the </span>
+								<span>Live Apps</span>
+								<span class="c7">&nbsp;case workflow through the </span>
+								<span>TCI Flogo</span>
+								<span class="c0">&nbsp;app (SmartTransportAccelerator_LiveAppsCase) by emitting the events for trigger.</span>
+							</li>
+							<li class="c8 c27 c23 li-bullet-0">
+								<span class="c0">The
+ application is also responsible for creating a series of message 
+streams of bus feed messages for data streams that will be visualised in
+ spotfire based on delay_status variable. </span>
+							</li>
+							<li class="c8 c27 c23 li-bullet-0">
+								<span class="c0">The color of the bus will be decided by the value of delay_status variable evaluated in the TCE application.</span>
+							</li>
+						</ul>
+						<p class="c8">
+							<span class="c7">Please refer to the </span>
+							<span class="c30 c7">
+								<a class="c1" href="../docs/solution_implementation_details/3_Events_Solution_Setup_readme.pdf">3_Events_Solution_Setup_readme.pdf</a>
+							</span>
+							<span class="c22 c7">&nbsp;</span>
+							<span class="c7">and</span>
+							<span class="c22 c7">&nbsp;</span>
+							<span class="c7">follow the steps to configure above outlined applications and run it efficiently.</span>
+						</p>
+						<hr style="page-break-before:always;display:none;">
+							<p class="c4">
+								<span class="c0"/>
+							</p>
+							<h1 class="c11" id="h.w644nxl1mtex">
+								<span class="c5 c14">TIBCO Cloud Messaging (TCM-eFTL)</span>
+							</h1>
+							<p class="c8">
+								<span>The eFTL service of </span>
+								<span class="c7">TIBCO Cloud Messaging (TCM</span>
+								<span>-eFTL</span>
+								<span class="c7">) is the backbone of </span>
+								<span>the</span>
+								<span class="c7">&nbsp;architecture </span>
+								<span>and</span>
+								<span class="c7">&nbsp;responsible for connecting different components of the </span>
+								<span>Accelerator</span>
+								<span class="c7">.</span>
+							</p>
+							<p class="c8">
+								<span class="c0">You need to start your eFTL server if it is not already running (by default it's always in running state)</span>
+							</p>
+							<p class="c8">
+								<span style="overflow: hidden; display: inline-block; margin: 0.00px -0.00px; border: 1.33px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 337.33px;">
+									<img alt="" src="1_Complete_Solution_Overview_readme_files/tJtTyGSaCj4QFMM-BWPavpalL4aAYkTu4dNWn7OblhBzbvnt63jjcCyO6qY-.png" style="width: 624.00px; height: 337.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+									</span>
+								</p>
+								<hr style="page-break-before:always;display:none;">
+									<p class="c49 c45">
+										<span class="c0"/>
+									</p>
+									<h1 class="c13" id="h.fa2whp7q2o2v">
+										<span>TIBCO Cloud Live Apps</span>
+									</h1>
+									<p class="c8">
+										<span>TIBCO Cloud Live Apps is a low-code</span>
+										<span class="c7">&nbsp;case management application that will create a new </span>
+										<span>c</span>
+										<span class="c7">ase whenever an</span>
+										<span>&nbsp;incident </span>
+										<span class="c7">is reported by </span>
+										<span>Cloud Events</span>
+										<span class="c0">&nbsp;application. Live Apps will keep track of that incident throughout the life-cycle of the incident.</span>
+									</p>
+									<p class="c8">
+										<span>This Accelerator includes the following Live Apps applications:</span>
+									</p>
+									<ol class="c9 lst-kix_fwp859mpdf6-0 start" start="1">
+										<li class="c15 c12 li-bullet-0">
+											<h3 id="h.6h6fl48bzhqz" style="display:inline">
+												<span class="c29 c28">Alert_Processing</span>
+											</h3>
+										</li>
+									</ol>
+									<ul class="c9 lst-kix_1blicfbuz9jc-0 start">
+										<li class="c8 c27 c23 li-bullet-0">
+											<span class="c0">The application is built for the Public transport Incidents processing.</span>
+										</li>
+										<li class="c8 c27 c23 li-bullet-0">
+											<span class="c0">It possesses all necessary states, data and workflow to handle the life-cycle of the incident.</span>
+										</li>
+									</ul>
+									<p class="c8">
+										<span class="c7">Please refer to the </span>
+										<span class="c30 c7">
+											<a class="c1" href="../docs/solution_implementation_details/4_LiveApps_Solution_Setup_readme.pdf">4_LiveApps_Solution_Setup_readme.pdf</a>
+										</span>
+										<span class="c7 c22">&nbsp;</span>
+										<span class="c7">and</span>
+										<span class="c22 c7">&nbsp;</span>
+										<span class="c7">follow the steps to configure above outlined applications and run it efficiently..</span>
+									</p>
+									<hr style="page-break-before:always;display:none;">
+										<p class="c45 c49">
+											<span class="c0"/>
+										</p>
+										<h1 class="c11" id="h.ln2meyh01fcx">
+											<span class="c5 c14">TIBCO Cloud Data Streams</span>
+										</h1>
+										<p class="c40">
+											<span>TIBCO Cloud Data Streams acts as </span>
+											<span class="c7">a durable subscriber to TCM-eFTL </span>
+											<span>to then</span>
+											<span class="c7">&nbsp;stream the received messages to </span>
+											<span>TIBCO Cloud </span>
+											<span class="c7">Spotfire </span>
+											<span>for visualization and analysis</span>
+											<span class="c0">.</span>
+										</p>
+										<p class="c40">
+											<span>This Accelerator includes th</span>
+											<span class="c7">e following Data Streams</span>
+											<span>:</span>
+										</p>
+										<ol class="c9 lst-kix_xbffn4m8wqp8-0 start" start="1">
+											<li class="c15 c12 li-bullet-0">
+												<h3 id="h.3bodexakm6a7" style="display:inline">
+													<span class="c28 c29">NormalDataFeed_detail</span>
+												</h3>
+											</li>
+										</ol>
+										<p class="c8 c12">
+											<span class="c7">Content matcher = </span>
+											<span class="c25 c7">{"_dest":"SydneyBuses_NormalFeedStream"}</span>
+										</p>
+										<p class="c8 c12">
+											<span class="c0">This stream that stores the historical data (1 hour and configurable) for spotfire dashboard</span>
+										</p>
+										<ol class="c9 lst-kix_xbffn4m8wqp8-0" start="2">
+											<li class="c15 c12 li-bullet-0">
+												<h3 id="h.f9k5txkhe7wv" style="display:inline">
+													<span class="c29 c28">NormalDataFeed_header</span>
+												</h3>
+											</li>
+										</ol>
+										<p class="c8 c19">
+											<span class="c7">Content matcher = </span>
+											<span class="c25 c7">{"_dest":"SydneyBuses_NormalFeedStream"}</span>
+										</p>
+										<p class="c8 c12">
+											<span class="c0">The stream will have only latest information to visualise it in spotfire</span>
+										</p>
+										<ol class="c9 lst-kix_xbffn4m8wqp8-0" start="3">
+											<li class="c15 c12 li-bullet-0">
+												<h3 id="h.d6mz5vp8ssjd" style="display:inline">
+													<span class="c29 c28">IncidentData</span>
+												</h3>
+											</li>
+										</ol>
+										<p class="c8 c12">
+											<span class="c7">Content matcher = </span>
+											<span class="c25 c7">{"_dest":"SydneyBuses_incidentStream"}</span>
+										</p>
+										<p class="c8 c12">
+											<span class="c7">The stream will populate all the incidents reported in public transport and reported incidents in </span>
+											<span class="c7">liveapps</span>
+											<span class="c7">&nbsp;application for visualisation</span>
+										</p>
+										<hr style="page-break-before:always;display:none;">
+											<p class="c4 c24">
+												<span class="c0"/>
+											</p>
+											<h1 class="c11 c24" id="h.1q82ieh63b7v">
+												<span class="c5 c14">TIBCO Cloud Spotfire</span>
+											</h1>
+											<p class="c8">
+												<span class="c0">In
+ TIBCO Cloud Spotfire, you can view the data streams alongside 
+historical data or other streaming data, create aggregations, and even 
+apply data science.</span>
+											</p>
+											<p class="c41">
+												<span>This Accelerator includes these two</span>
+												<span class="c0">&nbsp;dashboards</span>
+											</p>
+											<ol class="c9 lst-kix_oecnlfcdzh8w-0 start" start="1">
+												<li class="c41 c27 c12 li-bullet-0">
+													<span class="c0">Summary</span>
+												</li>
+												<li class="c41 c27 c12 li-bullet-0">
+													<span class="c0">Public Transport Incidents</span>
+												</li>
+											</ol>
+											<p class="c8">
+												<span class="c7">Please refer to the </span>
+												<span class="c30 c7">
+													<a class="c1" href="../docs/solution_implementation_details/5_Steaming_and_Visualization_Solution_Setup_readme.pdf">5_Steaming_and_Visualization_Solution_Setup_readme.pdf </a>
+												</span>
+												<span class="c7">and</span>
+												<span class="c22 c7">&nbsp;</span>
+												<span class="c7">follow the steps to configure above outlined applications and run it efficiently.</span>
+											</p>
+											<hr style="page-break-before:always;display:none;">
+												<p class="c4">
+													<span class="c0"/>
+												</p>
+												<h1 class="c11" id="h.iyw6vf44y44u">
+													<span class="c5 c14">Additional Information</span>
+												</h1>
+												<h2 class="c39" id="h.mbj9sqmrdqj3">
+													<span class="c5 c26">Performance Tuning</span>
+												</h2>
+												<p class="c8">
+													<span>In this Accelerator w</span>
+													<span class="c7">e are working with </span>
+													<span>very large amounts of</span>
+													<span class="c7">&nbsp;data
+ from Transport for NSW. The number of buses may grow from few 100 to 
+more than 6,000 in peak hours. The data that we’re receiving is in 
+Protobuf format</span>
+													<span>, so </span>
+													<span class="c7">we need to convert it into JSON to use in </span>
+													<span>TCI Flogo</span>
+													<span class="c0">&nbsp;applications.</span>
+												</p>
+												<p class="c8">
+													<span class="c7">This
+ conversion operation takes a toll on memory if the Protobuf payload is 
+large and sometimes memory usage goes beyond 80% and may crash the </span>
+													<span>application container</span>
+													<span class="c7">. We do not have any provision to increase the memory allocated to the </span>
+													<span>TCI Flogo</span>
+													<span class="c7">&nbsp;app </span>
+													<span>beyond the</span>
+													<span class="c7">&nbsp;default </span>
+													<span>value of </span>
+													<span class="c0">1GB.</span>
+												</p>
+												<p class="c8">
+													<span class="c7">So to avoid this situation, we need to call the GC quite frequently to reclaim the memory. You need to add the </span>
+													<span class="c3">‘GOGC’</span>
+													<span class="c7">&nbsp;</span>
+													<span>variable</span>
+													<span class="c7">&nbsp;to the Engine Variables section and set the value to </span>
+													<span>“</span>
+													<span class="c7">20</span>
+													<span>”</span>
+													<span class="c0">&nbsp;as shown below.</span>
+												</p>
+												<p class="c8">
+													<span style="overflow: hidden; display: inline-block; margin: 0.00px -0.00px; border: 1.33px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 257.33px;">
+														<img alt="" src="1_Complete_Solution_Overview_readme_files/yTCuU05pWQShBQ53HBSkH9UFpZ0b6ViVtdut_QSp2BZQx9iE3ztg7tKT-nof.png" style="width: 624.00px; height: 257.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+														</span>
+													</p>
+													<p class="c8">
+														<span class="c7">You need to add </span>
+														<span>the GOGC variable</span>
+														<span class="c7">&nbsp;to </span>
+														<span>the </span>
+														<span class="c3">Engine Variables</span>
+														<span class="c7">&nbsp;Section for </span>
+														<span>given below</span>
+														<span class="c0">&nbsp;applications:</span>
+													</p>
+													<ol class="c9 lst-kix_pcqr12a7891l-0 start" start="1">
+														<li class="c8 c12 c27 li-bullet-0">
+															<span class="c0">SmartTransportAccelerator_PublishGTFS_v2</span>
+														</li>
+														<li class="c8 c27 c12 li-bullet-0">
+															<span class="c7">SmartTransportAccelerator_PublisheFTL</span>
+														</li>
+													</ol>
+													<h1 class="c11" id="h.523gg54wlyyl">
+														<span class="c5 c14">Working with Non-GTFS Data Feed</span>
+													</h1>
+													<p class="c8">
+														<span class="c7">The </span>
+														<span>A</span>
+														<span class="c7">ccelerator can be enhanced &amp; extended to achieve additional use-cases where you do not have data in standard G</span>
+														<span>TFS format, </span>
+														<span class="c10">as seen in the TIBCO Can Do That </span>
+														<span class="c30">
+															<a class="c1" href="https://www.google.com/url?q=https://youtu.be/OkEms9Tt9nw&amp;sa=D&amp;source=editors&amp;ust=1619439316918000&amp;usg=AOvVaw1GPJ8Rm3KTBQY5XmmyaEmf">Sydney Harbour Bridge demo video</a>
+														</span>
+														<span class="c10">.</span>
+													</p>
+													<p class="c8">
+														<span class="c7">Here, we have </span>
+														<span>enhanced</span>
+														<span class="c7">&nbsp;the accelerator to accommodate the use-case that</span>
+														<span>&nbsp;connects the </span>
+														<span>event feeds delivered through modern messaging formats (TCM- eFTL) detected through AI enabled smart cameras </span>
+														<span class="c7">(</span>
+														<span>non- </span>
+														<span class="c7">GTFS Structure</span>
+														<span class="c7 c55">) </span>
+														<span class="c55">published</span>
+														<span>&nbsp;</span>
+														<span class="c7">to TIBCO Cloud Messaging (TCM e</span>
+														<span>FTL</span>
+														<span class="c7">)</span>
+														<span>,</span>
+														<span class="c7">&nbsp;</span>
+														<span>t</span>
+														<span class="c7">he TIBCO Cloud Events will subscribe to these feeds and run through the set of</span>
+														<span>&nbsp;predefined</span>
+														<span class="c7">&nbsp;business rules. </span>
+														<span class="c10">When an incident occurs the accelerator then creates a TIBCO Cloud Live Apps case for the management of the incident. </span>
+														<span class="c0">And all this data will be visualised using TIBCO Cloud Spotfire. &nbsp;</span>
+													</p>
+													<p class="c4">
+														<span class="c0"/>
+													</p>
+													<p class="c8">
+														<span class="c0">Let’s
+ jump into the solution design and details that will give the complete 
+overview of a solution covering different TIBCO Cloud Components in use.</span>
+													</p>
+													<p class="c4">
+														<span class="c0"/>
+													</p>
+													<p class="c8">
+														<span>We have used the external database for storage, monitoring and tracking purposes. A </span>
+														<span class="c7">User </span>
+														<span>needs</span>
+														<span class="c7">&nbsp;to create the following tables in </span>
+														<span class="c0">MySQL database. All DB table scripts available under ~/../src/TCI-Flogo/resources/MySQL-DB_Tables/</span>
+													</p>
+													<ul class="c9 lst-kix_nje0xadfpcg4-0 start">
+														<li class="c27 c12 c62 li-bullet-0">
+															<span class="c28">dtvd_alertcasetracking</span>
+															<span class="c0">.sql </span>
+														</li>
+													</ul>
+													<p class="c8 c12">
+														<span class="c0">The
+ purpose of this table is to keep track of live/reported incidents 
+through TIBCO Cloud LiveApps case flow. Also, used for creating Stream 
+of data for visualization.</span>
+													</p>
+													<ul class="c9 lst-kix_lxb3qakoy7ua-0 start">
+														<li class="c8 c27 c12 li-bullet-0">
+															<span class="c28">dtvd_incidenthistory</span>
+															<span class="c0">.sql </span>
+														</li>
+													</ul>
+													<p class="c8 c12">
+														<span class="c0">This
+ table will hold the closed incident data over a period of time. This 
+data will be helpful for Data Science and predictive analysis. </span>
+													</p>
+													<p class="c4">
+														<span class="c0"/>
+													</p>
+													<ul class="c9 lst-kix_madkam6f1iws-0 start">
+														<li class="c39 c27 c12 li-bullet-0">
+															<h2 id="h.qelybflewli6" style="display:inline">
+																<span class="c5 c26">TIBCO Cloud Integration (TCI Flogo) </span>
+															</h2>
+														</li>
+													</ul>
+													<p class="c40 c12">
+														<span class="c0">The
+ Accelerator utilises the below TIBCO Cloud Integration (TCI) 
+application for data integration &amp; transformation. This application 
+has been created using the Develop capability of TCI, powered by Flogo 
+(TCI Flogo).</span>
+													</p>
+													<ol class="c9 lst-kix_joqvl6xskr7h-0 start" start="1">
+														<li class="c8 c27 c23 li-bullet-0">
+															<span class="c5 c3">SmartTransportAccelerator_LiveAppsCase</span>
+														</li>
+													</ol>
+													<p class="c20">
+														<span class="c7">This will receive the incoming events from TIBCO Cloud Events app for over speeding incidents and will start the TIBCO </span>
+														<span>Live Apps</span>
+														<span class="c7">&nbsp;case management flow for the same.</span>
+													</p>
+													<p class="c20">
+														<span class="c7">We have used below flows in this implementation.</span>
+														<span class="c5 c3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+													</p>
+													<ul class="c9 lst-kix_7yep2crf8uqn-0 start">
+														<li class="c52 c27 c6 li-bullet-0">
+															<span>TCM-eFTL</span>
+															<span class="c0">&nbsp;Message Subscriber Trigger Flow</span>
+														</li>
+													</ul>
+													<p class="c8 c6">
+														<span class="c7">CreateNewAlertForDTVD</span>
+													</p>
+													<p class="c8 c6">
+														<span class="c7">This
+ flow is responsible for creating the case for each message received 
+from TIBCO Cloud Events through TIBCO Cloud Messaging. It will return 
+the CaseId and State of case on successful execution as a response to 
+the received event.</span>
+													</p>
+													<ul class="c9 lst-kix_9y1uz5iqpetj-0 start">
+														<li class="c52 c27 c6 li-bullet-0">
+															<span class="c0">Timer Based Trigger Flow</span>
+														</li>
+													</ul>
+													<p class="c52 c6">
+														<span class="c0">DTVD_CreateStreamForIncidentData</span>
+													</p>
+													<p class="c6 c8">
+														<span class="c7">The
+ flow is responsible for producing a stream of data for DataStream and 
+that subsequently will be visualised in Spotfire Dashboard. </span>
+													</p>
+													<p class="c52 c6">
+														<span class="c7">DTVD_CloseOfTCEEvent</span>
+													</p>
+													<p class="c52 c6">
+														<span class="c7">As
+ soon as Case State changes to Closed is detected, the flow will send 
+the closure message to TIBCO Cloud Events to clear the Alert from its 
+working memory. This correlation arrangement avoids the duplication of 
+the alerts and </span>
+														<span>Live Apps</span>
+														<span class="c7">&nbsp;cases.</span>
+													</p>
+													<ul class="c9 lst-kix_o5luukcvtasg-0 start">
+														<li class="c8 c27 c6 li-bullet-0">
+															<span class="c0">Subflows</span>
+														</li>
+													</ul>
+													<p class="c8 c6">
+														<span class="c0">DTVD_CreateNewCase</span>
+													</p>
+													<p class="c8 c6">
+														<span class="c7">This flow is actually responsible for handling the case creation through </span>
+														<span>Live Apps</span>
+														<span class="c7">&nbsp;connector, add newly created Alert to DB for tracking and send response for TCE through main flow.</span>
+													</p>
+													<p class="c8 c6">
+														<span class="c7">DTVD_SendNotifications</span>
+													</p>
+													<p class="c8 c6">
+														<span class="c0">This
+ is a place holder created for users to add the choice of notification 
+mechanism whenever any new alert is created. The notification could be 
+SMS, E-Mail, Phone Call, etc. We’re allowing users to choose their own 
+option.</span>
+													</p>
+													<p class="c4 c6">
+														<span class="c0"/>
+													</p>
+													<p class="c4 c6">
+														<span class="c0"/>
+													</p>
+													<ul class="c9 lst-kix_55qn5zinx2rw-0 start">
+														<li class="c39 c27 c12 li-bullet-0">
+															<h2 id="h.rzzp17a5dpp4" style="display:inline">
+																<span class="c5 c26">TIBCO Cloud Events </span>
+															</h2>
+														</li>
+													</ul>
+													<p class="c8 c12">
+														<span>The
+ Accelerator uses TIBCO Cloud Events (TCE) as the event processing 
+application to apply predefined rules to the incoming feed messages or 
+alerts reported from TIBCO Cloud Messaging. Events detected by Cloud 
+Events will then trigger TCI Flogo applications to start a TIBCO Cloud 
+Live Apps case management workflow.</span>
+													</p>
+													<ol class="c9 lst-kix_kyan84g0syen-0 start" start="1">
+														<li class="c52 c27 c23 li-bullet-0">
+															<span class="c5 c3">Alert_Processing</span>
+														</li>
+													</ol>
+													<p class="c23 c52">
+														<span class="c7">We </span>
+														<span>are</span>
+														<span class="c7">&nbsp;using the same TIBCO Cloud Events application, it has </span>
+														<span>implemented all</span>
+														<span class="c7">&nbsp;the Concepts, Events and Rules </span>
+														<span>with a prefix</span>
+														<span class="c7">&nbsp;as </span>
+														<span class="c3">‘DTVD’</span>
+														<span class="c0">.</span>
+													</p>
+													<p class="c8 c23">
+														<span class="c0">The event application that will create an incident whenever any vehicle breach the speed limit of 75 kmph.</span>
+													</p>
+													<ul class="c9 lst-kix_qm9hkxcig6cu-0 start">
+														<li class="c8 c27 c6 li-bullet-0">
+															<span>I</span>
+															<span class="c7">ncoming</span>
+															<span>&nbsp;</span>
+															<span class="c7">Message </span>
+															<span>from</span>
+															<span class="c7">&nbsp;</span>
+															<span>TCM-eFTL</span>
+															<span class="c7">&nbsp;</span>
+															<span>to Events Solution (</span>
+															<span class="c0">TCE)</span>
+														</li>
+													</ul>
+													<p class="c8 c6">
+														<span class="c0">We
+ need to have messages coming into TIBCO Cloud Messaging in below format
+ so TIBCO Cloud Events application can subscribe to it and run through 
+defined business rules.</span>
+													</p>
+													<p class="c37">
+														<span class="c31 c7">{</span>
+													</p>
+													<p class="c37">
+														<span class="c7 c31">&nbsp; &nbsp;"_dest": "DeptTransportVictoria_liveFeed",</span>
+													</p>
+													<p class="c37">
+														<span class="c31 c7">&nbsp; &nbsp;"trackid": 37,</span>
+													</p>
+													<p class="c37">
+														<span class="c31 c7">&nbsp; &nbsp;"avg_centroid_speed": 77.110454942,</span>
+													</p>
+													<p class="c37">
+														<span class="c31 c7">&nbsp; &nbsp;"direction": "left",</span>
+													</p>
+													<p class="c37">
+														<span class="c31 c7">&nbsp; &nbsp;"class_name": "car",</span>
+													</p>
+													<p class="c37">
+														<span class="c47 c7">&nbsp; &nbsp;"</span>
+														<span class="c47 c7">lastupdate</span>
+														<span class="c31 c7">": 1613752733257,</span>
+													</p>
+													<p class="c37">
+														<span class="c47 c7">&nbsp; &nbsp;"</span>
+														<span class="c47 c7">lastcnt</span>
+														<span class="c31 c7">": 4,</span>
+													</p>
+													<p class="c37">
+														<span class="c7 c47">&nbsp; &nbsp;"image": "</span>
+														<span class="c7 c46">
+															<a class="c1" href="https://www.google.com/url?q=http://sample.com/image1.png&amp;sa=D&amp;source=editors&amp;ust=1619439316927000&amp;usg=AOvVaw2RsHoLgRYnXaEhScjG_2Z6">http://sample.com/image1.png</a>
+														</span>
+														<span class="c31 c7">"</span>
+													</p>
+													<p class="c37">
+														<span class="c47 c7">}</span>
+													</p>
+													<p class="c4 c6">
+														<span class="c31 c44"/>
+													</p>
+													<p class="c8 c19">
+														<span class="c7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+														<span class="c3">_dest</span>
+														<span class="c7">&nbsp;is </span>
+														<span>TCM-eFTL</span>
+														<span class="c0">&nbsp;destination where messages will be sent to.</span>
+													</p>
+													<p class="c4 c19">
+														<span class="c0"/>
+													</p>
+													<ul class="c9 lst-kix_55qn5zinx2rw-0">
+														<li class="c39 c27 c12 li-bullet-0">
+															<h2 id="h.ciavzjxang3" style="display:inline">
+																<span class="c5 c26">TIBCO Cloud Live Apps </span>
+															</h2>
+														</li>
+													</ul>
+													<p class="c8 c12">
+														<span>TIBCO
+ Cloud Live Apps is a low-code case management application that will 
+create a new case whenever an incident is reported by TIBCO Cloud Events
+ application. The TIBCO Cloud Live Apps application will keep track of 
+that incident throughout the life-cycle of the incident.</span>
+													</p>
+													<ol class="c9 lst-kix_f286vjr4fl6m-0 start" start="1">
+														<li class="c8 c27 c23 li-bullet-0">
+															<span class="c28">DTVD_IncidentProcessing</span>
+														</li>
+													</ol>
+													<p class="c8 c23">
+														<span class="c7">It possesses all necessary states, data and workflow to handle the life-cycle of the incoming incident</span>
+													</p>
+													<p class="c8 c23">
+														<span class="c0">The application has the same workflow, states and action created as outlined in the above section created for the Accelerator. </span>
+													</p>
+													<p class="c4">
+														<span class="c0"/>
+													</p>
+													<p class="c8 c12">
+														<span class="c3 c34 c59">NOTE</span>
+														<span class="c3 c34">: </span>
+														<span class="c34 c7 c43">Please </span>
+														<span class="c34 c43">f</span>
+														<span class="c34 c7 c43">ollow the steps outlined in </span>
+														<span class="c30 c34">
+															<a class="c1" href="../docs/solution_implementation_details/4_LiveApps_Solution_Setup_readme.pdf">4_LiveApps_Solution_Setup_readme.pdf</a>
+														</span>
+														<span class="c34 c7 c43">&nbsp;for Alert_Processing application.</span>
+													</p>
+													<h4 class="c12 c45 c58" id="h.ooe0x81hn3d">
+														<span class="c5 c28 c38"/>
+													</h4>
+													<ul class="c9 lst-kix_55qn5zinx2rw-0">
+														<li class="c39 c27 c12 li-bullet-0">
+															<h2 id="h.u75tn8xz159g" style="display:inline">
+																<span class="c5 c26">TIBCO Cloud Data Stream</span>
+															</h2>
+														</li>
+													</ul>
+													<p class="c8 c12">
+														<span>The TIBCO Cloud Data Stream is c</span>
+														<span class="c7">onfigured as a durable subscriber to TCM-eFTL and </span>
+														<span>the messages</span>
+														<span class="c7">&nbsp;received </span>
+														<span>will be visualised in the</span>
+														<span class="c7">&nbsp;Spotfire dashboards</span>
+														<span>.</span>
+													</p>
+													<p class="c8 c12">
+														<span>Please</span>
+														<span class="c7">&nbsp;follow the same steps outlined in </span>
+														<span class="c30">
+															<a class="c1" href="../docs/solution_implementation_details/5_Steaming_and_Visualization_Solution_Setup_readme.pdf">5_Steaming_and_Visualization_Solution_Setup_readme.pdf</a>
+														</span>
+														<span class="c7">&nbsp;to configure the data stream and spo</span>
+														<span>tfire dashboard for </span>
+														<span class="c7">visualiz</span>
+														<span>ation.</span>
+													</p>
+													<p class="c12 c40">
+														<span class="c7">We need the following Data Stream</span>
+														<span>&nbsp;to be</span>
+														<span class="c7">&nbsp;created </span>
+														<span>for the spotfire</span>
+														<span class="c7">&nbsp;dashboard to visualise the incidents reported </span>
+														<span>through the accelerator for</span>
+														<span class="c7">&nbsp;AI</span>
+														<span>&nbsp;enabled </span>
+														<span class="c0">Camera Feed.</span>
+													</p>
+													<ul class="c9 lst-kix_hlfksvx4f7ob-0 start">
+														<li class="c8 c27 c23 li-bullet-0">
+															<span class="c5 c3">DTVD_IncidentData</span>
+														</li>
+													</ul>
+													<p class="c2">
+														<span class="c34 c7">Content matcher = </span>
+														<span class="c25 c7">{"_dest" : "</span>
+														<span class="c25 c7">DeptTransportVictoria_liveFeed</span>
+														<span class="c7 c25">"}</span>
+													</p>
+													<p class="c2">
+														<span class="c7">The da</span>
+														<span>ta</span>
+														<span class="c7">&nbsp;stream will populate all the incidents reported </span>
+														<span>in</span>
+														<span class="c7">&nbsp;visualisation.</span>
+													</p>
+													<p class="c2 c45">
+														<span class="c0"/>
+													</p>
+													<ul class="c9 lst-kix_55qn5zinx2rw-0">
+														<li class="c39 c27 c12 li-bullet-0">
+															<h2 id="h.qlsdarci76in" style="display:inline">
+																<span class="c5 c26">TIBCO Cloud Spotfire</span>
+															</h2>
+														</li>
+													</ul>
+													<p class="c8 c12">
+														<span class="c7">We have below dashboards </span>
+														<span>set-up to visualise the different aspects of the data/incidents</span>
+														<span class="c0">. </span>
+													</p>
+													<p class="c8 c12">
+														<span class="c7">The dashboard report included in the .dxp </span>
+														<span>available under ~/src/Spotfire/</span>
+													</p>
+													<ul class="c9 lst-kix_upxjftk9isdy-0 start">
+														<li class="c8 c27 c23 li-bullet-0">
+															<span class="c5 c3">Harbour Bridge Incidents</span>
+														</li>
+													</ul>
+													<h5 class="c16" id="h.c6v3e3xqur5u">
+														<span style="overflow: hidden; display: inline-block; margin: 0.00px -0.00px; border: 1.33px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 619.38px; height: 313.66px;">
+															<img alt="" src="1_Complete_Solution_Overview_readme_files/vwqIwMCjdiL0U1TTp7EE88sbleXAqMQMOdys6a2tNavaiA5WiQLrXEDFzQOc.png" style="width: 619.38px; height: 313.66px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+															</span>
+														</h5>
+														<div>
+															<p class="c45 c56">
+																<span class="c0"/>
+															</p>
+														</div>
+													</div>
+												</div>
+												<div id="footer">
+													<span>Published by <a target="_blank" rel="noopener noreferrer" title="Know more about TIBCO Software Inc" href="https://tibco.com">TIBCO Software Inc</a>
+													</span>
+												</div>
+												<script type="text/javascript" nonce="">(function(){/*
+
+ Copyright The Closure Library Authors.
+ SPDX-License-Identifier: Apache-2.0
+*/
+var aa="function"==typeof Object.create?Object.create:function(a){function b(){}b.prototype=a;return new b},ba="function"==typeof Object.defineProperties?Object.defineProperty:function(a,b,c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};
+function ca(a){a=["object"==typeof globalThis&&globalThis,a,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var b=0;b<a.length;++b){var c=a[b];if(c&&c.Math==Math)return c}throw Error("Cannot find global object");}var da=ca(this);function ea(a,b){if(b)a:{var c=da;a=a.split(".");for(var d=0;d<a.length-1;d++){var e=a[d];if(!(e in c))break a;c=c[e]}a=a[a.length-1];d=c[a];b=b(d);b!=d&&null!=b&&ba(c,a,{configurable:!0,writable:!0,value:b})}}var h;
+if("function"==typeof Object.setPrototypeOf)h=Object.setPrototypeOf;else{var l;a:{var fa={a:!0},ha={};try{ha.__proto__=fa;l=ha.a;break a}catch(a){}l=!1}h=l?function(a,b){a.__proto__=b;if(a.__proto__!==b)throw new TypeError(a+" is not extensible");return a}:null}var ia=h;
+function m(a,b){a.prototype=aa(b.prototype);a.prototype.constructor=a;if(ia)ia(a,b);else for(var c in b)if("prototype"!=c)if(Object.defineProperties){var d=Object.getOwnPropertyDescriptor(b,c);d&&Object.defineProperty(a,c,d)}else a[c]=b[c];a.m=b.prototype}ea("Object.is",function(a){return a?a:function(b,c){return b===c?0!==b||1/b===1/c:b!==b&&c!==c}});var q=this||self;function r(){}function t(a){var b=typeof a;return"object"==b&&null!=a||"function"==b}
+function ja(a,b){var c=Array.prototype.slice.call(arguments,1);return function(){var d=c.slice();d.push.apply(d,arguments);return a.apply(this,d)}}function ka(a,b){function c(){}c.prototype=b.prototype;a.m=b.prototype;a.prototype=new c;a.prototype.constructor=a;a.A=function(d,e,f){for(var g=Array(arguments.length-2),k=2;k<arguments.length;k++)g[k-2]=arguments[k];return b.prototype[e].apply(d,g)}}function u(a){return a};function w(a){w[" "](a);return a}w[" "]=r;function la(a,b,c){return Object.prototype.hasOwnProperty.call(a,b)?a[b]:a[b]=c(b)};function ma(a){return la(a.prototype,"$$generatedClassName",function(){return"Class$obf_"+{valueOf:function(){return++na}}})}var na=1E3;function x(){}x.prototype.s=function(){return this.j||(Object.defineProperties(this,{j:{value:oa=oa+1|0,enumerable:!1}}),this.j)};x.prototype.toString=function(){var a=y(z(pa(this.constructor)))+"@";var b=(this.s()>>>0).toString(16);return a+y(b)};function A(){}m(A,x);A.prototype.i=function(a){this.h=a;if(a instanceof Object)try{a.v=this}catch(b){}};function qa(a){a.h instanceof Error&&(Error.captureStackTrace?Error.captureStackTrace(a.h):a.h.stack=Error().stack)}A.prototype.toString=function(){var a=z(pa(this.constructor)),b=this.l;return null==b?a:y(a)+": "+y(b)};function B(){}m(B,A);function D(){}m(D,B);function E(){}m(E,D);E.prototype.i=function(a){D.prototype.i.call(this,Object.is(this.g,"__noinit__")?a:this.g)};function ra(){}m(ra,E);function sa(a,b){return"string"==typeof a?a.charCodeAt(b):a.g(b)};var oa=0;function y(a){return null==a?"null":a.toString()}function ta(a){return 65536<=a?y(String.fromCharCode((55296+((a-65536|0)>>10&1023)|0)&65535))+y(String.fromCharCode((56320+((a-65536|0)&1023)|0)&65535)):String.fromCharCode(a&65535)}function ua(a,b){var c=b,d=a.length,e;b=sa(a,(e=c,c=c+1|0,e));var f;if(e=55296<=b&&56319>=b&&c<d)a=f=sa(a,c),e=56320<=a&&57343>=a;var g;e?g=65536+((b&1023)<<10)+(f&1023)|0:g=b;return g};function F(a,b){this.h=a;this.g=b}m(F,x);function z(a){var b=ma(a.h);0!=a.g&&(b="L"+y(b)+";");a=a.g;for(var c="",d=0;d<a;d=d+1|0)c=y(c)+"[";return y(c)+y(b)}F.prototype.toString=function(){return"class "+y(z(this))};function pa(a){return la(a.prototype,"$$class/0",function(){return new F(a,0)})};function G(a,b){return null==a?a:b?decodeURI(a):decodeURIComponent(a)};var va=/^(?:([^:/?#.]+):)?(?:\/\/(?:([^/?#]*)@)?([^/#?]*?)(?::([0-9]+))?(?=[/#?]|$))?([^?#]+)?(?:\?([^#]*))?(?:#([\S\s]*))?$/;function wa(a){a=va.exec(a);for(var b=[],c=0;7>=c;c=c+1|0)a.length<=c||null==a[c]?b.push(null):b.push(a[c]);return b}
+function xa(a,b){var c=a.indexOf(ta(35));c=0>c?a.length:c;a:{var d=0;for(var e=b.length;0<(d=a.indexOf(b,d))&&d<c;){var f=ua(a,d-1|0);if(38==f||63==f){if((d+e|0)>=a.length)break a;f=ua(a,d+e|0);if(61==f||38==f||35==f)break a}d=d+(e+1)|0}d=-1}if(0>d)return null;e=a.indexOf(ta(38),d);if(0>e||e>c)e=c;d=d+(b.length+1)|0;b=Math.min(a.length,d);a=a.substr(b,Math.min(a.length,Math.max(d,e))-b|0);c=" ";for(b=0;0<=(b=c.indexOf("\\",b));)36==c.charCodeAt(b+1|0)?(d=y(c.substr(0,b|0))+"$",e=b=b+1|0,c=d+y(c.substr(e))):
+(d=y(c.substr(0,b|0)),e=b=b+1|0,c=d+y(c.substr(e)));a=a.replace(/\+/g,c);return G(a,!1)};function ya(a){a&&"function"==typeof a.u&&a.u()};function H(){this.h=this.h;this.g=this.g}H.prototype.h=!1;H.prototype.u=function(){this.h||(this.h=!0,this.j())};H.prototype.j=function(){if(this.g)for(;this.g.length;)this.g.shift()()};var za=Array.prototype.indexOf?function(a,b){return Array.prototype.indexOf.call(a,b,void 0)}:function(a,b){if("string"===typeof a)return"string"!==typeof b||1!=b.length?-1:a.indexOf(b,0);for(var c=0;c<a.length;c++)if(c in a&&a[c]===b)return c;return-1};var Aa=/&/g,Ba=/</g,Ca=/>/g,Da=/"/g,Ea=/'/g,Fa=/\x00/g,Ga=/[\x00&<>"']/;var I;a:{var Ha=q.navigator;if(Ha){var Ia=Ha.userAgent;if(Ia){I=Ia;break a}}I=""}function J(a){return-1!=I.indexOf(a)};function Ja(a,b,c){for(var d in a)b.call(c,a[d],d,a)};var K;function L(a,b){this.i=a===Ka&&b||"";this.j=La}L.prototype.h=!0;L.prototype.g=function(){return this.i};var La={},Ka={};function M(a,b){this.i=b===N?a:""}M.prototype.h=!0;M.prototype.g=function(){return this.i.toString()};M.prototype.toString=function(){return this.i.toString()};function O(a){return a instanceof M&&a.constructor===M?a.i:"type_error:SafeUrl"}
+var Ma=/^(?:audio\/(?:3gpp2|3gpp|aac|L16|midi|mp3|mp4|mpeg|oga|ogg|opus|x-m4a|x-matroska|x-wav|wav|webm)|font\/\w+|image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp|x-icon)|video\/(?:mpeg|mp4|ogg|webm|quicktime|x-matroska))(?:;\w+=(?:\w+|"[\w;,= ]+"))*$/i,Na=/^data:(.*);base64,[a-z0-9+\/]+=*$/i,Oa=/^(?:(?:https?|mailto|ftp):|[^:/?#]*(?:[/?#]|$))/i;function Pa(a){if(a instanceof M)return a;a="object"==typeof a&&a.h?a.g():String(a);Oa.test(a)||(a="about:invalid#zClosurez");return new M(a,N)}
+var N={},Qa=new M("about:invalid#zClosurez",N);function P(a,b,c){this.i=c===Ra?a:""}P.prototype.h=!0;P.prototype.g=function(){return this.i.toString()};P.prototype.toString=function(){return this.i.toString()};var Ra={};function Sa(a,b,c,d){a=a instanceof M?a:Pa(a);b=b||q;c=c instanceof L?c instanceof L&&c.constructor===L&&c.j===La?c.i:"type_error:Const":c||"";return void 0!==d?b.open(O(a),c,d,void 0):b.open(O(a),c)};var Ta=J("Trident")||J("MSIE"),Ua=J("Edge")||Ta,Va=J("Gecko")&&!(-1!=I.toLowerCase().indexOf("webkit")&&!J("Edge"))&&!(J("Trident")||J("MSIE"))&&!J("Edge"),Wa=J("Macintosh");var Xa=function(){if(!q.addEventListener||!Object.defineProperty)return!1;var a=!1,b=Object.defineProperty({},"passive",{get:function(){a=!0}});try{q.addEventListener("test",r,b),q.removeEventListener("test",r,b)}catch(c){}return a}();function Q(a,b){this.type=a;this.target=b;this.i=!1}Q.prototype.g=function(){this.i=!0};function R(a){Q.call(this,a?a.type:"");this.relatedTarget=this.target=null;this.button=this.screenY=this.screenX=this.clientY=this.clientX=0;this.key="";this.metaKey=this.shiftKey=this.altKey=this.ctrlKey=!1;this.state=null;this.pointerId=0;this.pointerType="";this.h=null;if(a){var b=this.type=a.type,c=a.changedTouches&&a.changedTouches.length?a.changedTouches[0]:null;this.target=a.target||a.srcElement;var d=a.relatedTarget;if(d){if(Va){a:{try{w(d.nodeName);var e=!0;break a}catch(f){}e=!1}e||(d=null)}}else"mouseover"==
+b?d=a.fromElement:"mouseout"==b&&(d=a.toElement);this.relatedTarget=d;c?(this.clientX=void 0!==c.clientX?c.clientX:c.pageX,this.clientY=void 0!==c.clientY?c.clientY:c.pageY,this.screenX=c.screenX||0,this.screenY=c.screenY||0):(this.clientX=void 0!==a.clientX?a.clientX:a.pageX,this.clientY=void 0!==a.clientY?a.clientY:a.pageY,this.screenX=a.screenX||0,this.screenY=a.screenY||0);this.button=a.button;this.key=a.key||"";this.ctrlKey=a.ctrlKey;this.altKey=a.altKey;this.shiftKey=a.shiftKey;this.metaKey=
+a.metaKey;this.pointerId=a.pointerId||0;this.pointerType="string"===typeof a.pointerType?a.pointerType:Ya[a.pointerType]||"";this.state=a.state;this.h=a;a.defaultPrevented&&R.m.g.call(this)}}ka(R,Q);var Ya={2:"touch",3:"pen",4:"mouse"};R.prototype.g=function(){R.m.g.call(this);var a=this.h;a.preventDefault?a.preventDefault():a.returnValue=!1};var S="closure_listenable_"+(1E6*Math.random()|0);var Za=0;function $a(a,b,c,d,e){this.listener=a;this.g=null;this.src=b;this.type=c;this.capture=!!d;this.i=e;this.key=++Za;this.h=this.o=!1}function ab(a){a.h=!0;a.listener=null;a.g=null;a.src=null;a.i=null};function T(a){this.src=a;this.g={};this.h=0}T.prototype.add=function(a,b,c,d,e){var f=a.toString();a=this.g[f];a||(a=this.g[f]=[],this.h++);var g;a:{for(g=0;g<a.length;++g){var k=a[g];if(!k.h&&k.listener==b&&k.capture==!!d&&k.i==e)break a}g=-1}-1<g?(b=a[g],c||(b.o=!1)):(b=new $a(b,this.src,f,!!d,e),b.o=c,a.push(b));return b};var U="closure_lm_"+(1E6*Math.random()|0),V={},bb=0;function cb(a,b,c,d,e){if(d&&d.once)return db(a,b,c,d,e);if(Array.isArray(b)){for(var f=0;f<b.length;f++)cb(a,b[f],c,d,e);return null}c=eb(c);return a&&a[S]?a.g(b,c,t(d)?!!d.capture:!!d,e):fb(a,b,c,!1,d,e)}
+function fb(a,b,c,d,e,f){if(!b)throw Error("Invalid event type");var g=t(e)?!!e.capture:!!e,k=gb(a);k||(a[U]=k=new T(a));c=k.add(b,c,d,g,f);if(c.g)return c;d=hb();c.g=d;d.src=a;d.listener=c;if(a.addEventListener)Xa||(e=g),void 0===e&&(e=!1),a.addEventListener(b.toString(),d,e);else if(a.attachEvent)a.attachEvent(ib(b.toString()),d);else if(a.addListener&&a.removeListener)a.addListener(d);else throw Error("addEventListener and attachEvent are unavailable.");bb++;return c}
+function hb(){function a(c){return b.call(a.src,a.listener,c)}var b=jb;return a}function db(a,b,c,d,e){if(Array.isArray(b)){for(var f=0;f<b.length;f++)db(a,b[f],c,d,e);return null}c=eb(c);return a&&a[S]?a.h(b,c,t(d)?!!d.capture:!!d,e):fb(a,b,c,!0,d,e)}
+function kb(a){if("number"!==typeof a&&a&&!a.h){var b=a.src;if(b&&b[S])b.i(a);else{var c=a.type,d=a.g;b.removeEventListener?b.removeEventListener(c,d,a.capture):b.detachEvent?b.detachEvent(ib(c),d):b.addListener&&b.removeListener&&b.removeListener(d);bb--;if(c=gb(b)){d=a.type;if(d in c.g){var e=c.g[d],f=za(e,a),g;(g=0<=f)&&Array.prototype.splice.call(e,f,1);g&&(ab(a),0==c.g[d].length&&(delete c.g[d],c.h--))}0==c.h&&(c.src=null,b[U]=null)}else ab(a)}}}
+function ib(a){return a in V?V[a]:V[a]="on"+a}function jb(a,b){if(a.h)a=!0;else{b=new R(b,this);var c=a.listener,d=a.i||a.src;a.o&&kb(a);a=c.call(d,b)}return a}function gb(a){a=a[U];return a instanceof T?a:null}var lb="__closure_events_fn_"+(1E9*Math.random()>>>0);function eb(a){if("function"===typeof a)return a;a[lb]||(a[lb]=function(b){return a.handleEvent(b)});return a[lb]};function W(a){H.call(this);this.l=a;this.i={}}ka(W,H);var mb=[];function nb(a){Ja(a.i,function(b,c){this.i.hasOwnProperty(c)&&kb(b)},a);a.i={}}W.prototype.j=function(){W.m.j.call(this);nb(this)};W.prototype.handleEvent=function(){throw Error("EventHandler.handleEvent not implemented");};function ob(a){H.call(this);this.i=a||document.body;this.l=new W(this);a=ja(ya,this.l);this.h?a():(this.g||(this.g=[]),this.g.push(a));a=this.l;var b=this.i,c=this.s,d="click";Array.isArray(d)||(d&&(mb[0]=d.toString()),d=mb);for(var e=0;e<d.length;e++){var f=cb(b,d[e],c||a.handleEvent,!1,a.l||a);if(!f)break;a.i[f.key]=f}}m(ob,H);
+ob.prototype.s=function(a){if(!(0!=a.h.button||Wa&&a.ctrlKey||a.i))for(var b=a.target;b&&b!=this.i;){if(b.tagName&&"a"==b.tagName.toLowerCase()){var c=b.getAttribute("href")||b.getAttributeNS("http://www.w3.org/1999/xlink","href"),d=c;try{var e=wa(c),f;if(f="www.google.com"===G(e[3],!0)){var g=wa(c);f="/url"===G(g[5],!0)}if(f){var k=xa(c,"q");d=k?k:xa(c,"url")}}catch(v){a:{var p=v;if(null!=p){var n=p.v;if(null!=n){v=n;break a}}if(p instanceof TypeError){var C=n=new ra;C.l=y(p);qa(C);n.g="__noinit__";
+n.g=p;n.i(new TypeError(n));p=n}else C=n=new E,C.l=y(p),qa(C),n.g="__noinit__",n.g=p,n.i(Error(n)),p=n;v=p}if(!(v instanceof B))throw v.h;}d=null!=d?d:"";if(c!=d){e=void 0;b={target:"_blank",noreferrer:!0};c=window;d instanceof M?f=d:(f="undefined"!=typeof d.href?d.href:String(d),f instanceof M||(f="object"==typeof f&&f.h?f.g():String(f),Oa.test(f)?f=new M(f,N):(f=String(f),f=f.replace(/(%0A|%0D)/g,""),f=(g=f.match(Na))&&Ma.test(g[1])?new M(f,N):null)),f=f||Qa);d=b.target||d.target;g=[];for(e in b)switch(e){case "width":case "height":case "top":case "left":g.push(e+
+"="+b[e]);break;case "target":case "noopener":case "noreferrer":break;default:g.push(e+"="+(b[e]?1:0))}e=g.join(",");if((J("iPhone")&&!J("iPod")&&!J("iPad")||J("iPad")||J("iPod"))&&c.navigator&&c.navigator.standalone&&d&&"_self"!=d)e="A",g=document,e=String(e),"application/xhtml+xml"===g.contentType&&(e=e.toLowerCase()),g=e=g.createElement(e),f=f instanceof M?f:Pa(f),g.href=O(f),e.setAttribute("target",d),b.noreferrer&&e.setAttribute("rel","noreferrer"),b=document.createEvent("MouseEvent"),b.initMouseEvent("click",
+!0,!0,c,1),e.dispatchEvent(b);else if(b.noreferrer){if(c=Sa("",c,d,e),b=O(f),c){Ua&&-1!=b.indexOf(";")&&(b="'"+b.replace(/'/g,"%27")+"'");c.opener=null;Ga.test(b)&&(-1!=b.indexOf("&")&&(b=b.replace(Aa,"&amp;")),-1!=b.indexOf("<")&&(b=b.replace(Ba,"&lt;")),-1!=b.indexOf(">")&&(b=b.replace(Ca,"&gt;")),-1!=b.indexOf('"')&&(b=b.replace(Da,"&quot;")),-1!=b.indexOf("'")&&(b=b.replace(Ea,"&#39;")),-1!=b.indexOf("\x00")&&(b=b.replace(Fa,"&#0;")));b='<meta name="referrer" content="no-referrer">
+																																																<meta http-equiv="refresh" content="0; url='+
+b+'">';if(void 0===K)if(d=null,(e=q.trustedTypes)&&e.createPolicy){try{d=e.createPolicy("goog#html",{createHTML:u,createScript:u,createScriptURL:u})}catch(v){q.console&&q.console.error(v.message)}K=d}else K=d;b=(d=K)?d.createHTML(b):b;b=new P(b,null,Ra);(c=c.document)&&c.write&&(c.write(b instanceof P&&b.constructor===P?b.i:"type_error:SafeHtml"),c.close())}}else(c=Sa(f,c,d,e))&&b.noopener&&(c.opener=null);a.g();break}}b=b.parentNode}};function pb(a){new ob(a)}
+var X=["DOCS_installLinkReferrerSanitizer"],Y=q;X[0]in Y||"undefined"==typeof Y.execScript||Y.execScript("var "+X[0]);for(var Z;X.length&&(Z=X.shift());)X.length||void 0===pb?Y[Z]&&Y[Z]!==Object.prototype[Z]?Y=Y[Z]:Y=Y[Z]={}:Y[Z]=pb;}).call(this);
+																																																</script>
+																																																<script type="text/javascript" nonce="">DOCS_installLinkReferrerSanitizer();</script>
+																																															</body>
+																																														</html>

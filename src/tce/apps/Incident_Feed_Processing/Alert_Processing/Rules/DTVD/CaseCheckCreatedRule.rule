@@ -1,0 +1,97 @@
+/**
+ * @description 
+ * @author mpandav-U52
+ */
+rule Rules.DTVD.CaseCheckCreatedRule {
+	attribute {
+		priority = 5;
+		forwardChain = true;
+	}
+	declare {
+		
+		Events.DTVD.DTVD_LACaseCreatedEvent lce;
+	}
+	when {
+		
+	}
+	then {
+		System.debugOut("========================================");
+		System.debugOut("##### DTDV- CASE STATUS-CHECk RULE FIRED #####");
+		System.debugOut("========================================");
+		
+		String payload = lce@payload;
+	//	System.debugOut("=======================================================================");
+	//	System.debugOut("#### CASE_STATUS-CHECk.rule - Received Case Created Event with payload - \n" + payload);
+	//	System.debugOut("=======================================================================");
+		String status = null;
+		String end_time = null;	
+		String alert_id = null;
+		String caseRef = null;
+		
+		// Parse Incoming JSON response from FLOGO APP 
+		// FLOGO response has complex element in complex element so you need parse it twice
+		Object parsedJSONNode = JSON.parseJSON(payload);
+		
+		// if incoming JSON has data then fetch the fields
+		if (parsedJSONNode != null) {
+
+			Object alert_idNode = JSON.findNode(parsedJSONNode, "alert_id");
+			if (JSON.isValueNode(alert_idNode)) {
+				alert_id = JSON.getTextValue(alert_idNode);
+			}
+			
+			Object end_timeNode = JSON.findNode(parsedJSONNode, "end_time");
+			if (JSON.isValueNode(end_timeNode)) {
+				end_time = JSON.getTextValue(end_timeNode);
+			}
+			
+			Object statusNode = JSON.findNode(parsedJSONNode, "status");
+			if (JSON.isValueNode(statusNode)) {
+				status = JSON.getTextValue(statusNode);
+			}	
+			
+			Object caseRefNode = JSON.findNode(parsedJSONNode, "caseRef");
+			if (JSON.isValueNode(caseRefNode)) {
+				caseRef = JSON.getTextValue(caseRefNode);
+			}	
+		}
+				
+		if(status=="Close") {
+			//if status of the Alert is 'Close' then clear the alert from working memory and consume event
+			
+	//		System.debugOut("##### Alert :" + alert_id + "  is Closed Succesfully ###### at  " + end_time);
+			
+			// Get instance feed Concept from Working Memory
+			Concepts.DTVD_Concepts.LiveCameraFeed feed = Instance.getByExtIdByUri(concat("AlertID_", alert_id),"/Concepts/DTVD_Concepts/LiveCameraFeed");
+			
+			//System.debugOut(" Active Instance in Memory :" + feed);
+			
+			// IF ACTIVE ALERT Instance available for CLOSURE
+			if(feed!=null) {
+				System.debugOut("========================================");
+				System.debugOut("###### CLOSING ACTIVE ALERT ###### : " + alert_id + "#######");
+				System.debugOut("========================================");
+				//delete Active Alert from working memory once closed
+				Instance.deleteInstance(feed);
+			
+				// Consume Event
+				Event.consumeEvent(lce);
+			
+			} else { 	// No ACTIVE INSTANCE
+				System.debugOut("========================================");
+				System.debugOut("###### NO ACTIVE ALERT FOUND ######");
+				System.debugOut("========================================");
+				
+				Event.consumeEvent(lce);
+			}
+		} else {
+			
+			//The Alert is still active state so Not closing the instance, jst consume the event
+			System.debugOut("###### THE LiveApps CASE FOR ALERT : "+ alert_id + " IS CREATED WITH CASE REF : " + caseRef + " AND HAS STATUS : " + status);
+			
+			//consume LaCaseCreate event
+			Event.consumeEvent(lce);
+		}
+	}
+
+}

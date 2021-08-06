@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><event:SimpleEvent xmlns:event="http:///com/tibco/cep/designtime/core/model/event" xmlns:xmi="http://www.omg.org/XMI" xmi:version="2.0" namespace="/Events/DTVD/" folder="/Events/DTVD/" name="DTVD_LACaseCreatedEvent" description="" GUID="66175C2E-C5CB-9988-906A-AEFE9ABDAEA6" ownerProjectName="Alert_Processing" superEventPath="" ttlUnits="Seconds" channelURI="/Channels/TCM" destinationName="DeptTransportVictoria_caseCreated">
+          
+    
+    <properties name="alert_id" ownerProjectName="Alert_Processing" conceptTypePath="/Events/DTVD/DTVD_LACaseCreatedEvent" ownerPath="/Events/DTVD/DTVD_LACaseCreatedEvent"/>
+          
+    
+    <properties name="end_time" ownerProjectName="Alert_Processing" conceptTypePath="/Events/DTVD/DTVD_LACaseCreatedEvent" ownerPath="/Events/DTVD/DTVD_LACaseCreatedEvent"/>
+          
+    
+    <properties name="status" ownerProjectName="Alert_Processing" conceptTypePath="/Events/DTVD/DTVD_LACaseCreatedEvent" ownerPath="/Events/DTVD/DTVD_LACaseCreatedEvent"/>
+          
+    
+    <properties name="caseRef" ownerProjectName="Alert_Processing" conceptTypePath="/Events/DTVD/DTVD_LACaseCreatedEvent" ownerPath="/Events/DTVD/DTVD_LACaseCreatedEvent"/>
+          
+    
+    <namespaceEntries prefix="xsd" namespace="http://www.w3.org/2001/XMLSchema"/>
+          
+    
+    <expiryAction folder="/Events/DTVD/DTVD_LACaseCreatedEvent" name="LACaseCreatedEvent_expiryAction" ownerProjectName="Alert_Processing" actionText="" conditionText="">
+                    
+        
+        <symbols>
+                              
+            
+            <symbolList idName="lacasecreatedevent" type="/Events/DTVD/DTVD_LACaseCreatedEvent"/>
+                            
+        
+        </symbols>
+                  
+    
+    </expiryAction>
+        
+
+</event:SimpleEvent>

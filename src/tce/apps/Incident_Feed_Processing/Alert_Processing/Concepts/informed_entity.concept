@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><element:Concept xmlns:element="http:///com/tibco/cep/designtime/core/model/element" xmlns:xmi="http://www.omg.org/XMI" xmi:version="2.0" namespace="/Concepts/" folder="/Concepts/" name="informed_entity" description="" GUID="D423BFF1-8B46-41E0-A1E4-33FBCB2D1263" ownerProjectName="Alert_Processing" superConceptPath="" autoStartStateMachine="true">
+      
+    <extendedProperties/>
+      
+    <properties name="agencyId" ownerProjectName="Alert_Processing" ownerPath="/Concepts/informed_entity"/>
+      
+    <properties name="routeId" ownerProjectName="Alert_Processing" ownerPath="/Concepts/informed_entity"/>
+      
+    <properties name="stopId" ownerProjectName="Alert_Processing" ownerPath="/Concepts/informed_entity"/>
+    
+</element:Concept>

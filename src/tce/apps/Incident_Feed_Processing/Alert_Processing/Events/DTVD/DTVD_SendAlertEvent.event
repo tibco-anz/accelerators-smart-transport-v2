@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><event:SimpleEvent xmlns:event="http:///com/tibco/cep/designtime/core/model/event" xmlns:xmi="http://www.omg.org/XMI" xmi:version="2.0" namespace="/Events/DTVD/" folder="/Events/DTVD/" name="DTVD_SendAlertEvent" description="This is a event for incoming msg from live camera feed for processing" GUID="81A50BB6-D51C-E676-9BA2-37182F0D2FCD" ownerProjectName="Alert_Processing" superEventPath="" ttlUnits="Seconds" channelURI="/Channels/TCM" destinationName="DeptTransportVictoria_Alert">
+          
+    
+    <properties name="trackid" ownerProjectName="Alert_Processing" type="long" ownerPath="/Events/DTVD/DTVD_SendAlertEvent"/>
+          
+    
+    <properties name="avg_centroid_speed" ownerProjectName="Alert_Processing" type="double" ownerPath="/Events/DTVD/DTVD_SendAlertEvent"/>
+          
+    
+    <properties name="direction" ownerProjectName="Alert_Processing" ownerPath="/Events/DTVD/DTVD_SendAlertEvent"/>
+          
+    
+    <properties name="class_name" ownerProjectName="Alert_Processing" ownerPath="/Events/DTVD/DTVD_SendAlertEvent"/>
+          
+    
+    <properties name="lastupdate" ownerProjectName="Alert_Processing" type="long" ownerPath="/Events/DTVD/DTVD_SendAlertEvent"/>
+          
+    
+    <properties name="lastcnt" ownerProjectName="Alert_Processing" type="long" ownerPath="/Events/DTVD/DTVD_SendAlertEvent"/>
+          
+    
+    <properties name="image" ownerProjectName="Alert_Processing" ownerPath="/Events/DTVD/DTVD_SendAlertEvent"/>
+          
+    
+    <expiryAction name="DTVD_MsgEvent_expiryAction" ownerProjectName="Alert_Processing" actionText="" conditionText="">
+                    
+        
+        <symbols>
+                              
+            
+            <symbolList idName="dtvd_msgevent" type="/Events/DTVD_MsgEvent"/>
+                            
+        
+        </symbols>
+                  
+    
+    </expiryAction>
+        
+
+</event:SimpleEvent>

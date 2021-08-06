@@ -1,0 +1,120 @@
+/**
+ * @description This will return status of bus : delayed, early  or on-time
+ */
+String rulefunction RuleFunctions.FindStatusOfBus {
+	attribute {
+		validity = ACTION;
+	}
+	scope {
+		
+		Object oNode;
+	}
+	body {
+		
+			System.debugOut("===============================================");
+			System.debugOut("#### RuleFunctions.FindBusStatus() Fired #####");
+			System.debugOut("===============================================");
+			
+			Object node = null;
+			
+			if(oNode == null){
+				
+				return "5";
+			}		
+		//	Object node1 = JSON.findNode(oNode, "trip_update");
+			
+			String node2 = JSON.findValueNode(oNode, "arrival");
+			
+/*			Boolean a = JSON.hasField(node1, "stop_time_update");
+			Boolean b = JSON.hasField(node1, "stopTimeUpdate");
+			
+			System.debugOut("Boolean value : " +b + " == " +a);
+			
+			//System.debugOut("node value : " +b);
+			
+			if(a){
+				System.debugOut("condition : A");
+				node = JSON.findNode(oNode, "stop_time_update");
+				System.debugOut("condition value : " +node);
+					
+			}
+			
+			if(b){
+				System.debugOut("condition : B");
+				node = JSON.findNode(oNode, "stopTimeUpdate");
+				System.debugOut("condition value : " +node);
+			}
+	*/					
+			
+		//	System.debugOut("arrival : "+ node2);
+			
+		//	Object oNodeValues = JSON.getAllElements(node);
+			
+
+			
+/*			####Iterating over whole json payload defined by oNodeValues
+			int idx = 0;	
+			String str = null;	
+			if(Collections.Iterator.hasNext(oNodeValues)) {
+				Object element = Collections.Iterator.next(oNodeValues);
+				idx++;
+			    Object fieldMap = JSON.getFields(element);
+			    while(Collections.Iterator.hasNext(fieldMap))
+			    {
+				    Object fieldEntry = Collections.Iterator.next(fieldMap);
+				    
+				    Object mkey = Collections.Map.Entry.getKey(fieldEntry);
+				    Object str1 =  Collections.Map.Entry.getValue(fieldEntry);
+				
+//				    Object parsedJSONNode = JSON.parseJSON(mkey);
+		    		
+				    System.debugOut("Key : " + mkey);
+				    System.debugOut("value : " + str1);
+				    
+			   		//System.debugOut(Collections.Map.Entry.getKey(fieldEntry) + " :" + Collections.Map.Entry.getValue(fieldEntry));	
+				
+				}
+			}
+			*/
+			
+		//	System.debugOut(" debug : " + str);
+			
+			
+			Object parsedJSONNode = JSON.parseJSON(node2);
+			String delay = null;
+			
+			if (parsedJSONNode != null){
+				Object delayNode = JSON.findNode(parsedJSONNode, "delay");
+				if (JSON.isValueNode(delayNode)) {
+					delay = JSON.getTextValue(delayNode);
+					
+					//System.debugOut(" Delay : " + delay);
+				}
+			} 
+			
+			
+			int i_delay= Number.intValue(delay,16);
+			
+			//System.debugOut(" Int Delay : " + delay);
+			
+				
+			if(delay!=null){
+				
+				if(i_delay==0){
+				
+				delay = "0";
+				
+				}else if(i_delay>0){
+				
+				delay = "1";
+				
+				}else if(i_delay<0){
+				
+				delay = "2";
+				
+				}
+			}
+			
+			return delay;
+		}
+	}

@@ -1,0 +1,58 @@
+/**
+ * @description 
+ * @author mpandav-U52
+ */
+rule Rules.NormalFeed_TripUpdate_Rule {
+	attribute {
+		priority = 5;
+		forwardChain = false;
+	}
+	declare {		
+		Events.NormalFeed_TripUpdate gMv;
+		
+	}
+	when {
+		
+	}
+	then {
+		System.debugOut("===========================================");
+		System.debugOut("###### NORMAL TRIP UPDATE FEED RULE FIRED ####### ");	
+		System.debugOut("===========================================");
+		
+		String payload = gMv@payload;
+		String delayStatus = null;
+     	System.debugOut("Incoming Payload  : "+ payload);
+		String vehicle_id = gMv.vehicle_id;
+		
+	 	Concepts.Feed feed = Instance.createTransientInstanceFromEvent("/Concepts/Feed", gMv);
+		
+		Object parsedJSONNode = JSON.parseJSON(payload);
+				
+		Object node = JSON.findNode(parsedJSONNode, "trip_update");
+		
+		Boolean b = JSON.hasField(node, "stop_time_update");
+		Boolean a = JSON.hasField(node, "stopTimeUpdate");
+		//System.debugOut("node value : " +b);
+		
+		if(a || b){
+			delayStatus = RuleFunctions.FindStatusOfBus(parsedJSONNode);
+			System.debugOut("Delay Status :" + delayStatus);	
+			
+		}else{
+			delayStatus = "5";
+			System.debugOut("Delay Status :" + delayStatus);
+		}
+		
+	//	System.debugOut("Normal Feed Instance" + feed);
+		
+		// Printing incoming MSG ID for debugging purpose
+		System.debugOut("####### FEED MSG WITH ID ##### : " + vehicle_id);
+		
+		// Getting active instance of FEED Concept
+		// Concepts.Feed inst = Instance.getByExtIdByUri(concat("AlertID_", vehicle_id),"/Concepts/Feed");
+		
+		Event ev = Event.createEvent("xslt://{{/Events/NormalFeedStreamEvent}}<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" version=\"2.0\"><xsl:param name=\"feed\"/><xsl:param name=\"delayStatus\"/><xsl:param name=\"vehicle_id\"/><xsl:template name=\"Function\" match=\"/\"><createEvent><event><xsl:if test=\"$feed/vehicle/congestion_level\"><congestion_level><xsl:value-of select=\"$feed/vehicle/congestion_level\"/></congestion_level></xsl:if><xsl:if test=\"$feed/vehicle/occupancy_status\"><occupancy_status><xsl:value-of select=\"$feed/vehicle/occupancy_status\"/></occupancy_status></xsl:if><xsl:if test=\"$feed/vehicle/position/bearing\"><bearing><xsl:value-of select=\"$feed/vehicle/position/bearing\"/></bearing></xsl:if><xsl:if test=\"$feed/vehicle/position/latitude\"><latitude><xsl:value-of select=\"$feed/vehicle/position/latitude\"/></latitude></xsl:if><xsl:if test=\"$feed/vehicle/position/longitude\"><longitude><xsl:value-of select=\"$feed/vehicle/position/longitude\"/></longitude></xsl:if><xsl:if test=\"$feed/vehicle/position/speed\"><speed><xsl:value-of select=\"$feed/vehicle/position/speed\"/></speed></xsl:if><xsl:if test=\"$feed/vehicle/v_timestamp\"><v_timestamp><xsl:value-of select=\"$feed/vehicle/v_timestamp\"/></v_timestamp></xsl:if><xsl:if test=\"$feed/vehicle/trip/route_id\"><route_id><xsl:value-of select=\"$feed/vehicle/trip/route_id\"/></route_id></xsl:if><xsl:if test=\"$feed/vehicle/trip/schedule_relationship\"><schedule_relationship><xsl:value-of select=\"$feed/vehicle/trip/schedule_relationship\"/></schedule_relationship></xsl:if><xsl:if test=\"$feed/vehicle/trip/start_date\"><start_date><xsl:value-of select=\"$feed/vehicle/trip/start_date\"/></start_date></xsl:if><xsl:if test=\"$feed/vehicle/trip/start_time\"><start_time><xsl:value-of select=\"$feed/vehicle/trip/start_time\"/></start_time></xsl:if><xsl:if test=\"$feed/vehicle/trip/trip_id\"><trip_id><xsl:value-of select=\"$feed/vehicle/trip/trip_id\"/></trip_id></xsl:if><v_id><xsl:value-of select=\"$vehicle_id\"/></v_id><delayStatus><xsl:value-of select=\"$delayStatus\"/></delayStatus></event></createEvent></xsl:template></xsl:stylesheet>");
+		Event.sendEvent(ev);
+		Event.consumeEvent(gMv);
+	}
+}

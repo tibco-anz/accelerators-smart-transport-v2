@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><element:Concept xmlns:element="http:///com/tibco/cep/designtime/core/model/element" xmlns:xmi="http://www.omg.org/XMI" xmi:version="2.0" namespace="/Concepts/" folder="/Concepts/" name="vehicle_1" description="" GUID="4D857BFE-EA47-2388-8DBC-A3B620C01FA0" ownerProjectName="Alert_Processing" superConceptPath="" autoStartStateMachine="true">
+      
+    <extendedProperties/>
+      
+    <properties name="v_id" ownerProjectName="Alert_Processing" ownerPath="/Concepts/vehicle_1"/>
+    
+</element:Concept>

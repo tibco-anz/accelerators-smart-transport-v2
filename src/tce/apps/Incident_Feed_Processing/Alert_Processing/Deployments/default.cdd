@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<cluster xmlns="http://tibco.com/cloudevents/configuration/2.1">
+    <revision>
+        <version>28</version>
+        <author>mpandav</author>
+        <date>2021/05/18 17:30:47</date>
+        <comment/>
+    </revision>
+    <name>default</name>
+    <message-encoding>UTF-8</message-encoding>
+    <object-management>
+        <memory-manager/>
+        <db-concepts>
+            <db-uris/>
+            <check-interval>60</check-interval>
+            <inactivity-timeout>0</inactivity-timeout>
+            <initial-size>5</initial-size>
+            <max-size>5</max-size>
+            <min-size>5</min-size>
+            <property-check-interval>900</property-check-interval>
+            <retry-count>-1</retry-count>
+            <wait-timeout>1</wait-timeout>
+        </db-concepts>
+    </object-management>
+    <rulesets>
+        <rules id="all-rules">
+            <uri>/</uri>
+        </rules>
+    </rulesets>
+    <function-groups>
+        <functions id="all-functions">
+            <uri>/</uri>
+        </functions>
+    </function-groups>
+    <destination-groups/>
+    <process-groups/>
+    <log-configs>
+        <log-config id="logConfig">
+            <enabled>true</enabled>
+            <roles>*:info</roles>
+            <files>
+                <enabled>true</enabled>
+                <dir>logs</dir>
+                <name/>
+                <max-number>10</max-number>
+                <max-size>5000000</max-size>
+                <append>true</append>
+            </files>
+            <terminal>
+                <enabled/>
+                <sys-out-redirect>false</sys-out-redirect>
+                <sys-err-redirect>false</sys-err-redirect>
+                <encoding/>
+            </terminal>
+            <line-layout>
+                <enabled>false</enabled>
+                <class/>
+                <arg/>
+            </line-layout>
+        </log-config>
+    </log-configs>
+    <agent-classes>
+        <inference-agent-class id="inference-class">
+            <rules>
+                <ref>all-rules</ref>
+            </rules>
+            <destinations>
+                <destination id="SydneyBuses_Alert_16F560EB">
+                    <pre-processor/>
+                    <queue-size/>
+                    <thread-count/>
+                    <threading-model>shared-queue</threading-model>
+                    <thread-affinity-rule-function/>
+                    <uri>/Channels/TCM/SydneyBuses_Alert</uri>
+                </destination>
+                <destination id="SydneyBuses_Notification_3052F623">
+                    <pre-processor/>
+                    <queue-size/>
+                    <thread-count/>
+                    <threading-model>shared-queue</threading-model>
+                    <thread-affinity-rule-function/>
+                    <uri>/Channels/TCM/SydneyBuses_Notification</uri>
+                </destination>
+                <destination id="SydneyBuses_caseCreated_39B01108">
+                    <pre-processor/>
+                    <queue-size/>
+                    <thread-count/>
+                    <threading-model>shared-queue</threading-model>
+                    <thread-affinity-rule-function/>
+                    <uri>/Channels/TCM/SydneyBuses_caseCreated</uri>
+                </destination>
+                <destination id="SydneyBuses_NormalFeedStream_6210C31B">
+                    <pre-processor/>
+                    <queue-size/>
+                    <thread-count/>
+                    <threading-model>shared-queue</threading-model>
+                    <thread-affinity-rule-function/>
+                    <uri>/Channels/TCM/SydneyBuses_NormalFeedStream</uri>
+                </destination>
+                <destination id="DeptTransportVictoria_63B6B93B">
+                    <pre-processor/>
+                    <queue-size/>
+                    <thread-count/>
+                    <threading-model>shared-queue</threading-model>
+                    <thread-affinity-rule-function/>
+                    <uri>/Channels/TCM/DeptTransportVictoria</uri>
+                </destination>
+                <destination id="DeptTransportVictoria_Alert_59C46029">
+                    <pre-processor/>
+                    <queue-size/>
+                    <thread-count/>
+                    <threading-model>shared-queue</threading-model>
+                    <thread-affinity-rule-function/>
+                    <uri>/Channels/TCM/DeptTransportVictoria_Alert</uri>
+                </destination>
+                <destination id="DeptTransportVictoria_caseCreated_32FC6C62">
+                    <pre-processor/>
+                    <queue-size/>
+                    <thread-count/>
+                    <threading-model>shared-queue</threading-model>
+                    <thread-affinity-rule-function/>
+                    <uri>/Channels/TCM/DeptTransportVictoria_caseCreated</uri>
+                </destination>
+                <destination id="SydneyBuses_1_534F70D2">
+                    <pre-processor/>
+                    <queue-size/>
+                    <thread-count/>
+                    <threading-model>shared-queue</threading-model>
+                    <thread-affinity-rule-function/>
+                    <uri>/Channels/TCM/SydneyBuses_1</uri>
+                </destination>
+            </destinations>
+            <startup/>
+            <shutdown/>
+            <local-cache>
+                <eviction>
+                    <max-size>1024</max-size>
+                    <max-time>900</max-time>
+                </eviction>
+            </local-cache>
+            <shared-queue>
+                <size>1024</size>
+                <workers>10</workers>
+            </shared-queue>
+            <load>
+                <max-active/>
+            </load>
+            <concurrent-rtc>false</concurrent-rtc>
+            <check-for-duplicates>false</check-for-duplicates>
+            <businessworks>
+                <uri/>
+            </businessworks>
+            <property-group/>
+        </inference-agent-class>
+    </agent-classes>
+    <processing-units>
+        <processing-unit id="default">
+            <agents>
+                <agent>
+                    <ref>inference-class</ref>
+                    <key/>
+                    <priority/>
+                </agent>
+            </agents>
+            <logs>logConfig</logs>
+            <hot-deploy>false</hot-deploy>
+            <cache-storage-enabled>false</cache-storage-enabled>
+            <db-concepts>false</db-concepts>
+            <property-group/>
+        </processing-unit>
+    </processing-units>
+    <load-balancer-configs>
+        <pair-configs/>
+        <adhoc-configs/>
+    </load-balancer-configs>
+    <property-group/>
+</cluster>

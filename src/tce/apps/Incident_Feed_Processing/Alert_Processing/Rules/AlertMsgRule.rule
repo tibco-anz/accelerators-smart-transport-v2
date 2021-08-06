@@ -1,0 +1,95 @@
+/**
+ * @description 
+ * @author mpandav-U52
+ */
+rule Rules.AlertMsgRule {
+	attribute {
+		priority = 5;
+		forwardChain = true;
+	}
+	declare {
+		
+		Events.AlertMsgFeedEvent aEv;
+		
+	}
+	when {
+		
+	}
+	then {
+			System.debugOut("=======================================");
+			System.debugOut("###### ALERT MSG RULE FIRED ######## ");
+			System.debugOut("=======================================");
+			
+			String alert_id = null;
+			String payload = aEv@payload;
+			
+			//System.debugOut(" payload : " +payload);
+			
+			// Parse Incoming JSON response
+			Object parsedJSONNode = JSON.parseJSON(payload);
+			
+			if (parsedJSONNode != null) {
+	
+				Object alert_idNode = JSON.findNode(parsedJSONNode, "alert_id");
+				if (JSON.isValueNode(alert_idNode)) {
+					alert_id = JSON.getTextValue(alert_idNode);
+				}
+			}
+			
+			
+			// Getting active instance of FEED Concept
+			Concepts.Feed inst = Instance.getByExtIdByUri(concat("AlertID_", alert_id),"/Concepts/Feed");
+			
+			//printing basic info about incoming alert payload
+			System.debugOut("====================================");
+			System.debugOut("##### ALERT ID : " + alert_id + "####");
+			System.debugOut("====================================");
+			
+		/*	System.debugOut("==================================");
+			System.debugOut("##### Active FEED Concept Instance :" + inst);
+			System.debugOut("==================================");
+		*/	
+			
+			// IF no ACTIVE Instance of ALERT FEED in WORKING MEMORY then Create New instance for processing 
+			
+			if(inst == null) {
+				
+				System.debugOut("============================================");
+				System.debugOut("#### CREATING ALERT Notification EVENT #####");
+				System.debugOut("============================================");
+				
+				Concepts.Feed feed = Instance.createTransientInstanceFromEvent("/Concepts/Feed", aEv);
+				
+				// create feed concet in Working Memory as we need to reference the feed Concept in future rules
+				Concepts.Feed fd = Instance.createInstance("xslt://{{/Concepts/Feed}}<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" version=\"2.0\"><xsl:param name=\"feed\"/><xsl:template name=\"Function\" match=\"/\"><createObject><object><xsl:attribute name=\"extId\"><xsl:value-of select=\"concat(&quot;AlertID_&quot;,$feed/alert_id)\"/></xsl:attribute><vehicle><xsl:if test=\"$feed/vehicle/congestion_level\"><congestion_level><xsl:value-of select=\"$feed/vehicle/congestion_level\"/></congestion_level></xsl:if><xsl:if test=\"$feed/vehicle/occupancy_status\"><occupancy_status><xsl:value-of select=\"$feed/vehicle/occupancy_status\"/></occupancy_status></xsl:if><xsl:copy-of select=\"$feed/vehicle/position\"/><xsl:if test=\"$feed/vehicle/v_timestamp\"><v_timestamp><xsl:value-of select=\"$feed/vehicle/v_timestamp\"/></v_timestamp></xsl:if><xsl:copy-of select=\"$feed/vehicle/trip\"/><xsl:copy-of select=\"$feed/vehicle/vehicle\"/></vehicle><xsl:if test=\"$feed/alert_id\"><alert_id><xsl:value-of select=\"$feed/alert_id\"/></alert_id></xsl:if><alert><xsl:copy-of select=\"$feed/alert/active_period\"/><xsl:if test=\"$feed/alert/cause\"><cause><xsl:value-of select=\"$feed/alert/cause\"/></cause></xsl:if><xsl:if test=\"$feed/alert/severity_level\"><severity_level><xsl:value-of select=\"$feed/alert/severity_level\"/></severity_level></xsl:if><xsl:if test=\"$feed/alert/description_text\"><description_text><xsl:value-of select=\"$feed/alert/description_text\"/></description_text></xsl:if><xsl:if test=\"$feed/alert/header_text\"><header_text><xsl:value-of select=\"$feed/alert/header_text\"/></header_text></xsl:if><xsl:if test=\"$feed/alert/url\"><url><xsl:value-of select=\"$feed/alert/url\"/></url></xsl:if><xsl:copy-of select=\"$feed/alert/informed_entity\"/><xsl:if test=\"$feed/alert/effect\"><effect><xsl:value-of select=\"$feed/alert/effect\"/></effect></xsl:if></alert></object></createObject></xsl:template></xsl:stylesheet>");
+				
+				//System.debugOut("============================================");
+				//System.debugOut("Concept isntance : " + fd);
+				//System.debugOut("============================================");
+				
+				// Create a notification event so flogo app consume it and create Liveapps case
+				Event ntf = Event.createEvent("xslt://{{/Events/SendNotification}}<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" xmlns:tns=\"www.tibco.com/be/ontology/Events/SendNotification\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:tns1=\"www.tibco.com/be/ontology/Concepts/informed_entity\" version=\"2.0\"><xsl:param name=\"feed\"/><xsl:template name=\"Function\" match=\"/\"><createEvent><event><xsl:attribute name=\"extId\"><xsl:value-of select=\"concat(&quot;AlertID_&quot;,$feed/alert_id)\"/></xsl:attribute><payload><tns:notification><alert_id><xsl:choose><xsl:when test=\"exists($feed/alert_id)\"><xsl:value-of select=\"$feed/alert_id\"/></xsl:when><xsl:otherwise><xsl:attribute name=\"xsi:nil\">true</xsl:attribute></xsl:otherwise></xsl:choose></alert_id><cause><xsl:choose><xsl:when test=\"exists($feed/alert/cause)\"><xsl:value-of select=\"$feed/alert/cause\"/></xsl:when><xsl:otherwise><xsl:attribute name=\"xsi:nil\">true</xsl:attribute></xsl:otherwise></xsl:choose></cause><effect><xsl:choose><xsl:when test=\"exists($feed/alert/effect)\"><xsl:value-of select=\"$feed/alert/effect\"/></xsl:when><xsl:otherwise><xsl:attribute name=\"xsi:nil\">true</xsl:attribute></xsl:otherwise></xsl:choose></effect><severity_level><xsl:choose><xsl:when test=\"exists($feed/alert/severity_level)\"><xsl:value-of select=\"$feed/alert/severity_level\"/></xsl:when><xsl:otherwise><xsl:attribute name=\"xsi:nil\">true</xsl:attribute></xsl:otherwise></xsl:choose></severity_level><start_time><xsl:choose><xsl:when test=\"exists($feed/alert/active_period/start_time)\"><xsl:value-of select=\"$feed/alert/active_period/start_time\"/></xsl:when><xsl:otherwise><xsl:attribute name=\"xsi:nil\">true</xsl:attribute></xsl:otherwise></xsl:choose></start_time><header><xsl:choose><xsl:when test=\"exists($feed/alert/header_text)\"><xsl:value-of select=\"$feed/alert/header_text\"/></xsl:when><xsl:otherwise><xsl:attribute name=\"xsi:nil\">true</xsl:attribute></xsl:otherwise></xsl:choose></header><description><xsl:choose><xsl:when test=\"exists($feed/alert/description_text)\"><xsl:value-of select=\"$feed/alert/description_text\"/></xsl:when><xsl:otherwise><xsl:attribute name=\"xsi:nil\">true</xsl:attribute></xsl:otherwise></xsl:choose></description><url><xsl:choose><xsl:when test=\"exists($feed/alert/url)\"><xsl:value-of select=\"$feed/alert/url\"/></xsl:when><xsl:otherwise><xsl:attribute name=\"xsi:nil\">true</xsl:attribute></xsl:otherwise></xsl:choose></url><tns1:informed_entity><xsl:if test=\"$feed/alert/informed_entity/agencyId\"><agencyId><xsl:value-of select=\"$feed/alert/informed_entity/agencyId\"/></agencyId></xsl:if><xsl:if test=\"$feed/alert/informed_entity/routeId\"><routeId><xsl:value-of select=\"$feed/alert/informed_entity/routeId\"/></routeId></xsl:if><xsl:if test=\"$feed/alert/informed_entity/stopId\"><stopId><xsl:value-of select=\"$feed/alert/informed_entity/stopId\"/></stopId></xsl:if></tns1:informed_entity><position><latitude><xsl:choose><xsl:when test=\"exists($feed/vehicle/position/latitude)\"><xsl:value-of select=\"$feed/vehicle/position/latitude\"/></xsl:when><xsl:otherwise><xsl:attribute name=\"xsi:nil\">true</xsl:attribute></xsl:otherwise></xsl:choose></latitude><longitude><xsl:choose><xsl:when test=\"exists($feed/vehicle/position/longitude)\"><xsl:value-of select=\"$feed/vehicle/position/longitude\"/></xsl:when><xsl:otherwise><xsl:attribute name=\"xsi:nil\">true</xsl:attribute></xsl:otherwise></xsl:choose></longitude></position></tns:notification></payload></event></createEvent></xsl:template></xsl:stylesheet>");
+				
+				//Events.SendNotification ev = Event.createEvent("xslt://{{/Events/SendNotification}}<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" version=\"2.0\"><xsl:param name=\"ev\"/><xsl:template name=\"Function\" match=\"/\"><createEvent><event><xsl:if test=\"$ev/alert_id\"><alert_id><xsl:value-of select=\"$ev/alert_id\"/></alert_id></xsl:if><cause><xsl:value-of select=\"&quot;Technical&quot;\"/></cause></event></createEvent></xsl:template></xsl:stylesheet>");
+				//Event ntf = Event.createEvent("xslt://");
+				
+				Event.sendEvent(ntf);
+				
+				System.debugOut("====================================================");
+				System.debugOut("###### ALERT Notification EVENT SENT TO FLOGO ######");
+				System.debugOut("====================================================");
+				
+				//consume alertMsg event
+				Event.consumeEvent(aEv);
+				
+			} else {
+				// if active alert available then not creating new one and jsut consuming event
+				System.debugOut("====================================================");
+				System.debugOut("##### ACTIVE ALERT FOUND, NOT Creating NEW ALERT #####");
+				System.debugOut("====================================================");
+				
+				Event.consumeEvent(aEv);
+				
+			}
+	}
+}

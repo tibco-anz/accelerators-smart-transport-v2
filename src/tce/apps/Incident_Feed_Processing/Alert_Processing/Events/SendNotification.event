@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><event:SimpleEvent xmlns:event="http:///com/tibco/cep/designtime/core/model/event" xmlns:xmi="http://www.omg.org/XMI" xmi:version="2.0" namespace="/Events/" folder="/Events/" name="SendNotification" description="" GUID="DBBB23B0-BD95-B48B-DE7C-600170D95281" ownerProjectName="Alert_Processing" superEventPath="" payloadString="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&#10;&lt;payload&gt;&#10;    &lt;xs:element xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; name=&quot;notification&quot;&gt;&#10;        &lt;xs:complexType&gt;&#10;            &lt;xs:sequence&gt;&#10;                &lt;xs:element name=&quot;alert_id&quot; type=&quot;xsd:string&quot;/&gt;&#10;                &lt;xs:element name=&quot;cause&quot; type=&quot;xsd:string&quot;/&gt;&#10;                &lt;xs:element name=&quot;effect&quot; type=&quot;xsd:string&quot;/&gt;&#10;                &lt;xs:element name=&quot;severity_level&quot; type=&quot;xsd:string&quot;/&gt;&#10;                &lt;xs:element name=&quot;start_time&quot; type=&quot;xsd:string&quot;/&gt;&#10;                &lt;xs:element name=&quot;header&quot; type=&quot;xsd:string&quot;/&gt;&#10;                &lt;xs:element name=&quot;description&quot; type=&quot;xsd:string&quot;/&gt;&#10;                &lt;xs:element name=&quot;url&quot; type=&quot;xsd:string&quot;/&gt;&#10;                &lt;xs:element ref=&quot;pfx:informed_entity&quot;/&gt;&#10;                &lt;xs:element name=&quot;position&quot;&gt;&#10;                    &lt;xs:complexType&gt;&#10;                        &lt;xs:sequence&gt;&#10;                            &lt;xs:element name=&quot;latitude&quot; type=&quot;xsd:double&quot;/&gt;&#10;                            &lt;xs:element name=&quot;longitude&quot; type=&quot;xsd:double&quot;/&gt;&#10;                        &lt;/xs:sequence&gt;&#10;                    &lt;/xs:complexType&gt;&#10;                &lt;/xs:element&gt;&#10;            &lt;/xs:sequence&gt;&#10;        &lt;/xs:complexType&gt;&#10;    &lt;/xs:element&gt;&#10;&lt;/payload&gt;" ttlUnits="Seconds" channelURI="/Channels/TCM" destinationName="SydneyBuses_Notification">
+          
+    
+    <namespaceEntries prefix="xsd" namespace="http://www.w3.org/2001/XMLSchema"/>
+          
+    
+    <namespaceEntries prefix="pfx" namespace="www.tibco.com/be/ontology/Concepts/informed_entity"/>
+          
+    
+    <registryImportEntries location="Concepts/informed_entity.concept" namespace="www.tibco.com/be/ontology/Concepts/informed_entity"/>
+          
+    
+    <expiryAction name="SendNotification_expiryAction" ownerProjectName="Alert_Processing" actionText="" conditionText="">
+                    
+        
+        <symbols>
+                              
+            
+            <symbolList idName="sendnotification" type="/Events/SendNotification"/>
+                            
+        
+        </symbols>
+                  
+    
+    </expiryAction>
+        
+
+</event:SimpleEvent>

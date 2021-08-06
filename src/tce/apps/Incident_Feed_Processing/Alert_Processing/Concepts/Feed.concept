@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><element:Concept xmlns:element="http:///com/tibco/cep/designtime/core/model/element" xmlns:xmi="http://www.omg.org/XMI" xmi:version="2.0" namespace="/Concepts/" folder="/Concepts/" name="Feed" description="" GUID="D86A2BB1-7589-8322-FAEB-5B3A75246860" ownerProjectName="Alert_Processing" superConceptPath="" autoStartStateMachine="true">
+      
+    <extendedProperties/>
+      
+    <properties name="vehicle" ownerProjectName="Alert_Processing" type="ContainedConcept" conceptTypePath="/Concepts/vehicle" ownerPath="/Concepts/Feed"/>
+      
+    <properties name="alert_id" ownerProjectName="Alert_Processing" ownerPath="/Concepts/Feed"/>
+      
+    <properties name="alert" ownerProjectName="Alert_Processing" type="ContainedConcept" conceptTypePath="/Concepts/alert" ownerPath="/Concepts/Feed"/>
+    
+</element:Concept>

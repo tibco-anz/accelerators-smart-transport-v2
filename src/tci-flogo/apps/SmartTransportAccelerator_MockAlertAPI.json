@@ -1,0 +1,1475 @@
+{
+    "imports": [
+        "github.com/project-flogo/flow",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/rest",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/shareddata",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/log",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/mapper",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/parsejson",
+        "github.com/project-flogo/contrib/activity/actreturn",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/sleep",
+        "github.com/project-flogo/flow/activity/subflow",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/trigger/timer",
+        "rest_1 git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/trigger/rest",
+        "github.com/project-flogo/contrib/function/string",
+        "github.com/project-flogo/contrib/function/datetime",
+        "github.com/project-flogo/contrib/function/number",
+        "github.com/claw.ai/flogo-components/function/cl_utils",
+        "github.com/project-flogo/contrib/function/array",
+        "github.com/project-flogo/contrib/function/coerce"
+    ],
+    "name": "MockAPI",
+    "description": "Mock service  API  that assert the alerts incident in live feed",
+    "version": "1.0.0",
+    "type": "flogo:app",
+    "appModel": "1.1.1",
+    "tags": [
+        "MockService",
+        "V2"
+    ],
+    "triggers": [
+        {
+            "ref": "#timer",
+            "name": "tibco-wi-timer",
+            "description": "Simple Timer trigger",
+            "settings": {},
+            "id": "TimerTrigger",
+            "handlers": [
+                {
+                    "description": "This will initialize the Shared Data variables for use in implementaion",
+                    "settings": {
+                        "Repeating": false,
+                        "Time Interval": 1,
+                        "Interval Unit": "Second"
+                    },
+                    "action": {
+                        "ref": "github.com/project-flogo/flow",
+                        "settings": {
+                            "flowURI": "res://flow:SetVariables"
+                        }
+                    },
+                    "name": "SetVariables"
+                },
+                {
+                    "description": "This will cleanup the shared data counter after every one hour. The timer based job monitor the counter and reset upon time",
+                    "settings": {
+                        "Repeating": true,
+                        "Start Date": "",
+                        "Time Interval": 1,
+                        "Interval Unit": "Minute"
+                    },
+                    "action": {
+                        "ref": "github.com/project-flogo/flow",
+                        "settings": {
+                            "flowURI": "res://flow:ReSetVariables"
+                        }
+                    },
+                    "name": "ReSetVariables"
+                }
+            ]
+        },
+        {
+            "ref": "#rest_1",
+            "name": "tibco-wi-rest",
+            "description": "Simple REST Trigger",
+            "settings": {
+                "port": 9999,
+                "APISpecUpdate": false,
+                "swagger": "",
+                "swaggerVersion": "v2",
+                "secureConnection": false,
+                "serverKey": "",
+                "caCertificate": ""
+            },
+            "id": "ReceiveHTTPMessage",
+            "handlers": [
+                {
+                    "description": "This is a mock service API that assert the alerts incident in live feed it uses shared data as a counter to count the number of and type alerts asserted",
+                    "settings": {
+                        "Method": "GET",
+                        "Path": "/v1/gtfs/vehiclepos/buses",
+                        "OutputValidation": false
+                    },
+                    "action": {
+                        "ref": "github.com/project-flogo/flow",
+                        "settings": {
+                            "flowURI": "res://flow:GtfsVehiclePosAndAlerts_MockAlertSeed"
+                        },
+                        "input": {
+                            "headers": "=$.headers"
+                        },
+                        "output": {
+                            "data": "=$.data",
+                            "code": "=$.code"
+                        }
+                    },
+                    "reply": {
+                        "code": 200,
+                        "configureResponseCodes": false,
+                        "message": {}
+                    },
+                    "schemas": {
+                        "reply": {
+                            "data": {
+                                "type": "json",
+                                "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"vehicle\":{\"type\":\"object\",\"properties\":{\"trip\":{\"type\":\"object\",\"properties\":{\"start_time\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"}}},\"position\":{\"type\":\"object\",\"properties\":{\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"bearing\":{\"type\":\"number\"},\"speed\":{\"type\":\"number\"}}},\"timestamp\":{\"type\":\"string\"},\"congestion_level\":{\"type\":\"string\"},\"vehicle\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"label\":{\"type\":\"string\"},\"license_plate\":{\"type\":\"string\"}}},\"occupancy_status\":{\"type\":\"string\"}}},\"alert\":{\"type\":\"object\",\"properties\":{\"active_period\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"end_time\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"}}}},\"description_text\":{\"type\":\"string\"},\"header_text\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"},\"informed_entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"agencyId\":{\"type\":\"string\"},\"routeId\":{\"type\":\"string\"},\"stopId\":{\"type\":\"string\"},\"trip\":{\"type\":\"object\",\"properties\":{\"trip_id\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"}}}}}},\"cause\":{\"type\":\"number\"},\"effect\":{\"type\":\"number\"},\"severity_level\":{\"type\":\"number\"}}}}}}}}",
+                                "fe_metadata": "{\n\t\"entity\": [\n\t\t{\n\t\t\t\"id\": \"33553___610X_1\",\n\t\t\t\"vehicle\": {\n\t\t\t\t\"trip\": {\n\t\t\t\t\t\"start_time\": \"14:44:22\",\n\t\t\t\t\t\"start_date\": \"20210201\",\n\t\t\t\t\t\"schedule_relationship\": \"UNSCHEDULED\",\n\t\t\t\t\t\"route_id\": \"_610X\"\n\t\t\t\t},\n\t\t\t\t\"position\": {\n\t\t\t\t\t\"latitude\": -33.797024,\n\t\t\t\t\t\"longitude\": 151.13774,\n\t\t\t\t\t\"bearing\": 146,\n\t\t\t\t\t\"speed\": 15.9\n\t\t\t\t},\n\t\t\t\t\"timestamp\": \"1612152829\",\n\t\t\t\t\"congestion_level\": \"RUNNING_SMOOTHLY\",\n\t\t\t\t\"vehicle\": {\n\t\t\t\t\t\"id\": \"33553___610X_1\",\n\t\t\t\t\t\"label\": \"null\",\n\t\t\t\t\t\"license_plate\": \"null\"\n\t\t\t\t},\n\t\t\t\t\"occupancy_status\": \"MANY_SEATS_AVAILABLE\"\n\t\t\t},\n\t\t\t\"alert\": {\n\t\t\t\t\"active_period\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"end_time\": \"1614502859\",\n\t\t\t\t\t\t\"start_time\": \"1610834400\"\n\t\t\t\t\t}\n\t\t\t\t],\n\t\t\t\t\"description_text\": \"Buses are ending and starting their trips at Quarantine Station following an earlier hazard reduction burn. Two stops on North Head Scenic Drive are being missed.\",\n\t\t\t\t\"header_text\": \"Diversion in North Head\",\n\t\t\t\t\"url\": \"https://www.transportnsw.info/alerts#/6057187\",\n\t\t\t\t\"informed_entity\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"agencyId\": \"2436\",\n\t\t\t\t\t\t\"routeId\": \"2436_2021\",\n\t\t\t\t\t\t\"stopId\": \"215447\",\n\t\t\t\t\t\t\"trip\": {\n\t\t\t\t\t\t\t\"trip_id\": \"\",\n\t\t\t\t\t\t\t\"route_id\": \"\",\n\t\t\t\t\t\t\t\"start_time\": \"14:44:22\",\n\t\t\t\t\t\t\t\"start_date\": \"20210201\",\n\t\t\t\t\t\t\t\"schedule_relationship\": \"UNSCHEDULED\"\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t],\n\t\t\t\t\"cause\": 1,\n\t\t\t\t\"effect\": 9,\n\t\t\t\t\"severity_level\": 4\n\t\t\t}\n\t\t}\n\t]\n}"
+                            },
+                            "responseBody": {
+                                "type": "json",
+                                "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}",
+                                "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}"
+                            }
+                        },
+                        "output": {
+                            "headers": {
+                                "type": "json",
+                                "value": "{\"type\":\"object\",\"properties\":{\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[]}",
+                                "fe_metadata": "[{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+                            }
+                        }
+                    },
+                    "name": "GtfsVehiclePosAndAlerts_MockAlertSeed"
+                }
+            ]
+        }
+    ],
+    "resources": [
+        {
+            "id": "flow:GtfsVehiclePosAndAlerts_MockAlertSeed",
+            "data": {
+                "name": "GtfsVehiclePosAndAlerts_MockAlertSeed",
+                "description": "This is a mock service API that assert the alerts incident in live feed it uses shared data as a counter to count the number of and type alerts asserted",
+                "links": [
+                    {
+                        "id": 1,
+                        "from": "InvokeRESTService",
+                        "to": "GetAlertReset",
+                        "type": "default"
+                    },
+                    {
+                        "id": 2,
+                        "from": "GetAlertReset",
+                        "to": "LogMessage3",
+                        "type": "default"
+                    },
+                    {
+                        "id": 3,
+                        "from": "LogMessage3",
+                        "to": "SetTime",
+                        "type": "label",
+                        "label": "LogMessage3 to SetTime"
+                    },
+                    {
+                        "id": 4,
+                        "from": "SetTime",
+                        "to": "Mapper",
+                        "type": "default"
+                    },
+                    {
+                        "id": 5,
+                        "from": "Mapper",
+                        "to": "ParseJSONActivity",
+                        "type": "default"
+                    },
+                    {
+                        "id": 6,
+                        "from": "ParseJSONActivity",
+                        "to": "LogMessage1",
+                        "type": "expression",
+                        "label": "GeneratingAlertsRandomly&#10;",
+                        "value": "$activity[Mapper].output.decisionPoint<=3 && $activity[GetAlertReset].output.data.counter<3"
+                    },
+                    {
+                        "id": 7,
+                        "from": "LogMessage1",
+                        "to": "AlertCount",
+                        "type": "default"
+                    },
+                    {
+                        "id": 8,
+                        "from": "AlertCount",
+                        "to": "LogMessage2",
+                        "type": "default"
+                    },
+                    {
+                        "id": 9,
+                        "from": "LogMessage2",
+                        "to": "CreateSeverityCauseAndEffect",
+                        "type": "default"
+                    },
+                    {
+                        "id": 10,
+                        "from": "CreateSeverityCauseAndEffect",
+                        "to": "SetAlertTReset",
+                        "type": "expression",
+                        "label": "CreateSeverityCauseAndEffectto",
+                        "value": "$activity[CreateSeverityCauseAndEffect].output.selectAlert==1 && $activity[AlertCount].output.data.Tcounter <1"
+                    },
+                    {
+                        "id": 11,
+                        "from": "SetAlertTReset",
+                        "to": "AddTechnicalAlertToMSG",
+                        "type": "default"
+                    },
+                    {
+                        "id": 12,
+                        "from": "AddTechnicalAlertToMSG",
+                        "to": "SendTechAlertMsg",
+                        "type": "default"
+                    },
+                    {
+                        "id": 13,
+                        "from": "CreateSeverityCauseAndEffect",
+                        "to": "SetAlertAReset",
+                        "type": "expression",
+                        "label": "CreateSeverityCauseAndEffectto",
+                        "value": "$activity[CreateSeverityCauseAndEffect].output.selectAlert==2 && $activity[AlertCount].output.data.Acounter < 1"
+                    },
+                    {
+                        "id": 14,
+                        "from": "SetAlertAReset",
+                        "to": "AddAccidentAlertToMSG",
+                        "type": "default"
+                    },
+                    {
+                        "id": 15,
+                        "from": "AddAccidentAlertToMSG",
+                        "to": "SendAccidentAlertMsg",
+                        "type": "default"
+                    },
+                    {
+                        "id": 16,
+                        "from": "CreateSeverityCauseAndEffect",
+                        "to": "SetAlertMReset",
+                        "type": "expression",
+                        "label": "CreateSeverityCauseAndEffecttoMedicalEmergencyAlertToMSG",
+                        "value": "$activity[CreateSeverityCauseAndEffect].output.selectAlert==3 && $activity[AlertCount].output.data.Mcounter < 1"
+                    },
+                    {
+                        "id": 17,
+                        "from": "SetAlertMReset",
+                        "to": "AddMedicalEmergencyAlertToMSG",
+                        "type": "default"
+                    },
+                    {
+                        "id": 18,
+                        "from": "AddMedicalEmergencyAlertToMSG",
+                        "to": "SendMedEmergencyAlertMsg",
+                        "type": "default"
+                    },
+                    {
+                        "id": 19,
+                        "from": "CreateSeverityCauseAndEffect",
+                        "to": "LogMessage5",
+                        "type": "exprOtherwise",
+                        "label": "CreateSeverityCauseAndEffect to ConfigureHTTPResponse1"
+                    },
+                    {
+                        "id": 20,
+                        "from": "LogMessage5",
+                        "to": "CopyOfReturn",
+                        "type": "default"
+                    },
+                    {
+                        "id": 21,
+                        "from": "ParseJSONActivity",
+                        "to": "PrintCount",
+                        "type": "expression",
+                        "label": "ParseJSONActivitytoSendingMSGAsIS",
+                        "value": "$activity[Mapper].output.decisionPoint>3 && array.count($activity[ParseJSONActivity].jsonObject.respMsg)>0"
+                    },
+                    {
+                        "id": 22,
+                        "from": "PrintCount",
+                        "to": "Return",
+                        "type": "default"
+                    },
+                    {
+                        "id": 23,
+                        "from": "ParseJSONActivity",
+                        "to": "LogMessage4",
+                        "type": "exprOtherwise",
+                        "label": "ParseJSONActivity to CopyOfConfigureHTTPResponse"
+                    },
+                    {
+                        "id": 24,
+                        "from": "LogMessage4",
+                        "to": "CopyOfCopyOfReturn",
+                        "type": "default"
+                    }
+                ],
+                "tasks": [
+                    {
+                        "id": "InvokeRESTService",
+                        "name": "InvokeRESTService",
+                        "description": "Simple REST Activity",
+                        "settings": {
+                            "retryOnError": {
+                                "count": 0,
+                                "interval": 0
+                            }
+                        },
+                        "activity": {
+                            "ref": "#rest",
+                            "input": {
+                                "enableASR": false,
+                                "swagger": "",
+                                "authorization": false,
+                                "authorizationConn": "",
+                                "serviceName": "",
+                                "resourcePath": "",
+                                "Method": "GET",
+                                "Uri": "https://api.transport.nsw.gov.au:443/v1/gtfs/vehiclepos/buses",
+                                "Timeout": 0,
+                                "requestType": "application/json",
+                                "Use certificate for verification": false,
+                                "Server Certificate": "",
+                                "proxy": "",
+                                "host": "",
+                                "headers": {
+                                    "mapping": {
+                                        "Authorization": "=string.concat(\"apikey \",$property[\"Auth_Key\"])"
+                                    }
+                                }
+                            },
+                            "output": {
+                                "configureResponseCodes": false,
+                                "responseType": "other",
+                                "responseOutput": "JSON Object"
+                            },
+                            "schemas": {
+                                "input": {
+                                    "headers": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"Authorization\":{\"type\":\"string\"},\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[\"Authorization\"]}",
+                                        "fe_metadata": "[{\"parameterName\":\"Authorization\",\"type\":\"string\",\"repeating\":\"\",\"required\":\"true\"},{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+                                    }
+                                },
+                                "output": {
+                                    "responseBody": {
+                                        "type": "json",
+                                        "value": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"properties\": {\n    \"data\": {\n      \"type\": \"string\"\n    }\n  },\n  \"type\": \"object\"\n}",
+                                        "fe_metadata": "{\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"properties\": {\n    \"data\": {\n      \"type\": \"string\"\n    }\n  },\n  \"type\": \"object\"\n}"
+                                    },
+                                    "headers": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[]}",
+                                        "fe_metadata": "[{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "GetAlertReset",
+                        "name": "GetAlertReset",
+                        "description": "Enable sharing of data within or across flows in the application",
+                        "activity": {
+                            "ref": "#shareddata",
+                            "settings": {
+                                "scope": "Application",
+                                "operation": "GET",
+                                "type": "object",
+                                "objectSchema": "{\n    \"counter\":1,\n   \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}"
+                            },
+                            "input": {
+                                "key": "AlertReset"
+                            },
+                            "schemas": {
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"currenttime\":{\"type\":\"string\"},\"starttime\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{ \"exist\":false, \"data\":{\n    \"counter\":1,\n   \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}}"
+                                    }
+                                },
+                                "settings": {
+                                    "objectSchema": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"currenttime\":{\"type\":\"string\"},\"starttime\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}",
+                                        "fe_metadata": "{\n    \"counter\":1,\n   \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "LogMessage3",
+                        "name": "LogMessage3",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "INFO",
+                                "flowInfo": false,
+                                "message": "=string.concat(\"In Main Flow before condiction evalidation Value of Shared Data : \" , string.tostring($activity[GetAlertReset].output.data))"
+                            }
+                        }
+                    },
+                    {
+                        "id": "SetTime",
+                        "name": "SetTime",
+                        "description": "Enable sharing of data within or across flows in the application",
+                        "activity": {
+                            "ref": "#shareddata",
+                            "settings": {
+                                "scope": "Application",
+                                "operation": "SET",
+                                "type": "object",
+                                "objectSchema": "{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}"
+                            },
+                            "input": {
+                                "key": "AlertReset",
+                                "input": {
+                                    "mapping": {
+                                        "data": {
+                                            "counter": "=$activity[GetAlertReset].output.data.counter",
+                                            "currenttime": "=datetime.currentDatetime()",
+                                            "starttime": "=$activity[GetAlertReset].output.data.starttime",
+                                            "Tcounter": "=$activity[GetAlertReset].output.data.Tcounter",
+                                            "Acounter": "=$activity[GetAlertReset].output.data.Acounter",
+                                            "Mcounter": "=$activity[GetAlertReset].output.data.Mcounter"
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"currenttime\":{\"type\":\"string\"},\"starttime\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{\"data\":{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"string\"}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"string\"}}}"
+                                    }
+                                },
+                                "settings": {
+                                    "objectSchema": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"currenttime\":{\"type\":\"string\"},\"starttime\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}",
+                                        "fe_metadata": "{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "Mapper",
+                        "name": "Mapper",
+                        "description": "Mapper Activity",
+                        "activity": {
+                            "ref": "#mapper",
+                            "input": {
+                                "input": {
+                                    "mapping": {
+                                        "decisionPoint": "=number.random(10)"
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"decisionPoint\":{\"type\":\"number\"}}}",
+                                        "fe_metadata": "{\n    \"decisionPoint\":1\n}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"decisionPoint\":{\"type\":\"number\"}}}",
+                                        "fe_metadata": "{\n  \"decisionPoint\": 1\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "ParseJSONActivity",
+                        "name": "ParseJSONActivity",
+                        "description": "Parses JSON string into JSON object",
+                        "activity": {
+                            "ref": "#parsejson",
+                            "input": {
+                                "validate": false,
+                                "jsonString": "=cl_utils.GTFSAdapter($activity[InvokeRESTService].responseBody.data, 0, false)"
+                            },
+                            "schemas": {
+                                "output": {
+                                    "jsonObject": {
+                                        "type": "json",
+                                        "value": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"respMsg\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"id\": {\n                        \"type\": \"string\"\n                    },\n                    \"vehicle\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"congestion_level\": {\n                                \"type\": \"string\"\n                            },\n                            \"current_status\": {\n                                \"type\": \"null\"\n                            },\n                            \"current_stop_sequence\": {\n                                \"type\": \"null\"\n                            },\n                            \"occupancy_status\": {\n                                \"type\": \"string\"\n                            },\n                            \"position\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"bearing\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"latitude\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"longitude\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"odometer\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"speed\": {\n                                        \"type\": \"number\"\n                                    }\n                                }\n                            },\n                            \"stop_id\": {\n                                \"type\": \"null\"\n                            },\n                            \"timestamp\": {\n                                \"type\": \"string\"\n                            },\n                            \"trip\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"direction_id\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"route_id\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"schedule_relationship\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"start_date\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"start_time\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"trip_id\": {\n                                        \"type\": \"string\"\n                                    }\n                                }\n                            },\n                            \"vehicle\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"id\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"label\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"license_plate\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"tfnsw_vehicle_descriptor\": {\n                                        \"type\": \"null\"\n                                    }\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}",
+                                        "fe_metadata": "{\n    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n    \"type\": \"object\",\n    \"properties\": {\n        \"respMsg\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"id\": {\n                        \"type\": \"string\"\n                    },\n                    \"vehicle\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"congestion_level\": {\n                                \"type\": \"string\"\n                            },\n                            \"current_status\": {\n                                \"type\": \"null\"\n                            },\n                            \"current_stop_sequence\": {\n                                \"type\": \"null\"\n                            },\n                            \"occupancy_status\": {\n                                \"type\": \"string\"\n                            },\n                            \"position\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"bearing\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"latitude\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"longitude\": {\n                                        \"type\": \"number\"\n                                    },\n                                    \"odometer\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"speed\": {\n                                        \"type\": \"number\"\n                                    }\n                                }\n                            },\n                            \"stop_id\": {\n                                \"type\": \"null\"\n                            },\n                            \"timestamp\": {\n                                \"type\": \"string\"\n                            },\n                            \"trip\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"direction_id\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"route_id\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"schedule_relationship\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"start_date\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"start_time\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"trip_id\": {\n                                        \"type\": \"string\"\n                                    }\n                                }\n                            },\n                            \"vehicle\": {\n                                \"type\": \"object\",\n                                \"properties\": {\n                                    \"id\": {\n                                        \"type\": \"string\"\n                                    },\n                                    \"label\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"license_plate\": {\n                                        \"type\": \"null\"\n                                    },\n                                    \"tfnsw_vehicle_descriptor\": {\n                                        \"type\": \"null\"\n                                    }\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "LogMessage1",
+                        "name": "LogMessage1",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "INFO",
+                                "flowInfo": false,
+                                "message": "##### Alert Transition Executed #####"
+                            }
+                        }
+                    },
+                    {
+                        "id": "AlertCount",
+                        "name": "AlertCount",
+                        "description": "Enable sharing of data within or across flows in the application",
+                        "activity": {
+                            "ref": "#shareddata",
+                            "settings": {
+                                "scope": "Application",
+                                "operation": "GET",
+                                "type": "object",
+                                "objectSchema": "{\n    \"counter\":1,\n   \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}"
+                            },
+                            "input": {
+                                "key": "AlertReset"
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"count\":{\"type\":\"number\"},\"time\":{\"type\":\"string\"}}}}}",
+                                        "fe_metadata": "{\"data\":{\n    \"count\":1,\n    \"time\":\"\"\n}}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"currenttime\":{\"type\":\"string\"},\"starttime\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{ \"exist\":false, \"data\":{\n    \"counter\":1,\n   \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}}"
+                                    }
+                                },
+                                "settings": {
+                                    "objectSchema": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"currenttime\":{\"type\":\"string\"},\"starttime\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}",
+                                        "fe_metadata": "{\n    \"counter\":1,\n   \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "LogMessage2",
+                        "name": "LogMessage2",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "INFO",
+                                "flowInfo": false,
+                                "message": "=string.tostring($activity[AlertCount].output.data)"
+                            }
+                        }
+                    },
+                    {
+                        "id": "CreateSeverityCauseAndEffect",
+                        "name": "CreateSeverityCauseAndEffect",
+                        "description": "Mapper Activity",
+                        "activity": {
+                            "ref": "#mapper",
+                            "input": {
+                                "input": {
+                                    "mapping": {
+                                        "severity_level": "=array.create(\"UNKNOWN_SEVERITY\",\"INFO\",\"WARNING\",\"SEVERE\")",
+                                        "cause": "=array.create(\"Alert_UNKNOWN_CAUSE\",\"Alert_OTHER_CAUSE\", \"Alert_TECHNICAL_PROBLEM\", \"Alert_STRIKE\", \"Alert_DEMONSTRATION\",  \"Alert_ACCIDENT\", \"Alert_HOLIDAY \", \"Alert_WEATHER\", \"Alert_MAINTENANCE \",  \"Alert_CONSTRUCTION \",\"Alert_POLICE_ACTIVITY \", \"Alert_MEDICAL_EMERGENCY\")",
+                                        "effect": "=array.create(\"Alert_NO_SERVICE \", \"Alert_REDUCED_SERVICE\",\"Alert_SIGNIFICANT_DELAYS\", \"Alert_DETOUR\",\"Alert_ADDITIONAL_SERVICE\",\"Alert_MODIFIED_SERVICE\",\"Alert_OTHER_EFFECT\", \"Alert_UNKNOWN_EFFECT\",\"Alert_STOP_MOVED \")",
+                                        "active_period": [
+                                            {
+                                                "start": "=string.tostring(number.int64(datetime.diff('1970-01-01T00:00:00Z', datetime.current(), 'seconds')))",
+                                                "end": "=string.tostring(number.int64(datetime.diff('1970-01-01T00:00:00Z',datetime.addHours(datetime.current(),number.random(10)), 'seconds')))"
+                                            }
+                                        ],
+                                        "informed_entity": [
+                                            {
+                                                "agencyId": "=(1000 + number.random() * 999)",
+                                                "routeId": "=(1000 + number.random() * 999)",
+                                                "stopId": "=(1000 + number.random() * 999)"
+                                            }
+                                        ],
+                                        "selectAlert": "=number.random(4)"
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"severity_level\":{\"type\":\"array\",\"items\":{}},\"cause\":{\"type\":\"array\",\"items\":{}},\"effect\":{\"type\":\"array\",\"items\":{}},\"active_period\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"start\":{\"type\":\"string\"},\"end\":{\"type\":\"string\"}}}},\"informed_entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"agencyId\":{\"type\":\"string\"},\"routeId\":{\"type\":\"string\"},\"stopId\":{\"type\":\"string\"}}}},\"selectAlert\":{\"type\":\"number\"}}}",
+                                        "fe_metadata": "{\n    \"severity_level\":[],\n    \"cause\":[],\n    \"effect\":[],\n    \"active_period\":[{\n        \"start\":\"\",\n        \"end\":\"\"\n        }],\n        \"informed_entity\": [\n\t\t\t\t{\n\t\t\t\t\t\"agencyId\": \"2436\",\n\t\t\t\t\t\"routeId\": \"2436_2021\",\n\t\t\t\t\t\"stopId\": \"215447\"\n\t\t\t\t}],\n\t\t\"selectAlert\":1\n}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"severity_level\":{\"type\":\"array\",\"items\":{}},\"cause\":{\"type\":\"array\",\"items\":{}},\"effect\":{\"type\":\"array\",\"items\":{}},\"active_period\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"start\":{\"type\":\"string\"},\"end\":{\"type\":\"string\"}}}},\"informed_entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"agencyId\":{\"type\":\"string\"},\"routeId\":{\"type\":\"string\"},\"stopId\":{\"type\":\"string\"}}}},\"selectAlert\":{\"type\":\"number\"}}}",
+                                        "fe_metadata": "{\n  \"severity_level\": [],\n  \"cause\": [],\n  \"effect\": [],\n  \"active_period\": [\n    {\n      \"start\": \"\",\n      \"end\": \"\"\n    }\n  ],\n  \"informed_entity\": [\n    {\n      \"agencyId\": \"2436\",\n      \"routeId\": \"2436_2021\",\n      \"stopId\": \"215447\"\n    }\n  ],\n  \"selectAlert\": 1\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "SetAlertTReset",
+                        "name": "SetAlertTReset",
+                        "description": "Enable sharing of data within or across flows in the application",
+                        "activity": {
+                            "ref": "#shareddata",
+                            "settings": {
+                                "scope": "Application",
+                                "operation": "SET",
+                                "type": "object",
+                                "objectSchema": "{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}"
+                            },
+                            "input": {
+                                "key": "AlertReset",
+                                "input": {
+                                    "mapping": {
+                                        "data": {
+                                            "counter": "=$activity[AlertCount].output.data.counter+1",
+                                            "Tcounter": "=$activity[AlertCount].output.data.Tcounter+1",
+                                            "Mcounter": "=$activity[AlertCount].output.data.Mcounter",
+                                            "Acounter": "=$activity[AlertCount].output.data.Acounter",
+                                            "currenttime": "=datetime.currentDatetime()",
+                                            "starttime": "=$activity[AlertCount].output.data.starttime"
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"currenttime\":{\"type\":\"string\"},\"starttime\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{\"data\":{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"time\":{\"type\":\"string\"},\"reset\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{ \"exist\":false, \"data\":{\n    \"counter\":1,\n    \"time\":\"\",\n    \"reset\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}}"
+                                    }
+                                },
+                                "settings": {
+                                    "objectSchema": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"currenttime\":{\"type\":\"string\"},\"starttime\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}",
+                                        "fe_metadata": "{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "AddTechnicalAlertToMSG",
+                        "name": "AddTechnicalAlertToMSG",
+                        "description": "Mapper Activity",
+                        "activity": {
+                            "ref": "#mapper",
+                            "input": {
+                                "input": {
+                                    "mapping": {
+                                        "entity": [
+                                            {
+                                                "id": "=$activity[ParseJSONActivity].jsonObject.respMsg[0].id",
+                                                "vehicle": "=$activity[ParseJSONActivity].jsonObject.respMsg[0].vehicle",
+                                                "alert": {
+                                                    "active_period": [
+                                                        {
+                                                            "end_time": "=$activity[CreateSeverityCauseAndEffect].output.active_period[0].end",
+                                                            "start_time": "=$activity[CreateSeverityCauseAndEffect].output.active_period[0].start"
+                                                        }
+                                                    ],
+                                                    "description_text": "This is a Dummy Incident for Mocking Purpose",
+                                                    "header_text": "=string.concat(\"Dummy Incident : \", coerce.toString($activity[ParseJSONActivity].jsonObject.respMsg[0].id))",
+                                                    "url": "=string.concat(\"https://www.transportnsw.info/alerts#/dummy_\", coerce.toString($activity[ParseJSONActivity].jsonObject.respMsg[0].id))",
+                                                    "informed_entity": [
+                                                        {
+                                                            "agencyId": "=string.tostring($activity[CreateSeverityCauseAndEffect].output.informed_entity[0].agencyId)",
+                                                            "routeId": "=string.concat($activity[CreateSeverityCauseAndEffect].output.informed_entity[0].agencyId,\"_\",$activity[CreateSeverityCauseAndEffect].output.informed_entity[0].routeId)",
+                                                            "stopId": "=string.tostring($activity[CreateSeverityCauseAndEffect].output.informed_entity[0].stopId)"
+                                                        }
+                                                    ],
+                                                    "cause": "=$activity[CreateSeverityCauseAndEffect].output.cause[2]",
+                                                    "effect": "=$activity[CreateSeverityCauseAndEffect].output.effect[2]",
+                                                    "severity_level": "=$activity[CreateSeverityCauseAndEffect].output.severity_level[2]"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"vehicle\":{\"type\":\"object\",\"properties\":{\"trip\":{\"type\":\"object\",\"properties\":{\"trip_id\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"}}},\"position\":{\"type\":\"object\",\"properties\":{\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"bearing\":{\"type\":\"number\"},\"speed\":{\"type\":\"number\"}}},\"timestamp\":{\"type\":\"string\"},\"congestion_level\":{\"type\":\"string\"},\"vehicle\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"label\":{\"type\":\"string\"},\"license_plate\":{\"type\":\"string\"}}},\"occupancy_status\":{\"type\":\"string\"}}},\"alert\":{\"type\":\"object\",\"properties\":{\"active_period\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"end_time\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"}}}},\"description_text\":{\"type\":\"string\"},\"header_text\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"},\"informed_entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"agencyId\":{\"type\":\"string\"},\"routeId\":{\"type\":\"string\"},\"stopId\":{\"type\":\"string\"},\"trip\":{\"type\":\"object\",\"properties\":{\"trip_id\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"}}}}}},\"cause\":{\"type\":\"string\"},\"effect\":{\"type\":\"string\"},\"severity_level\":{\"type\":\"string\"}}}}}}}}",
+                                        "fe_metadata": "{\n\t\"entity\": [{\n\t\t\"id\": \"33553___610X_1\",\n\t\t\"vehicle\": {\n\t\t\t\"trip\": {\n\t\t\t\t\"trip_id\": \"\",\n\t\t\t\t\"start_time\": \"14:44:22\",\n\t\t\t\t\"start_date\": \"20210201\",\n\t\t\t\t\"schedule_relationship\": \"UNSCHEDULED\",\n\t\t\t\t\"route_id\": \"_610X\"\n\t\t\t},\n\t\t\t\"position\": {\n\t\t\t\t\"latitude\": -33.797024,\n\t\t\t\t\"longitude\": 151.13774,\n\t\t\t\t\"bearing\": 146,\n\t\t\t\t\"speed\": 15.9\n\t\t\t},\n\t\t\t\"timestamp\": \"1612152829\",\n\t\t\t\"congestion_level\": \"RUNNING_SMOOTHLY\",\n\t\t\t\"vehicle\": {\n\t\t\t\t\"id\": \"33553___610X_1\",\n\t\t\t\t\"label\": \"null\",\n\t\t\t\t\"license_plate\": \"null\"\n\t\t\t},\n\t\t\t\"occupancy_status\": \"MANY_SEATS_AVAILABLE\"\n\t\t},\n\t\t\"alert\": {\n\t\t\t\"active_period\": [\n\t\t\t\t{\n\t\t\t\t\t\"end_time\": \"1614502859\",\n\t\t\t\t\t\"start_time\": \"1610834400\"\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"description_text\": \"Buses are ending and starting their trips at Quarantine Station following an earlier hazard reduction burn. Two stops on North Head Scenic Drive are being missed.\",\n\t\t\t\"header_text\": \"Diversion in North Head\",\n\t\t\t\"url\": \"https://www.transportnsw.info/alerts#/6057187\",\n\t\t\t\"informed_entity\": [\n\t\t\t\t{\n\t\t\t\t\t\"agencyId\": \"2436\",\n\t\t\t\t\t\"routeId\": \"2436_2021\",\n\t\t\t\t\t\"stopId\": \"215447\",\n\t\t\t\t\t\"trip\": {\n\t\t\t\t\t\t\"trip_id\": \"\",\n\t\t\t\t\t\t\"route_id\": \"\",\n\t\t\t\t\t\t\"start_time\": \"14:44:22\",\n\t\t\t\t\t\t\"start_date\": \"20210201\",\n\t\t\t\t\t\t\"schedule_relationship\": \"UNSCHEDULED\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"cause\": \"1\",\n\t\t\t\"effect\": \"9\",\n\t\t\t\"severity_level\": \"Unknown\"\n\t\t}\n\t}]\n}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"vehicle\":{\"type\":\"object\",\"properties\":{\"trip\":{\"type\":\"object\",\"properties\":{\"trip_id\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"}}},\"position\":{\"type\":\"object\",\"properties\":{\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"bearing\":{\"type\":\"number\"},\"speed\":{\"type\":\"number\"}}},\"timestamp\":{\"type\":\"string\"},\"congestion_level\":{\"type\":\"string\"},\"vehicle\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"label\":{\"type\":\"string\"},\"license_plate\":{\"type\":\"string\"}}},\"occupancy_status\":{\"type\":\"string\"}}},\"alert\":{\"type\":\"object\",\"properties\":{\"active_period\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"end_time\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"}}}},\"description_text\":{\"type\":\"string\"},\"header_text\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"},\"informed_entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"agencyId\":{\"type\":\"string\"},\"routeId\":{\"type\":\"string\"},\"stopId\":{\"type\":\"string\"},\"trip\":{\"type\":\"object\",\"properties\":{\"trip_id\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"}}}}}},\"cause\":{\"type\":\"string\"},\"effect\":{\"type\":\"string\"},\"severity_level\":{\"type\":\"string\"}}}}}}}}",
+                                        "fe_metadata": "{\n  \"entity\": [\n    {\n      \"id\": \"33553___610X_1\",\n      \"vehicle\": {\n        \"trip\": {\n          \"trip_id\": \"\",\n          \"start_time\": \"14:44:22\",\n          \"start_date\": \"20210201\",\n          \"schedule_relationship\": \"UNSCHEDULED\",\n          \"route_id\": \"_610X\"\n        },\n        \"position\": {\n          \"latitude\": -33.797024,\n          \"longitude\": 151.13774,\n          \"bearing\": 146,\n          \"speed\": 15.9\n        },\n        \"timestamp\": \"1612152829\",\n        \"congestion_level\": \"RUNNING_SMOOTHLY\",\n        \"vehicle\": {\n          \"id\": \"33553___610X_1\",\n          \"label\": \"null\",\n          \"license_plate\": \"null\"\n        },\n        \"occupancy_status\": \"MANY_SEATS_AVAILABLE\"\n      },\n      \"alert\": {\n        \"active_period\": [\n          {\n            \"end_time\": \"1614502859\",\n            \"start_time\": \"1610834400\"\n          }\n        ],\n        \"description_text\": \"Buses are ending and starting their trips at Quarantine Station following an earlier hazard reduction burn. Two stops on North Head Scenic Drive are being missed.\",\n        \"header_text\": \"Diversion in North Head\",\n        \"url\": \"https://www.transportnsw.info/alerts#/6057187\",\n        \"informed_entity\": [\n          {\n            \"agencyId\": \"2436\",\n            \"routeId\": \"2436_2021\",\n            \"stopId\": \"215447\",\n            \"trip\": {\n              \"trip_id\": \"\",\n              \"route_id\": \"\",\n              \"start_time\": \"14:44:22\",\n              \"start_date\": \"20210201\",\n              \"schedule_relationship\": \"UNSCHEDULED\"\n            }\n          }\n        ],\n        \"cause\": \"1\",\n        \"effect\": \"9\",\n        \"severity_level\": \"Unknown\"\n      }\n    }\n  ]\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "SendTechAlertMsg",
+                        "name": "SendTechAlertMsg",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": 200,
+                                    "data": {
+                                        "mapping": {
+                                            "entity": {
+                                                "@foreach($activity[AddTechnicalAlertToMSG].output.entity, entity)": {
+                                                    "=": "$loop"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "SetAlertAReset",
+                        "name": "SetAlertAReset",
+                        "description": "Enable sharing of data within or across flows in the application",
+                        "activity": {
+                            "ref": "#shareddata",
+                            "settings": {
+                                "scope": "Application",
+                                "operation": "SET",
+                                "type": "object",
+                                "objectSchema": "{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}"
+                            },
+                            "input": {
+                                "key": "AlertReset",
+                                "input": {
+                                    "mapping": {
+                                        "data": {
+                                            "counter": "=$activity[AlertCount].output.data.counter+1",
+                                            "Tcounter": "=$activity[AlertCount].output.data.Tcounter",
+                                            "Acounter": "=$activity[AlertCount].output.data.Acounter+1",
+                                            "Mcounter": "=$activity[AlertCount].output.data.Mcounter",
+                                            "currenttime": "=datetime.currentDatetime()",
+                                            "starttime": "=$activity[AlertCount].output.data.starttime"
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"currenttime\":{\"type\":\"string\"},\"starttime\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{\"data\":{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"time\":{\"type\":\"string\"},\"reset\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{ \"exist\":false, \"data\":{\n    \"counter\":1,\n    \"time\":\"\",\n    \"reset\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}}"
+                                    }
+                                },
+                                "settings": {
+                                    "objectSchema": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"currenttime\":{\"type\":\"string\"},\"starttime\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}",
+                                        "fe_metadata": "{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "AddAccidentAlertToMSG",
+                        "name": "AddAccidentAlertToMSG",
+                        "description": "Mapper Activity",
+                        "activity": {
+                            "ref": "#mapper",
+                            "input": {
+                                "input": {
+                                    "mapping": {
+                                        "entity": [
+                                            {
+                                                "id": "=$activity[ParseJSONActivity].jsonObject.respMsg[0].id",
+                                                "vehicle": "=$activity[ParseJSONActivity].jsonObject.respMsg[0].vehicle",
+                                                "alert": {
+                                                    "active_period": [
+                                                        {
+                                                            "end_time": "=$activity[CreateSeverityCauseAndEffect].output.active_period[0].end",
+                                                            "start_time": "=$activity[CreateSeverityCauseAndEffect].output.active_period[0].start"
+                                                        }
+                                                    ],
+                                                    "description_text": "This is a Dummy Incident for Mocking Purpose",
+                                                    "header_text": "=string.concat(\"Dummy Incident : \", coerce.toString($activity[ParseJSONActivity].jsonObject.respMsg[0].id))",
+                                                    "url": "=string.concat(\"https://www.transportnsw.info/alerts#/dummy_\", coerce.toString($activity[ParseJSONActivity].jsonObject.respMsg[0].id))",
+                                                    "informed_entity": [
+                                                        {
+                                                            "agencyId": "=string.tostring($activity[CreateSeverityCauseAndEffect].output.informed_entity[0].agencyId)",
+                                                            "routeId": "=string.concat($activity[CreateSeverityCauseAndEffect].output.informed_entity[0].agencyId,\"_\",$activity[CreateSeverityCauseAndEffect].output.informed_entity[0].routeId)",
+                                                            "stopId": "=string.tostring($activity[CreateSeverityCauseAndEffect].output.informed_entity[0].stopId)"
+                                                        }
+                                                    ],
+                                                    "cause": "=$activity[CreateSeverityCauseAndEffect].output.cause[5]",
+                                                    "effect": "=$activity[CreateSeverityCauseAndEffect].output.effect[0]",
+                                                    "severity_level": "=$activity[CreateSeverityCauseAndEffect].output.severity_level[3]"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"vehicle\":{\"type\":\"object\",\"properties\":{\"trip\":{\"type\":\"object\",\"properties\":{\"trip_id\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"}}},\"position\":{\"type\":\"object\",\"properties\":{\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"bearing\":{\"type\":\"number\"},\"speed\":{\"type\":\"number\"}}},\"timestamp\":{\"type\":\"string\"},\"congestion_level\":{\"type\":\"string\"},\"vehicle\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"label\":{\"type\":\"string\"},\"license_plate\":{\"type\":\"string\"}}},\"occupancy_status\":{\"type\":\"string\"}}},\"alert\":{\"type\":\"object\",\"properties\":{\"active_period\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"end_time\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"}}}},\"description_text\":{\"type\":\"string\"},\"header_text\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"},\"informed_entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"agencyId\":{\"type\":\"string\"},\"routeId\":{\"type\":\"string\"},\"stopId\":{\"type\":\"string\"},\"trip\":{\"type\":\"object\",\"properties\":{\"trip_id\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"}}}}}},\"cause\":{\"type\":\"string\"},\"effect\":{\"type\":\"string\"},\"severity_level\":{\"type\":\"string\"}}}}}}}}",
+                                        "fe_metadata": "{\n\t\"entity\": [{\n\t\t\"id\": \"33553___610X_1\",\n\t\t\"vehicle\": {\n\t\t\t\"trip\": {\n\t\t\t\t\"trip_id\": \"\",\n\t\t\t\t\"start_time\": \"14:44:22\",\n\t\t\t\t\"start_date\": \"20210201\",\n\t\t\t\t\"schedule_relationship\": \"UNSCHEDULED\",\n\t\t\t\t\"route_id\": \"_610X\"\n\t\t\t},\n\t\t\t\"position\": {\n\t\t\t\t\"latitude\": -33.797024,\n\t\t\t\t\"longitude\": 151.13774,\n\t\t\t\t\"bearing\": 146,\n\t\t\t\t\"speed\": 15.9\n\t\t\t},\n\t\t\t\"timestamp\": \"1612152829\",\n\t\t\t\"congestion_level\": \"RUNNING_SMOOTHLY\",\n\t\t\t\"vehicle\": {\n\t\t\t\t\"id\": \"33553___610X_1\",\n\t\t\t\t\"label\": \"null\",\n\t\t\t\t\"license_plate\": \"null\"\n\t\t\t},\n\t\t\t\"occupancy_status\": \"MANY_SEATS_AVAILABLE\"\n\t\t},\n\t\t\"alert\": {\n\t\t\t\"active_period\": [\n\t\t\t\t{\n\t\t\t\t\t\"end_time\": \"1614502859\",\n\t\t\t\t\t\"start_time\": \"1610834400\"\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"description_text\": \"Buses are ending and starting their trips at Quarantine Station following an earlier hazard reduction burn. Two stops on North Head Scenic Drive are being missed.\",\n\t\t\t\"header_text\": \"Diversion in North Head\",\n\t\t\t\"url\": \"https://www.transportnsw.info/alerts#/6057187\",\n\t\t\t\"informed_entity\": [\n\t\t\t\t{\n\t\t\t\t\t\"agencyId\": \"2436\",\n\t\t\t\t\t\"routeId\": \"2436_2021\",\n\t\t\t\t\t\"stopId\": \"215447\",\n\t\t\t\t\t\"trip\": {\n\t\t\t\t\t\t\"trip_id\": \"\",\n\t\t\t\t\t\t\"route_id\": \"\",\n\t\t\t\t\t\t\"start_time\": \"14:44:22\",\n\t\t\t\t\t\t\"start_date\": \"20210201\",\n\t\t\t\t\t\t\"schedule_relationship\": \"UNSCHEDULED\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"cause\": \"1\",\n\t\t\t\"effect\": \"9\",\n\t\t\t\"severity_level\": \"Unknown\"\n\t\t}\n\t}]\n}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"vehicle\":{\"type\":\"object\",\"properties\":{\"trip\":{\"type\":\"object\",\"properties\":{\"trip_id\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"}}},\"position\":{\"type\":\"object\",\"properties\":{\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"bearing\":{\"type\":\"number\"},\"speed\":{\"type\":\"number\"}}},\"timestamp\":{\"type\":\"string\"},\"congestion_level\":{\"type\":\"string\"},\"vehicle\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"label\":{\"type\":\"string\"},\"license_plate\":{\"type\":\"string\"}}},\"occupancy_status\":{\"type\":\"string\"}}},\"alert\":{\"type\":\"object\",\"properties\":{\"active_period\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"end_time\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"}}}},\"description_text\":{\"type\":\"string\"},\"header_text\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"},\"informed_entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"agencyId\":{\"type\":\"string\"},\"routeId\":{\"type\":\"string\"},\"stopId\":{\"type\":\"string\"},\"trip\":{\"type\":\"object\",\"properties\":{\"trip_id\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"}}}}}},\"cause\":{\"type\":\"string\"},\"effect\":{\"type\":\"string\"},\"severity_level\":{\"type\":\"string\"}}}}}}}}",
+                                        "fe_metadata": "{\n  \"entity\": [\n    {\n      \"id\": \"33553___610X_1\",\n      \"vehicle\": {\n        \"trip\": {\n          \"trip_id\": \"\",\n          \"start_time\": \"14:44:22\",\n          \"start_date\": \"20210201\",\n          \"schedule_relationship\": \"UNSCHEDULED\",\n          \"route_id\": \"_610X\"\n        },\n        \"position\": {\n          \"latitude\": -33.797024,\n          \"longitude\": 151.13774,\n          \"bearing\": 146,\n          \"speed\": 15.9\n        },\n        \"timestamp\": \"1612152829\",\n        \"congestion_level\": \"RUNNING_SMOOTHLY\",\n        \"vehicle\": {\n          \"id\": \"33553___610X_1\",\n          \"label\": \"null\",\n          \"license_plate\": \"null\"\n        },\n        \"occupancy_status\": \"MANY_SEATS_AVAILABLE\"\n      },\n      \"alert\": {\n        \"active_period\": [\n          {\n            \"end_time\": \"1614502859\",\n            \"start_time\": \"1610834400\"\n          }\n        ],\n        \"description_text\": \"Buses are ending and starting their trips at Quarantine Station following an earlier hazard reduction burn. Two stops on North Head Scenic Drive are being missed.\",\n        \"header_text\": \"Diversion in North Head\",\n        \"url\": \"https://www.transportnsw.info/alerts#/6057187\",\n        \"informed_entity\": [\n          {\n            \"agencyId\": \"2436\",\n            \"routeId\": \"2436_2021\",\n            \"stopId\": \"215447\",\n            \"trip\": {\n              \"trip_id\": \"\",\n              \"route_id\": \"\",\n              \"start_time\": \"14:44:22\",\n              \"start_date\": \"20210201\",\n              \"schedule_relationship\": \"UNSCHEDULED\"\n            }\n          }\n        ],\n        \"cause\": \"1\",\n        \"effect\": \"9\",\n        \"severity_level\": \"Unknown\"\n      }\n    }\n  ]\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "SendAccidentAlertMsg",
+                        "name": "SendAccidentAlertMsg",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": 200,
+                                    "data": {
+                                        "mapping": {
+                                            "entity": {
+                                                "@foreach($activity[AddAccidentAlertToMSG].output.entity, entity)": {
+                                                    "=": "$loop"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "SetAlertMReset",
+                        "name": "SetAlertMReset",
+                        "description": "Enable sharing of data within or across flows in the application",
+                        "activity": {
+                            "ref": "#shareddata",
+                            "settings": {
+                                "scope": "Application",
+                                "operation": "SET",
+                                "type": "object",
+                                "objectSchema": "{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}"
+                            },
+                            "input": {
+                                "key": "AlertReset",
+                                "input": {
+                                    "mapping": {
+                                        "data": {
+                                            "counter": "=$activity[AlertCount].output.data.counter+1",
+                                            "Tcounter": "=$activity[AlertCount].output.data.Tcounter",
+                                            "Mcounter": "=$activity[AlertCount].output.data.Mcounter+1",
+                                            "Acounter": "=$activity[AlertCount].output.data.Acounter",
+                                            "currenttime": "=datetime.currentDatetime()",
+                                            "starttime": "=$activity[AlertCount].output.data.starttime"
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"currenttime\":{\"type\":\"string\"},\"starttime\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{\"data\":{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"time\":{\"type\":\"string\"},\"reset\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{ \"exist\":false, \"data\":{\n    \"counter\":1,\n    \"time\":\"\",\n    \"reset\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}}"
+                                    }
+                                },
+                                "settings": {
+                                    "objectSchema": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"currenttime\":{\"type\":\"string\"},\"starttime\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}",
+                                        "fe_metadata": "{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "AddMedicalEmergencyAlertToMSG",
+                        "name": "AddMedicalEmergencyAlertToMSG",
+                        "description": "Mapper Activity",
+                        "activity": {
+                            "ref": "#mapper",
+                            "input": {
+                                "input": {
+                                    "mapping": {
+                                        "entity": [
+                                            {
+                                                "id": "=$activity[ParseJSONActivity].jsonObject.respMsg[0].id",
+                                                "vehicle": "=$activity[ParseJSONActivity].jsonObject.respMsg[0].vehicle",
+                                                "alert": {
+                                                    "active_period": [
+                                                        {
+                                                            "end_time": "=$activity[CreateSeverityCauseAndEffect].output.active_period[0].end",
+                                                            "start_time": "=$activity[CreateSeverityCauseAndEffect].output.active_period[0].start"
+                                                        }
+                                                    ],
+                                                    "description_text": "This is a Dummy Incident for Mocking Purpose",
+                                                    "header_text": "=string.concat(\"Dummy Incident : \", coerce.toString($activity[ParseJSONActivity].jsonObject.respMsg[0].id))",
+                                                    "url": "=string.concat(\"https://www.transportnsw.info/alerts#/dummy_\", coerce.toString($activity[ParseJSONActivity].jsonObject.respMsg[0].id))",
+                                                    "informed_entity": [
+                                                        {
+                                                            "agencyId": "=string.tostring($activity[CreateSeverityCauseAndEffect].output.informed_entity[0].agencyId)",
+                                                            "routeId": "=string.concat($activity[CreateSeverityCauseAndEffect].output.informed_entity[0].agencyId,\"_\",$activity[CreateSeverityCauseAndEffect].output.informed_entity[0].routeId)",
+                                                            "stopId": "=string.tostring($activity[CreateSeverityCauseAndEffect].output.informed_entity[0].stopId)"
+                                                        }
+                                                    ],
+                                                    "cause": "=$activity[CreateSeverityCauseAndEffect].output.cause[11]",
+                                                    "effect": "=$activity[CreateSeverityCauseAndEffect].output.effect[6]",
+                                                    "severity_level": "=$activity[CreateSeverityCauseAndEffect].output.severity_level[1]"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"vehicle\":{\"type\":\"object\",\"properties\":{\"trip\":{\"type\":\"object\",\"properties\":{\"trip_id\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"}}},\"position\":{\"type\":\"object\",\"properties\":{\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"bearing\":{\"type\":\"number\"},\"speed\":{\"type\":\"number\"}}},\"timestamp\":{\"type\":\"string\"},\"congestion_level\":{\"type\":\"string\"},\"vehicle\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"label\":{\"type\":\"string\"},\"license_plate\":{\"type\":\"string\"}}},\"occupancy_status\":{\"type\":\"string\"}}},\"alert\":{\"type\":\"object\",\"properties\":{\"active_period\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"end_time\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"}}}},\"description_text\":{\"type\":\"string\"},\"header_text\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"},\"informed_entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"agencyId\":{\"type\":\"string\"},\"routeId\":{\"type\":\"string\"},\"stopId\":{\"type\":\"string\"},\"trip\":{\"type\":\"object\",\"properties\":{\"trip_id\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"}}}}}},\"cause\":{\"type\":\"string\"},\"effect\":{\"type\":\"string\"},\"severity_level\":{\"type\":\"string\"}}}}}}}}",
+                                        "fe_metadata": "{\n\t\"entity\": [{\n\t\t\"id\": \"33553___610X_1\",\n\t\t\"vehicle\": {\n\t\t\t\"trip\": {\n\t\t\t\t\"trip_id\": \"\",\n\t\t\t\t\"start_time\": \"14:44:22\",\n\t\t\t\t\"start_date\": \"20210201\",\n\t\t\t\t\"schedule_relationship\": \"UNSCHEDULED\",\n\t\t\t\t\"route_id\": \"_610X\"\n\t\t\t},\n\t\t\t\"position\": {\n\t\t\t\t\"latitude\": -33.797024,\n\t\t\t\t\"longitude\": 151.13774,\n\t\t\t\t\"bearing\": 146,\n\t\t\t\t\"speed\": 15.9\n\t\t\t},\n\t\t\t\"timestamp\": \"1612152829\",\n\t\t\t\"congestion_level\": \"RUNNING_SMOOTHLY\",\n\t\t\t\"vehicle\": {\n\t\t\t\t\"id\": \"33553___610X_1\",\n\t\t\t\t\"label\": \"null\",\n\t\t\t\t\"license_plate\": \"null\"\n\t\t\t},\n\t\t\t\"occupancy_status\": \"MANY_SEATS_AVAILABLE\"\n\t\t},\n\t\t\"alert\": {\n\t\t\t\"active_period\": [\n\t\t\t\t{\n\t\t\t\t\t\"end_time\": \"1614502859\",\n\t\t\t\t\t\"start_time\": \"1610834400\"\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"description_text\": \"Buses are ending and starting their trips at Quarantine Station following an earlier hazard reduction burn. Two stops on North Head Scenic Drive are being missed.\",\n\t\t\t\"header_text\": \"Diversion in North Head\",\n\t\t\t\"url\": \"https://www.transportnsw.info/alerts#/6057187\",\n\t\t\t\"informed_entity\": [\n\t\t\t\t{\n\t\t\t\t\t\"agencyId\": \"2436\",\n\t\t\t\t\t\"routeId\": \"2436_2021\",\n\t\t\t\t\t\"stopId\": \"215447\",\n\t\t\t\t\t\"trip\": {\n\t\t\t\t\t\t\"trip_id\": \"\",\n\t\t\t\t\t\t\"route_id\": \"\",\n\t\t\t\t\t\t\"start_time\": \"14:44:22\",\n\t\t\t\t\t\t\"start_date\": \"20210201\",\n\t\t\t\t\t\t\"schedule_relationship\": \"UNSCHEDULED\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"cause\": \"1\",\n\t\t\t\"effect\": \"9\",\n\t\t\t\"severity_level\": \"Unknown\"\n\t\t}\n\t}]\n}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"vehicle\":{\"type\":\"object\",\"properties\":{\"trip\":{\"type\":\"object\",\"properties\":{\"trip_id\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"}}},\"position\":{\"type\":\"object\",\"properties\":{\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"bearing\":{\"type\":\"number\"},\"speed\":{\"type\":\"number\"}}},\"timestamp\":{\"type\":\"string\"},\"congestion_level\":{\"type\":\"string\"},\"vehicle\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"label\":{\"type\":\"string\"},\"license_plate\":{\"type\":\"string\"}}},\"occupancy_status\":{\"type\":\"string\"}}},\"alert\":{\"type\":\"object\",\"properties\":{\"active_period\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"end_time\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"}}}},\"description_text\":{\"type\":\"string\"},\"header_text\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"},\"informed_entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"agencyId\":{\"type\":\"string\"},\"routeId\":{\"type\":\"string\"},\"stopId\":{\"type\":\"string\"},\"trip\":{\"type\":\"object\",\"properties\":{\"trip_id\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"}}}}}},\"cause\":{\"type\":\"string\"},\"effect\":{\"type\":\"string\"},\"severity_level\":{\"type\":\"string\"}}}}}}}}",
+                                        "fe_metadata": "{\n  \"entity\": [\n    {\n      \"id\": \"33553___610X_1\",\n      \"vehicle\": {\n        \"trip\": {\n          \"trip_id\": \"\",\n          \"start_time\": \"14:44:22\",\n          \"start_date\": \"20210201\",\n          \"schedule_relationship\": \"UNSCHEDULED\",\n          \"route_id\": \"_610X\"\n        },\n        \"position\": {\n          \"latitude\": -33.797024,\n          \"longitude\": 151.13774,\n          \"bearing\": 146,\n          \"speed\": 15.9\n        },\n        \"timestamp\": \"1612152829\",\n        \"congestion_level\": \"RUNNING_SMOOTHLY\",\n        \"vehicle\": {\n          \"id\": \"33553___610X_1\",\n          \"label\": \"null\",\n          \"license_plate\": \"null\"\n        },\n        \"occupancy_status\": \"MANY_SEATS_AVAILABLE\"\n      },\n      \"alert\": {\n        \"active_period\": [\n          {\n            \"end_time\": \"1614502859\",\n            \"start_time\": \"1610834400\"\n          }\n        ],\n        \"description_text\": \"Buses are ending and starting their trips at Quarantine Station following an earlier hazard reduction burn. Two stops on North Head Scenic Drive are being missed.\",\n        \"header_text\": \"Diversion in North Head\",\n        \"url\": \"https://www.transportnsw.info/alerts#/6057187\",\n        \"informed_entity\": [\n          {\n            \"agencyId\": \"2436\",\n            \"routeId\": \"2436_2021\",\n            \"stopId\": \"215447\",\n            \"trip\": {\n              \"trip_id\": \"\",\n              \"route_id\": \"\",\n              \"start_time\": \"14:44:22\",\n              \"start_date\": \"20210201\",\n              \"schedule_relationship\": \"UNSCHEDULED\"\n            }\n          }\n        ],\n        \"cause\": \"1\",\n        \"effect\": \"9\",\n        \"severity_level\": \"Unknown\"\n      }\n    }\n  ]\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "SendMedEmergencyAlertMsg",
+                        "name": "SendMedEmergencyAlertMsg",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": 200,
+                                    "data": {
+                                        "mapping": {
+                                            "entity": {
+                                                "@foreach($activity[AddMedicalEmergencyAlertToMSG].output.entity, entity)": {
+                                                    "=": "$loop"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "LogMessage5",
+                        "name": "LogMessage5",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "INFO",
+                                "flowInfo": false,
+                                "message": "=string.concat(\"###### TAKING NO MATCHING Condition in Alerts : ENTITY COUNT IN FEED : \", coerce.toString(array.count($activity[ParseJSONActivity].jsonObject.respMsg)))"
+                            }
+                        }
+                    },
+                    {
+                        "id": "CopyOfReturn",
+                        "name": "CopyOfReturn",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": 200,
+                                    "data": {
+                                        "mapping": {
+                                            "entity": {
+                                                "@foreach($activity[ParseJSONActivity].jsonObject.respMsg, entity)": {
+                                                    "=": "$loop"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "PrintCount",
+                        "name": "PrintCount",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "INFO",
+                                "flowInfo": false,
+                                "message": "=string.concat(\"###### ENTITY COUNT IN FEED : \", coerce.toString(array.count($activity[ParseJSONActivity].jsonObject.respMsg)))"
+                            }
+                        }
+                    },
+                    {
+                        "id": "Return",
+                        "name": "Return",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": 200,
+                                    "data": {
+                                        "mapping": {
+                                            "entity": {
+                                                "@foreach($activity[ParseJSONActivity].jsonObject.respMsg, entity)": {
+                                                    "=": "$loop"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "LogMessage4",
+                        "name": "LogMessage4",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "INFO",
+                                "flowInfo": false,
+                                "message": "=string.concat(\"###### TAKING No Matching Condition ON Main FLOW : ENTITY COUNT IN FEED : \", coerce.toString(array.count($activity[ParseJSONActivity].jsonObject.respMsg)))"
+                            }
+                        }
+                    },
+                    {
+                        "id": "CopyOfCopyOfReturn",
+                        "name": "CopyOfCopyOfReturn",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": 200,
+                                    "data": {
+                                        "mapping": {
+                                            "entity": {
+                                                "@foreach($activity[ParseJSONActivity].jsonObject.respMsg, entity)": {
+                                                    "=": "$loop"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "errorHandler": {
+                    "tasks": [
+                        {
+                            "id": "LogMessage",
+                            "name": "LogMessage",
+                            "description": "Simple Log Message Activity",
+                            "activity": {
+                                "ref": "#log",
+                                "input": {
+                                    "Log Level": "ERROR",
+                                    "flowInfo": false,
+                                    "message": "=string.concat($error.activity, \" - \",$error.message,\" - \", $error.data)"
+                                }
+                            }
+                        },
+                        {
+                            "id": "Return1",
+                            "name": "Return1",
+                            "description": "Simple Return Activity",
+                            "activity": {
+                                "ref": "#actreturn",
+                                "settings": {
+                                    "mappings": {
+                                        "code": 500,
+                                        "responseBody": {
+                                            "mapping": {
+                                                "body": "=coerce.toObject(string.concat($error.activity,\" -->\", $error.message,\"-->\", $error.data))"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "links": [
+                        {
+                            "id": 25,
+                            "from": "LogMessage",
+                            "to": "Return1",
+                            "type": "default"
+                        }
+                    ]
+                },
+                "metadata": {
+                    "input": [
+                        {
+                            "name": "headers",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}}"
+                            }
+                        }
+                    ],
+                    "output": [
+                        {
+                            "name": "code",
+                            "type": "integer"
+                        },
+                        {
+                            "name": "data",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"vehicle\":{\"type\":\"object\",\"properties\":{\"trip\":{\"type\":\"object\",\"properties\":{\"start_time\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"}}},\"position\":{\"type\":\"object\",\"properties\":{\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"bearing\":{\"type\":\"number\"},\"speed\":{\"type\":\"number\"}}},\"timestamp\":{\"type\":\"string\"},\"congestion_level\":{\"type\":\"string\"},\"vehicle\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"label\":{\"type\":\"string\"},\"license_plate\":{\"type\":\"string\"}}},\"occupancy_status\":{\"type\":\"string\"}}},\"alert\":{\"type\":\"object\",\"properties\":{\"active_period\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"end_time\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"}}}},\"description_text\":{\"type\":\"string\"},\"header_text\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"},\"informed_entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"agencyId\":{\"type\":\"string\"},\"routeId\":{\"type\":\"string\"},\"stopId\":{\"type\":\"string\"},\"trip\":{\"type\":\"object\",\"properties\":{\"trip_id\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"}}}}}},\"cause\":{\"type\":\"number\"},\"effect\":{\"type\":\"number\"},\"severity_level\":{\"type\":\"number\"}}}}}}}"
+                            }
+                        }
+                    ],
+                    "fe_metadata": {
+                        "input": "{\"type\":\"object\",\"title\":\"ReceiveHTTPMessage\",\"properties\":{\"headers\":{\"type\":\"object\",\"properties\":{\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[]}}}",
+                        "output": "{\"type\":\"object\",\"title\":\"Inputs\",\"properties\":{\"code\":{\"type\":\"integer\",\"required\":false},\"data\":{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"vehicle\":{\"type\":\"object\",\"properties\":{\"trip\":{\"type\":\"object\",\"properties\":{\"start_time\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"}}},\"position\":{\"type\":\"object\",\"properties\":{\"latitude\":{\"type\":\"number\"},\"longitude\":{\"type\":\"number\"},\"bearing\":{\"type\":\"number\"},\"speed\":{\"type\":\"number\"}}},\"timestamp\":{\"type\":\"string\"},\"congestion_level\":{\"type\":\"string\"},\"vehicle\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"label\":{\"type\":\"string\"},\"license_plate\":{\"type\":\"string\"}}},\"occupancy_status\":{\"type\":\"string\"}}},\"alert\":{\"type\":\"object\",\"properties\":{\"active_period\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"end_time\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"}}}},\"description_text\":{\"type\":\"string\"},\"header_text\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"},\"informed_entity\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"agencyId\":{\"type\":\"string\"},\"routeId\":{\"type\":\"string\"},\"stopId\":{\"type\":\"string\"},\"trip\":{\"type\":\"object\",\"properties\":{\"trip_id\":{\"type\":\"string\"},\"route_id\":{\"type\":\"string\"},\"start_time\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"schedule_relationship\":{\"type\":\"string\"}}}}}},\"cause\":{\"type\":\"number\"},\"effect\":{\"type\":\"number\"},\"severity_level\":{\"type\":\"number\"}}}}}}}}},\"required\":[]}"
+                    }
+                },
+                "explicitReply": true
+            }
+        },
+        {
+            "id": "flow:SetVariables",
+            "data": {
+                "name": "SetVariables",
+                "description": "This will initialize the Shared Data variables for use in implementaion",
+                "links": [],
+                "tasks": [
+                    {
+                        "id": "AlertReset",
+                        "name": "AlertReset",
+                        "description": "Enable sharing of data within or across flows in the application",
+                        "activity": {
+                            "ref": "#shareddata",
+                            "settings": {
+                                "scope": "Application",
+                                "operation": "SET",
+                                "type": "object",
+                                "objectSchema": "{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}"
+                            },
+                            "input": {
+                                "key": "AlertReset",
+                                "input": {
+                                    "mapping": {
+                                        "data": {
+                                            "counter": 0,
+                                            "Tcounter": 0,
+                                            "Acounter": 0,
+                                            "Mcounter": 0,
+                                            "starttime": "=datetime.currentDatetime()",
+                                            "currenttime": "=datetime.currentDatetime()"
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"currenttime\":{\"type\":\"string\"},\"starttime\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{\"data\":{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"string\"}}}",
+                                        "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"string\"}}}"
+                                    }
+                                },
+                                "settings": {
+                                    "objectSchema": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"currenttime\":{\"type\":\"string\"},\"starttime\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}",
+                                        "fe_metadata": "{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "metadata": {
+                    "input": [],
+                    "output": [],
+                    "fe_metadata": {}
+                }
+            }
+        },
+        {
+            "id": "flow:ReSetVariables",
+            "data": {
+                "name": "ReSetVariables",
+                "description": "This will cleanup the shared data counter after every one hour. The timer based job monitor the counter and reset upon time",
+                "links": [
+                    {
+                        "id": 1,
+                        "from": "Sleep",
+                        "to": "AlertReset",
+                        "type": "default"
+                    },
+                    {
+                        "id": 2,
+                        "from": "AlertReset",
+                        "to": "LogMessage1",
+                        "type": "default"
+                    },
+                    {
+                        "id": 3,
+                        "from": "LogMessage1",
+                        "to": "UpdateTimeAlertReset",
+                        "type": "default"
+                    },
+                    {
+                        "id": 4,
+                        "from": "AlertReset",
+                        "to": "LogMessage",
+                        "type": "expression",
+                        "label": "AlertResettoSharedData",
+                        "value": "datetime.diff($activity[AlertReset].output.data.starttime,$activity[AlertReset].output.data.currenttime, \"hours\")>=1"
+                    },
+                    {
+                        "id": 5,
+                        "from": "LogMessage",
+                        "to": "StartaSubFlow",
+                        "type": "default"
+                    }
+                ],
+                "tasks": [
+                    {
+                        "id": "Sleep",
+                        "name": "Sleep",
+                        "description": "Simple sleep Activity",
+                        "activity": {
+                            "ref": "#sleep",
+                            "input": {
+                                "IntervalTypeSetting": "Second",
+                                "IntervalSetting": 2,
+                                "Interval": 0
+                            }
+                        }
+                    },
+                    {
+                        "id": "AlertReset",
+                        "name": "AlertReset",
+                        "description": "Enable sharing of data within or across flows in the application",
+                        "activity": {
+                            "ref": "#shareddata",
+                            "settings": {
+                                "scope": "Application",
+                                "operation": "GET",
+                                "type": "object",
+                                "objectSchema": "{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}"
+                            },
+                            "input": {
+                                "key": "AlertReset"
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"currenttime\":{\"type\":\"string\"},\"starttime\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{\"data\":{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"currenttime\":{\"type\":\"string\"},\"starttime\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{ \"exist\":false, \"data\":{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}}"
+                                    }
+                                },
+                                "settings": {
+                                    "objectSchema": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"currenttime\":{\"type\":\"string\"},\"starttime\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}",
+                                        "fe_metadata": "{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "LogMessage1",
+                        "name": "LogMessage1",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "INFO",
+                                "flowInfo": false,
+                                "message": "=string.concat(\"##### No Cleanup performed, the time difference is : \", string.tostring(datetime.diff($activity[AlertReset].output.data.starttime,$activity[AlertReset].output.data.currenttime, \"hours\")),\" ######\")"
+                            }
+                        }
+                    },
+                    {
+                        "id": "UpdateTimeAlertReset",
+                        "name": "UpdateTimeAlertReset",
+                        "description": "Enable sharing of data within or across flows in the application",
+                        "activity": {
+                            "ref": "#shareddata",
+                            "settings": {
+                                "scope": "Application",
+                                "operation": "SET",
+                                "type": "object",
+                                "objectSchema": "{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}"
+                            },
+                            "input": {
+                                "key": "AlertReset",
+                                "input": {
+                                    "mapping": {
+                                        "data": {
+                                            "counter": "=$activity[AlertReset].output.data.counter",
+                                            "currenttime": "=datetime.currentDatetime()",
+                                            "starttime": "=$activity[AlertReset].output.data.starttime",
+                                            "Tcounter": "=$activity[AlertReset].output.data.Tcounter",
+                                            "Acounter": "=$activity[AlertReset].output.data.Acounter",
+                                            "Mcounter": "=$activity[AlertReset].output.data.Mcounter"
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "input": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"currenttime\":{\"type\":\"string\"},\"starttime\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{\"data\":{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}}"
+                                    }
+                                },
+                                "output": {
+                                    "output": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"exist\":{\"type\":\"boolean\"},\"data\":{\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"currenttime\":{\"type\":\"string\"},\"starttime\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}}}",
+                                        "fe_metadata": "{ \"exist\":false, \"data\":{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}}"
+                                    }
+                                },
+                                "settings": {
+                                    "objectSchema": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"counter\":{\"type\":\"number\"},\"currenttime\":{\"type\":\"string\"},\"starttime\":{\"type\":\"string\"},\"Tcounter\":{\"type\":\"number\"},\"Acounter\":{\"type\":\"number\"},\"Mcounter\":{\"type\":\"number\"}}}",
+                                        "fe_metadata": "{\n    \"counter\":1,\n    \"currenttime\":\"\",\n    \"starttime\":\"\",\n    \"Tcounter\":1,\n    \"Acounter\":1,\n    \"Mcounter\":1\n}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "LogMessage",
+                        "name": "LogMessage",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "INFO",
+                                "flowInfo": false,
+                                "message": "=string.concat(\"#### Cleaned the Shared DATA AT : \", datetime.currentDatetime(), \" ####\")"
+                            }
+                        }
+                    },
+                    {
+                        "id": "StartaSubFlow",
+                        "name": "StartaSubFlow",
+                        "description": "Simple SubFlow Activity",
+                        "activity": {
+                            "ref": "#subflow",
+                            "settings": {
+                                "flowURI": "res://flow:SetVariables"
+                            }
+                        }
+                    }
+                ],
+                "metadata": {
+                    "input": [],
+                    "output": [],
+                    "fe_metadata": {}
+                }
+            }
+        }
+    ],
+    "properties": [
+        {
+            "name": "Auth_Key",
+            "type": "string",
+            "value": "NjbDt9ZpMPPhDp6yVo94flbCF7aIXYgyOFAH"
+        },
+        {
+            "name": "decisionPoint",
+            "type": "float64",
+            "value": 0
+        }
+    ],
+    "connections": {},
+    "contrib": "W3sicmVmIjoiZ2l0LnRpYmNvLmNvbS9naXQvcHJvZHVjdC9pcGFhcy93aS1jb250cmliLmdpdC9jb250cmlidXRpb25zL0dlbmVyYWwiLCJzM2xvY2F0aW9uIjoiVGliY28vR2VuZXJhbCJ9LHsicmVmIjoiZ2l0aHViLmNvbS9jbGF3LmFpL2Zsb2dvLWNvbXBvbmVudHMvZnVuY3Rpb24vY2xfdXRpbHMiLCJzM2xvY2F0aW9uIjoie1VTRVJJRH0vY2xfdXRpbHMifV0=",
+    "fe_metadata": "UEsDBAoAAAAIAOAxjlKrqSRGFQAAABMAAAAIAAAAYXBwLmpzb26rViopykxPTy1yy8kvL1ayio6tBQBQSwECFAAKAAAACADgMY5Sq6kkRhUAAAATAAAACAAAAAAAAAAAAAAAAAAAAAAAYXBwLmpzb25QSwUGAAAAAAEAAQA2AAAAOwAAAAAA"
+}

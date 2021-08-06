@@ -1,0 +1,494 @@
+{
+    "swagger": "2.0",
+    "host": "pntsolutions.api.mashery.com",
+    "info": {
+        "version": "1.0.0",
+        "title": "Public Transport Accelerator Cloud v2",
+        "x-lastModified": "2021-02-21T07:50:04.000Z"
+    },
+    "tags": [
+        {
+            "name": "Public Transport - Realtime Incident API",
+            "description": "Everything about Incidents occurred"
+        },
+        {
+            "name": "Public Transport - Realtime Bus API",
+            "description": "Access the Live Buses Information on-demand"
+        },
+        {
+            "name": "Public Transport - Realtime Vehicle Positions API",
+            "description": "This is a standard API from TfNSW"
+        }
+    ],
+    "schemes": [
+        "https",
+        "http"
+    ],
+    "securityDefinitions": {
+        "api_key": {
+            "type": "apiKey",
+            "name": "api_key",
+            "in": "query"
+        }
+    },
+    "paths": {
+        "/v2/gtfs/incident/count": {
+            "get": {
+                "tags": [
+                    "Public Transport - Realtime Incident API"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "schema": {
+                            "$ref": "#/definitions/IncidentCount"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "Incidedent Count": ""
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "TYPE based filtering is Coming soon... Define a type of incident for which you want to get the total number of count. The type should be accident, technical_problem, medical_emergency, all. ",
+                        "required": false,
+                        "type": "string",
+                        "format": "",
+                        "default": "all"
+                    }
+                ],
+                "operationId": "getV2GtfsIncidentCount",
+                "description": "This API will return the total number (count) of Incidents reported in the system",
+                "summary": "This API will return the total count of all reported incidents till time"
+            }
+        },
+        "/v2/gtfs/vehiclepos/buses": {
+            "get": {
+                "tags": [
+                    "Public Transport - Realtime Vehicle Positions API"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "schema": {
+                            "$ref": "#/definitions/sucess"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "data": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "bad request",
+                        "schema": {
+                            "$ref": "#/definitions/400"
+                        },
+                        "examples": {
+                            "application/json": {}
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "json",
+                        "in": "query",
+                        "description": "If set to true, it will generate response in JSON format otherwise response will be in Protobuf format",
+                        "required": true,
+                        "type": "boolean",
+                        "format": ""
+                    }
+                ],
+                "operationId": "getV1GtfsVehicleposBuses",
+                "description": "This is a standard API from Transport for NSW that returns live feed of buses in protobuf format. If query parameter json set to true then this API will generate JSON formatted data otherwise its standard protobuf",
+                "summary": "This is a standard API from Transport for NSW that returns live feed of buses in protobuf format."
+            }
+        },
+        "/v2/gtfs/incidents": {
+            "get": {
+                "tags": [
+                    "Public Transport - Realtime Incident API"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/IncidentDetails"
+                            }
+                        },
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "alert_id": "",
+                                    "case reference id": "",
+                                    "case url": "",
+                                    "start time": "",
+                                    "end time": "",
+                                    "case state": "",
+                                    "incident location": "",
+                                    "incident url": ""
+                                }
+                            ]
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ],
+                "parameters": [],
+                "operationId": "getV2GtfsIncidents",
+                "description": "This will return information of all reported incidents ",
+                "summary": "This will return the all reported incidents (ACTIVE and CLOSED)"
+            }
+        },
+        "/v2/gtfs/incidents/{case_reference}": {
+            "get": {
+                "tags": [
+                    "Public Transport - Realtime Incident API"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "schema": {
+                            "$ref": "#/definitions/IncidentDetails"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "alert_id": "",
+                                "case reference id": "",
+                                "case url": "",
+                                "start time": "",
+                                "end time": "",
+                                "case state": "",
+                                "incident location": "",
+                                "incident url": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NotFound",
+                        "schema": {
+                            "$ref": "#/definitions/404"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "message": "Incident Not found"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "case_reference",
+                        "in": "path",
+                        "description": "This is a Liveapps case reference number that you need to pass.",
+                        "required": true,
+                        "type": "string",
+                        "format": ""
+                    }
+                ],
+                "operationId": "getV2GtfsIncidents_case_reference",
+                "description": "This will return the incident information by case reference number that you collected in previous call or through other options",
+                "summary": "This will return the incident information requested using case reference number"
+            }
+        },
+        "/v2/gtfs/vehicle/buses/count": {
+            "get": {
+                "tags": [
+                    "Public Transport - Realtime Bus API"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "schema": {
+                            "$ref": "#/definitions/vehiclecount"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "Active Bus Count": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NotFound",
+                        "schema": {
+                            "$ref": "#/definitions/404"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ],
+                "parameters": [],
+                "operationId": "getV2GtfsVehicleCount",
+                "description": "This will return a count of  total number of active buses at given point in time",
+                "summary": "This will return a total count of active buses at the moment"
+            }
+        },
+        "/v2/gtfs/vehicle/buses/congested_buses": {
+            "get": {
+                "tags": [
+                    "Public Transport - Realtime Bus API"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/vehicledetails"
+                            }
+                        },
+                        "examples": {
+                            "application/json": [
+                                [
+                                    {}
+                                ]
+                            ]
+                        }
+                    },
+                    "404": {
+                        "description": "NotFound",
+                        "schema": {
+                            "$ref": "#/definitions/404"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "congestion_level",
+                        "in": "query",
+                        "description": "Inject the appropriate congestion_level for which you are looking to get the list of buses. The valid congestion_levels: UNKNOWN_CONGESTION_LEVEL, RUNNING_SMOOTHLY, STOP_AND_GO, CONGESTION and SEVERE_CONGESTION.",
+                        "required": false,
+                        "type": "string",
+                        "format": "",
+                        "default": "UNKNOWN_CONGESTION_LEVEL"
+                    }
+                ],
+                "operationId": "getV2GtfsVehicleCongested_buses",
+                "description": "This API will produce the list of buses those are facing congestion situation in route",
+                "summary": "This API will produce the list of buses facing specified type of congestion situation"
+            }
+        },
+        "/v2/gtfs/vehicle/buses/{bus_id}": {
+            "get": {
+                "tags": [
+                    "Public Transport - Realtime Bus API"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "schema": {
+                            "$ref": "#/definitions/vehicledetails"
+                        },
+                        "examples": {
+                            "application/json": {
+                                "id": "",
+                                "congestion_level": "",
+                                "occupancy_status": "",
+                                "schedule_relationship": "",
+                                "current_location": "",
+                                "speed": "",
+                                "route_id": "",
+                                "trip_id": "",
+                                "timestamp": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "NotFound",
+                        "schema": {
+                            "$ref": "#/definitions/404"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "type": "string",
+                        "format": "",
+                        "name": "bus_id"
+                    }
+                ],
+                "operationId": "getV2GtfsVehicle_id",
+                "description": "This will produce the information related to the given bus. The information would be congestion_level, occupancy_status, current_location, etc.",
+                "summary": "Coming Soon... "
+            }
+        }
+    },
+    "definitions": {
+        "400": {
+            "type": "object",
+            "properties": {}
+        },
+        "404": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "default": "Not found"
+                }
+            }
+        },
+        "sucess": {
+            "properties": {},
+            "type": "object"
+        },
+        "IncidentCount": {
+            "type": "object",
+            "properties": {
+                "Incident Count": {
+                    "type": "string",
+                    "default": ""
+                }
+            }
+        },
+        "IncidentDetails": {
+            "type": "object",
+            "properties": {
+                "alert_id": {
+                    "type": "string",
+                    "default": ""
+                },
+                "case reference id": {
+                    "type": "string",
+                    "default": ""
+                },
+                "case url": {
+                    "type": "string",
+                    "default": ""
+                },
+                "start time": {
+                    "type": "string",
+                    "default": ""
+                },
+                "end time": {
+                    "type": "string",
+                    "default": ""
+                },
+                "case state": {
+                    "type": "string",
+                    "default": ""
+                },
+                "incident location": {
+                    "type": "string",
+                    "default": ""
+                },
+                "incident url": {
+                    "type": "string",
+                    "default": ""
+                }
+            }
+        },
+        "vehiclecount": {
+            "type": "object",
+            "properties": {
+                "Active Bus Count": {
+                    "type": "string",
+                    "default": "0"
+                }
+            }
+        },
+        "vehicledetails": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "default": ""
+                },
+                "congestion_level": {
+                    "type": "string",
+                    "default": ""
+                },
+                "occupancy_status": {
+                    "type": "string",
+                    "default": ""
+                },
+                "schedule_relationship": {
+                    "type": "string",
+                    "default": ""
+                },
+                "current_location": {
+                    "type": "string",
+                    "default": ""
+                },
+                "speed": {
+                    "type": "string",
+                    "default": ""
+                },
+                "route_id": {
+                    "type": "string",
+                    "default": ""
+                },
+                "trip_id": {
+                    "type": "string",
+                    "default": ""
+                },
+                "timestamp": {
+                    "type": "string",
+                    "default": ""
+                }
+            }
+        }
+    }
+}
